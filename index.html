@@ -101,18 +101,11 @@
             </div><!-- /navbar -->
         </div><!-- /footer -->   
 		<script>
-		$.urlparam = function(name){
-			var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
-			if(results)
-				return results[1] || 0;		
-			else
-				return '';
-			}
 		$("#register").on("click",function(){
 			url = "http://elaw.com.my/test2/subscription_single_corporate.aspx"
 			navigator.app.loadUrl(url, { openExternal:true });			
 		});
-		$("#caseClick").on("click",function(){
+		/*$("#caseClick").on("click",function(){
 			var u = $.urlparam('u');
 			//console.log(u);
 			if (u != ''){
@@ -122,82 +115,7 @@
 			else{
 				$.redirect = 'caseSearch.html';
 			}
-		});
-		$("#caseClick1").on("click",function(){
-			var u = $.urlparam('u');
-			if (u != ''){
-				$.mobile.changePage('caseSearch.html?u='+u);
-				return false;
-			}
-			else{
-				$.redirect = 'caseSearch.html';
-			}
-		});
-		$("#legislationClick").on("click",function(){
-			var u = $.urlparam('u');	
-			if (u != ''){
-				$.mobile.changePage('legislationSearch.html?u='+u);
-				return false;
-			}
-			else{
-				$.redirect = 'legislationSearch.html';
-			}
-		});
-		$("#legislationClick1").on("click",function(){
-			var u = $.urlparam('u');
-			if (u != ''){
-				$.mobile.changePage('legislationSearch.html?u='+u);
-				return false;
-			}
-			else{
-				$.redirect = 'legislationSearch.html';
-			}
-		});
-		$("#referencesClick").on("click",function(){
-			var u = $.urlparam('u');	
-			if (u != ''){
-				$.mobile.changePage('references.html?u='+u);
-				return false;
-			}
-			else{
-				$.redirect = 'references.html';
-			}
-		});
-		$("#referencesClick1").on("click",function(){
-			var u = $.urlparam('u');
-			if (u != ''){
-				$.mobile.changePage('references.html?u='+u);
-				return false;
-			}
-			else{
-				$.redirect = 'references.html';
-			}
-		});
-		$("#login").on("click",function(){
-			$("#error").html("");
-			var username = $("#un").val();
-			var password = $("#pw").val();
-			//console.log(
-			if (username && password){
-				url = 'http://elaw.com.my/test2/mobile/loginmobile.aspx?u='+username;
-				url += '&pass='+password;
-				url += '&callback=?';
-				$.getJSON(url,function(json){
-					//console.log(json);
-					if(json.reply == "loggedin"){
-						//console.log($.redirect);
-						$.mobile.changePage($.redirect+'?u='+username);
-					}
-					else{
-						$("#error").html(json.reply);
-					}
-					//console.log(json.reply);
-					
-				});
-				//console.log("continue");
-			}
-			
-		});
+		});*/
 		</script>
         </div><!-- /page -->
 <script>
@@ -212,6 +130,13 @@
 					url += '&pass='+password;
 					url += '&callback=?';
 					getJson(url,event.target.id);
+				}
+			});
+
+			$("a").on("click",function(){
+				console.log($(this).id+" "+$(this).href);
+				if(!$(this).id == '#latest'){
+					$.redirectTo = $(this).href;
 				}
 			});
 		}
@@ -233,8 +158,10 @@
 			handleData(data,pageId);
 		});
 	}
-	function makeUrl(){
+	function makeUrl(pageId){
+		if(pageId == "#main"){
 
+		}
 	}
 	function getData(data){
 
