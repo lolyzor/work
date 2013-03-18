@@ -48,7 +48,7 @@
     <ul data-role="listview" id="mylist" >
         <li>
             <!-- <img class="ui-li-thumb" src="icons/Documents-icon_2.png"> -->            
-            <a data-ajax="false" href="latestCases.html">         
+            <a href="latestCases.html">         
                 <img src="icons/Documents-icon_2.png" class="ui-li-thumb">
                 <h1 class="ui-li-heading">Lates cases</h1>           
                 <p class="ui-li-desc">view latest cases</p>
@@ -120,8 +120,12 @@
         </div><!-- /page -->
 <script>
 	$('[data-role=page]').on('pageinit',function(event){
-		if(event.target.id=='#main'){
-			$("#login").on("click",function(){
+		console.log(event.target.id);
+		//return false;
+		if(event.target.id == 'main'){
+			//console.log('in the main');
+			$("#main #login").on("click",function(){
+				//console.log('login click ?');
 				$("#error").html("");
 				var username = $("#un").val();
 				var password = $("#pw").val();
@@ -133,27 +137,54 @@
 				}
 			});
 
-			$("a").on("click",function(){
-				console.log($(this).id+" "+$(this).href);
-				if(!$(this).id == '#latest'){
-					$.redirectTo = $(this).href;
+			$("#main a").on("click",function(){
+				//console.log($(this).attr('id')+" "+$(this).attr('href'));
+				var obj = $(this);
+				//console.log(obj.attr('id'));
+				if(obj.attr('id') == 'caseClick' || obj.attr('id')=='caseClick1'){
+					$.redirectTo = 'caseSearch.html';
+				}
+				if(obj.attr('id') == 'legislationClick1' || obj.attr('id')=='legislationClick'){
+					$.redirectTo = 'legislationSearch.html'
 				}
 			});
 		}
+		if(event.target.id == 'caseSearch'){
+			$("#caseSearch #asearchb").bind("click",function(){                
+                var args = $("#normalSearch").serialize()+'&'+$("#advanceSearch").serialize();
+                $.caseSearchArgs = args;
+                $.mobile.changePage('searchItems.html');
+            }
+            $("#caseSearch #searchb").bind("click",function(){                
+                var args = $("#normalSearch").serialize();
+                $.caseSearchArgs = args;
+                $.mobile.changePage('searchItems.html');
+            }
+		}
+		if(event.target.id == 'caseSearchResults'){
+			
+		}
+		else{
+			console.log("not in the main");
+		}
 	});
 	function handleData(data,pageId){
-		if(pageId == "#main"){
+		if(pageId == "main"){
 			if(data.reply == "loggedin"){
-			console.log('loggedin');
+			//console.log('loggedin');
+			//console.log($.redirectTo);
+			$.mobile.changePage($.redirectTo);
 			}	
 			else{
-				$("#error").html(json.reply);
+				$("#error").html(data.reply);
 			}
 		}
+
 
 		
 	}
 	function getJson(url,pageId){
+		//console.log("getjson "+url+" "+pageId);
 		$.getJSON(url,function(data){
 			handleData(data,pageId);
 		});
@@ -166,24 +197,16 @@
 	function getData(data){
 
 	}
-    function runIt(){
-		
-        /*$.getJSON("server.php",function(json){
-            $("#num").text(json.len);
-        });        
-         $("li a").css("white-space","norm");   
-         //alert('what"');*/
-    }
     function swipe_it(){
         //$.moible.changePage("latestCases.html");
         //alert('ys');
     }
      
-    //$(document).delegate('#main', 'pageshow', runIt);
+    /*$(document).delegate('#main', 'pageshow', runIt);
 	$('#main').on('pageshow', runIt);
     $("#main").swipeleft(function(){
-        //$.mobile.changePage("latestCases.html","slide");
-    });
+        $.mobile.changePage("latestCases.html","slide");
+    });*/
 </script>
 </body>
 </html>

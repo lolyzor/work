@@ -26,11 +26,12 @@
     </div><!-- /header -->
 
     <div data-role="content">
-
+    <form id="normalSearch">
     <div data-role="fieldcontain">
         <label for="ec">Search phrase</label>
-        <input type="text" name="name" id="ec" value=""/>
+        <input type="text" name="ec" id="ec" value=""/>
     </div>  
+    </form>
     <!-- <div data-role="fieldcontain">
         <label for="name">Citation</label>
         <input type="text" name="name" id="citation" value=""  />
@@ -46,33 +47,33 @@
     
    <div data-role="collapsible" data-inset="false">
    <h3>Advance search</h3>
-  
-    <label for="name" style="paddin-right:10px;">All these words</label>
-    <input type="text" name="name" id="ac" value=""  />
-    <label for="name">Any of these words</label>
-    <input type="text" name="name" id="ayc" value=""  />
-    <label for="name">Without these words</label>
-    <input type="text" name="name" id="nc" value=""  />    
-    <label for="name">From this year</label>
-    <input type="text" name="name" id="y1" value=""  />
-    <label for="name">To this year </label>    
-    <input type="text" name="name" id="y2" value=""  />
-    <label for="name">Title of the Case</label>
-    <input type="text" name="name" id="t" value=""  />
-    <label for="name">Case number</label>
-    <input type="text" name="name" id="cn" value=""  />
-    <label for="name">Judge name</label>
-    <input type="text" name="name" id="j" value=""  />
+    <form id="advanceSearch">
+    <label for="ac" style="paddin-right:10px;">All these words</label>
+    <input type="text" name="ac" id="ac" value=""  />
+    <label for="ayc">Any of these words</label>
+    <input type="text" name="ayc" id="ayc" value=""  />
+    <label for="nc">Without these words</label>
+    <input type="text" name="nc" id="nc" value=""  />    
+    <label for="y1">From this year</label>
+    <input type="text" name="y1" id="y1" value=""  />
+    <label for="y2">To this year </label>    
+    <input type="text" name="y2" id="y2" value=""  />
+    <label for="t">Title of the Case</label>
+    <input type="text" name="t" id="t" value=""  />
+    <label for="cn">Case number</label>
+    <input type="text" name="cn" id="cn" value=""  />
+    <label for="j">Judge name</label>
+    <input type="text" name="j" id="j" value=""  />
     <div id="courttype">
     <fieldset data-role="controlgroup">
 		<legend>Court type</legend>
-		<input type="radio" name="radio-choice-1" id="all" value="6" checked="checked">
+		<input type="radio" name="crt" id="all" value="6" checked="checked">
 		<label for="all">All</label>
-		<input type="radio" name="radio-choice-1" id="mlrh" value="1">
+		<input type="radio" name="crt" id="mlrh" value="1">
 		<label for="mlrh">Fedral/Supreme court</label>
-		<input type="radio" name="radio-choice-1" id="melr" value="3">
+		<input type="radio" name="crt" id="melr" value="3">
 		<label for="melr">High curt</label>
-		<input type="radio" name="radio-choice-1" id="mlra" value="2">
+		<input type="radio" name="crt" id="mlra" value="2">
 		<label for="mlra">Appeal court</label>
     </fieldset>
     </div>
@@ -84,6 +85,7 @@
         <a href="" data-role="button" data-theme="e" data-mini="true" id="acancleb">Cancle</a>        
         </div>   
    </fieldset>      
+   </form>
     </div>
 
     
@@ -100,69 +102,7 @@
             </div><!-- /navbar -->
         </div><!-- /footer -->        
     </div> <!-- content -->
- <script>
-        $.urlparam = function(name){
-			var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
-			if(results)
-				return results[1] || '';
-			else
-				return '';
-			}
-        function runIt(){
-			$("#footerList a").each(function(){				
-				var url = $(this).attr('href');
-				url += '?u='+$.urlparam('u');
-				$(this).attr('href',url);
-			});
-        }
-        $("#asearchb").bind("click",function(){
-                var checked = $("#courttype input[type='radio']:checked").val()
-                //console.log(checked);
-                //alert(checked);
-                //return false;
-                var ec = $("#ec").val();
-                var ac = $("#ac").val();
-                var ayc = $("#ayc").val();
-                var nc = $("#nc").val();
-                var y1 = $("#y1").val();
-                var y2 = $("#y2").val();
-                var crt = checked;
-                var t = $("#t").val();
-                var cn = $("#cn").val();
-                var j = $("#j").val();
-                var url = 'searchItems.html?ec='+ec+'&ac='+ac+'&ayc='+ayc+'&nc='+nc+'&y1='+y1+'&y2='+y2+'&crt='+crt+'&t='+t+'&cn='+cn+'&j='+j;
-				url += '&u='+$.urlparam('u');
-                //console.log(url);
-                //alert(url);
-                //return false;
-                $.mobile.changePage(url);
-            });   
-        $("#cancleb").on("vclick",function(){
-            //$("#ec").val("");
-        });
-        $("#cancleb").bind("click",function(event,ui){
-            $("#ec").val("");
-        });
-        $("#acancleb").bind("click",function(){
-            $("#ec").val("");
-        });
-        $("#searchb").on("vclick",function(){
-           var key = $("#ec").val();
-           //console.log('ya');
-            //$.mobile.changePage('searchItems.html?ec='+key);
-        });
-        $("#searchb").bind("click",function(event,ui){
-           var key = $("#ec").val();
-           //console.log('ya');
-		   var u = $.urlparam('u');
-            $.mobile.changePage('searchItems.html?ec='+key+'&u='+u);
-        });
-        $('#caseSearch').on('pageshow', runIt);
-        //$("#caseSearch").swiperight(function(){
-        //$.mobile.changePage("index.html",{transition:"slide",reverse:true});
-        //});
-        //$("#courttype input[type='radio']").css("")
-    </script>        
+       
 </div><!-- /page -->
     
 </body>
