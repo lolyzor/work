@@ -1,0 +1,174 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Elaw.my</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/jquery.mobile-1.3.0.min.js"></script>
+   
+    <script>
+    </script>
+   
+</head>
+<body>
+ <div data-role="page" id="caseMain" data-add-back-btn="true">
+ <div data-role="content">
+        <div data-role="header" data-position="fixed" data-id="header1" data-tap-toggle="false">
+            <h1 data-theme="e">Elaw.my</h1>
+            <a id="linkback" href="" data-icon="arrow-l" data-role="back" data-theme="b">Back</a>
+            <a href="options.html" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>  
+        </div><!-- /header -->
+        <h1 align="center">
+            
+        </h1>
+       <div id="results">
+       	
+       </div>
+        <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
+                <div data-role="navbar">
+                    <ul id="footerList">
+                        <li><a href="#" data-icon="star" class="">Latest</a></li>
+                        <li><a href="caseSearch.html" data-icon="search" data-theme="e">Cases</a></li>
+                        <li><a href="legislationSearch.html" data-icon="search">Legislation</a></li>
+                        <li><a href="references.html" data-icon="info">References</a></li>
+                        <li><a href="help.html" data-icon="alert">Help</a></li>
+                    </ul>
+                </div>
+        </div>    
+        </div>
+    <script>
+    $.urlParam = function(name){
+    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if(results)
+        return results[1] || 0;
+    else
+        return '';
+    }
+	$("#linkback").bind("click",function(){
+		window.history.back();
+	});
+
+    function getJson(url,loadOrReplace){
+        console.log('what');
+        $.getJSON(url,function(data){
+                var html = '';
+                console.log(data);
+                if (data){
+                    //var lastPage = Integer.parseInt(data.lastPage);                    
+                    if($.page==1){
+                        var title = '<h2 align="center">'+data.result.Title+'</h2>';
+                        html+= title;
+                        $.lastPage = data.result.lastPage;
+                    }                    
+                        html+= data.result.JudgementBody;                                                                    
+                }
+                else{
+                    html='<h2 align="center">No content to display</h2>'
+                }
+                
+                if(html === ''){
+                    html = '<h1>No content to display</h1>'
+                }
+                if(!loadOrReplace)
+                    $("#results").append(html);
+                else
+                    $("#results").html(html);
+                $.scroll = true;
+                $.mobile.loading('hide');
+        });
+        
+    }
+    function makeUrl(p){
+        var filename = $.urlParam('name')
+        var ec = $.urlParam('ec');
+        var url = 'http://elaw.com.my/test2/mobile/searchresultmobile.aspx?ec='+ec+'&filename='+filename;
+        var page = '';
+        if($.page){
+            //$.page += 1;
+            console.log($.page);
+            page = $.page;
+        }
+        else{
+            page = 1;
+            $.page = 1;    
+        }
+            
+        url += '&p='+page;
+        url += '&callback=?';
+        return url;
+    }
+    function runIt(){
+        //$("li a p").css("white-space","normal"); 
+		$("#footerList a").each(function(){				
+				var url = $(this).attr('href');
+				url += '?u='+$.urlParam('u');
+				$(this).attr('href',url);
+		});
+        //$("#linkback").attr('href','searchItems.html?ec='+ec);
+        $.page = 1;
+        var url = makeUrl();
+        console.log(url);
+        getJson(url);
+       
+        //$('#mylist2').html(html);
+        //$('#mylist2').listview('refresh');
+    }
+    //$(document).delegate('#main2', 'pageshow', runIt);
+    $('#caseMain').on('pageshow', runIt);
+   /* $("#caseMain").swipeleft(function(){
+        //$.mobile.changePage("searchItems.html?ec="+$.urlParam('ec'),{transition:"slide",reverse:true});
+        if($.lastPage){
+            if($.page<$.lastPage){
+                $.page += 1;
+            }
+        }        
+        //console.log($.page);
+        var url = makeUrl();
+        getJson(url,1);
+    });
+    $("#caseMain").swiperight(function(){        
+        if($.page > 1)
+            $.page -= 1;
+        //console.log($.page);
+        var url = makeUrl();
+        getJson(url,1);
+    });*/
+
+    $(window).scroll(function(e){
+        if(!e.id == 'caseMain'){
+            console.log(e);
+            return false;
+        }
+        else{
+            console.log(e);
+        }
+        /*if($.scroll){
+            $.scroll = false;
+        }
+        else{
+            $.scroll = true;
+        }*/
+         if($(window).scrollTop() + $(window).height() >= $(document).height()){
+            //console.log('in?');
+            if($.scroll){
+                //console.log('inside');
+                $.mobile.loading('show');
+                $.page +=1;
+                var url = makeUrl();
+                getJson(url);    
+                //$(window).height() -= 20;
+                $.scroll = false;
+            }
+            else{
+                //console.log('outside');
+                //$.scroll = true;
+            }
+         }
+            
+
+    });
+    </script>
+    </div>
+</body>
+<html>

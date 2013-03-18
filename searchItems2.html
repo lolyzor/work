@@ -1,0 +1,200 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Elaw.my</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/jquery.mobile-1.3.0.min.js"></script>
+   
+    <script>
+    </script>
+   
+</head>
+<body>
+ <div data-role="page" id="lsResult">
+ <div data-role="content">
+        <div data-role="header" data-position="fixed" data-id="header1" data-tap-toggle="false">
+            <h1 data-theme="e">Elaw.my</h1>
+            <a id="home" href="legislationSearch.html" data-icon="arrow-l" data-theme="b">Back</a>
+            <a href="options.html" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>  
+        </div><!-- /header -->
+        <div class="ui-grid-c">
+			<div class="ui-block-a"><h3 id="cp">Current page: </h3></div>
+			<div class="ui-block-b"><h3></h3></div>
+			<div class="ui-block-c"><h3></h3></div>
+			<div class="ui-block-d"><h3 id="lp">Last page: </h3></div>
+		</div><!-- /grid-c -->
+       <ul data-role="listview" id="mylist2">
+            <!-- <li data-role="list-divider">High Court Kuala Lumpur</li>
+            <li><a href="">Audi</a></li>
+            <li><a href="">BMW</a></li> -->
+        </ul>
+		<fieldset class="ui-grid-a" style="margin-top: 20px;">
+        <div class="ui-block-a">
+        <a href="#" data-role="button" data-theme="e" data-mini="true" id="pClick" rel="external">Previous</a>        
+        </div>
+        <div class="ui-block-b">
+        <a href="#" data-role="button" data-theme="e" data-mini="true" id="nClick" rel="external">Next</a>        
+        </div>   
+		</fieldset>
+		<fieldset class="ui-grid-a">
+        <div class="ui-block-a">
+        <a href="#" data-role="button" data-theme="e" data-mini="true" id="jp" rel="external" style="margin-top: 8px;">Jump to page</a>        
+        </div>
+        <div class="ui-block-b">
+		<input type="text" name="name" id="jtp" value=""/>        
+        </div>   
+		</fieldset>
+		
+        <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
+                <div data-role="navbar">
+                    <ul id="footerList">
+					<li><a href="latest.html" data-icon="star" class="">Latest</a></li>
+					<li><a href="caseSearch.html" data-icon="search">Cases</a></li>
+					<li><a href="legislationSearch.html" data-icon="search" data-theme="e">Legislation</a></li>
+					<li><a href="references.html" data-icon="info">References</a></li>
+					<li><a href="help.html" data-icon="alert">Help</a></li>
+                    </ul>
+                </div>
+        </div>    
+        </div>
+    <script>
+    $.urlParam = function(name){
+    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if(results)
+        return results[1] || '';
+    else
+        return '';
+    }
+	function getNum(num,lastp){
+		var url = $(location).attr('href');
+		var page = $.urlParam('page');
+		var num_page = parseInt(page);
+		num == 0 ? num_page-=1:num_page+=1;
+		if(num_page < 1) return '#';
+		if(num_page > lastp) return '#';
+		var url = url.replace("page="+page,"page="+num_page);			
+		return url;
+	}
+	
+	function setPage(lastPage){
+		url = getNum(0,lastPage);
+		$("#pClick").attr("href",url);
+		//console.log(url);
+		url = getNum(1,lastPage);
+		$("#nClick").attr("href",url);
+		//console.log(url);	
+	}
+	
+	$("#jp").bind("click",function(){		
+		var page = $("#jtp");
+	});
+
+    function makeUrl(whereToGo){
+        $("#home").attr("href","legislationSearch.html?u="+$.urlParam('u'));
+        var ec = $.urlParam('ec');
+        var page = ''//$.urlParam('page');
+        if(!$.nextPage)
+            page = 1;
+        else{
+            if(whereToGo == 'next')
+                page = $.nextPage;
+            else
+                page = $.prevPage;
+        }
+            
+        var url = 'http://elaw.com.my/test2/mobile/legislationsearchmobile.aspx?ec='+ec+'&page='+page;
+        var ac = $.urlParam('ac');        
+        if(ac){
+            var ayc = $.urlParam('ayc');
+            var nc = $.urlParam('nc');
+            var t = $.urlParam('t');
+            var cn = $.urlParam('cn');
+            url+='&ac='+ac+'&ayc='+ayc+'&nc='+nc+'&t='+t+'&cn='+cn; 
+        }
+        var u = $.urlParam('u')
+        url += '&u='+u;
+        url += '&callback=?';      
+        return url;
+    }
+
+	function getJson(url){
+        $.mobile.loading('show');
+        $.getJSON(url,function(data){            
+            var html = '';
+            //console.log(data);
+            var ec = $.urlParam('ec');
+            var u = $.urlParam('u');
+            if(data.results.pages){
+            $.each(data.results,function(index,elem){
+                if(index%10 < 11){
+                html += '<li><a href="searchItems3.html?name='+elem.fileName+'&ec='+ec+'&u='+u+'"><h1>'+elem.title+'</h1><p>'+elem.Preamble+'</p></a></li>';}
+                    //console.log(elem);                
+            });            
+            var lastpage = parseInt(data.results.pages.LastPage);            
+            var currentpage = parseInt(data.results.pages.CurrentPage);
+            $.lastPage = lastpage;
+            $.currentPage = currentpage;
+            $.nextPage = currentpage+1;
+            $.prevPage = currentpage-1;
+            if($.nextPage > lastpage)
+                $.nextPage = lastPage;
+            if($.prevPage < 1)
+                $.prevPage = 1;
+                
+            $("#lp").html($.lastPage);
+            $("#cp").html($.currentPage);
+            //setPage(lastpage);
+            }
+            if(html == ''){
+                html = '<li>No results</li>'
+                $("#lp, #cp").html('');
+                //console.log(html);
+            }
+                $('#mylist2').html(html);
+                $('#mylist2').listview('refresh');
+                $.mobile.loading('hide');
+              
+        });   
+    }
+    $("#jp").on("click",function(){
+        var page = parseInt($("#jtp").val());
+        $.nextPage = page;
+        var url = makeUrl('next');
+        getJson(url);
+    });
+
+    $("#pClick,#nClick").on("click",function(){
+        var url = '';
+        //console.log($(this).attr('id'));
+        if($(this).attr('id')=='pClick')
+            url = makeUrl('prev');
+        else
+            url = makeUrl('next');
+
+        getJson(url);
+    });
+    function runIt(){
+        //$("li a p").css("white-space","normal");    
+		$("#footerList a").each(function(){				
+				var url = $(this).attr('href');
+				url += '?u='+$.urlParam('u');
+				$(this).attr('href',url);
+		});		
+		var url = makeUrl();
+        console.log(url);
+        //return false;
+        getJson(url);
+        
+             
+    }
+    //$('#lsResult').on('pageshow', runIt);
+    $('#lsResult').on('pageshow', runIt);
+    //$("#resultMain2").swiperight(function(){
+    //    $.mobile.changePage("caseSearch.html",{transition:"slide",reverse:true});
+    //});
+    </script>
+    </div>
+</body>
+<html>

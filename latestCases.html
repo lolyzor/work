@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Elaw.my</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/jquery.mobile-1.3.0.min.js"></script>
+   
+    <script>
+       /*    $.getJSON("server.php",function(json){
+               var i = json.len;
+              populateList(json);
+        });
+                function populateList(json){
+            var html = '';
+                $.each(json, function(i, item) {
+                   html +="<li><a href=\"#\">"+item.title+"</a></li>";
+                   });
+                $("#mylist").html(html);
+                $("#mylist").listview("refresh").trigger("create");
+                //alert("d");
+        
+               //$("#mylist").each(function(){
+               //    $(this).find('li').each(function(j,li){                        
+               //        $(li).text(html[j]);
+               //    })
+               // });
+           }
+                });*/
+    </script>
+   
+</head>
+<body>
+    <div data-role="page" id="main">
+
+        <div data-role="header" data-id="header1" data-position="fixed">
+            <h1 data-theme="e">Elaw.my</h1>
+            <a href="index.html" data-icon="home" data-theme="b">Home</a>
+            <a href="options.html" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>  
+        </div><!-- /header -->   
+        <h1>
+            Latest cases and informations
+        </h1>
+        <div data-role="controlgroup" data-type="horizontal" style="text-align:center;">
+            <!-- <button data-theme="e">Court 1</button>
+            <button>Court 2</button>
+            <button>Court 3</button> -->
+            <a href="#" data-role="button" data-theme="e">All</a>
+            <a href="mlrh.html" data-role="button">MLRH</a>
+            <a href="#" data-role="button">MELR</a>
+            <a href="#" data-role="button">MLRA</a>
+        </div>
+        <ul data-role="listview" id="mylist">
+            <!-- <li data-role="list-divider">High Court Kuala Lumpur</li>
+            <li><a href="">Audi</a></li>
+            <li><a href="">BMW</a></li> -->
+        </ul>
+
+        <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" data-icon="star" class="" data-theme="e">Latest</a></li>
+                        <li><a href="caseSearch.html" data-icon="search">Cases</a></li>
+                        <li><a href="legislationSearch.html" data-icon="search">Legislation</a></li>
+                        <li><a href="references.html" data-icon="info">References</a></li>
+                        <li><a href="help.html" data-icon="alert">Help</a></li>
+                    </ul>
+                </div>
+        </div>    
+    <script>
+        function runIt(){            
+            $("li a p").css("white-space","normal");  
+            var url = "";  
+            $.mobile.loading( 'show' );    
+            //console.log('starting');
+            $.getJSON('latestcases.json',function(json){
+                //console.log(json);
+                //alert(json.cases.mlrh.case1.casename);
+            var html = '<li data-role="list-divider">High Court Kuala Lumpur</li>';
+
+            $.each(json.cases.mlrh,function(id,elem){            
+              html += '<li><a href="#"><h1>'+elem.casename+'</h1><p>'+elem.jdate+'</p></a></li>';
+                    //alert(html);
+                });
+            //$('#mylist2').html(html);
+            
+            html += '<li data-role="list-divider">Industrial Court Kuala Lumpur</li>';
+            $.each(json.cases.melr,function(id,elem){
+             html += '<li><a href="#"><h1>'+elem.casename+'</h1><p>'+elem.jdate+'</p></a></li>';
+            });
+
+            html += '<li data-role="list-divider">Apeal Court Kuala Lumpur</li>';
+            $.each(json.cases.mlra,function(id,elem){
+             html += '<li><a href="#"><h1>'+elem.casename+'</h1><p>'+elem.jdate+'</p></a></li>';
+            });
+
+            $('#mylist').html(html);
+            $('#mylist').listview('refresh');
+            });
+            //alert(html);                        
+            $.mobile.loading( 'hide' );
+            }
+        $(document).delegate('#main', 'pageshow', runIt);
+        $("#main").swipeleft(function(){            
+            $.mobile.changePage("mlrh.html",{transition: "slide",reverse:false});
+        });
+    </script>
+    </div>
+   
+
+
+</body>
+</html>

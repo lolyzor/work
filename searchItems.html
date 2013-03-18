@@ -1,0 +1,166 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Elaw.my</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/jquery.mobile-1.3.0.min.js"></script>
+   
+    <script>
+    </script>
+   
+</head>
+<body>
+ <div data-role="page" id="resultMain">
+ <div data-role="content">
+        <div data-role="header" data-position="fixed" data-id="header1">
+            <h1 data-theme="e">Elaw.my</h1>
+            <a href="#" id="back" data-icon="arrow-l" data-role="back" data-theme="b">Back</a>
+            <a href="options.html" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>  
+        </div><!-- /header -->
+		<!--
+		<div class="ui-grid-a">
+			<div class="ui-block-a"><div><h2>Search</h2></div></div>
+			<div class="ui-block-b"><div>
+				<input type="text" name="name" id="ec" value=""/>
+			</div>
+			</div>
+		</div><!-- /grid-a --> 
+		<div style="margin-bottom:20px;">
+		<div class="ui-grid-a">
+		<div class="ui-block-a">
+        <div style="margin-left:5px;">
+         <input name="text-12" id="newec" value="" type="search" placeholder="search..." data-mini="true">
+		</div>
+        </div>
+		<div class="ui-block-b">
+			<a id="dSearch" data-role="button" rel="external" href="#" data-mini="true" data-theme="e">Search</a>
+		</div>  
+		<div class="ui-block-a">
+			<select name="select-choice-mini" data-mini="true" id="sort">
+				<option value="standard">Sort by</option>
+				<option value="t">Title</option>
+				<option value="y">Year</option>
+				<option value="j">Judge</option>				
+			</select>						
+		</div>
+		<div class="ui-block-b">
+			<select name="select-choice-mini" data-mini="true" id="order">
+				<option value="a">Ascending</option>
+				<option value="d">Descending</option>
+			</select>						
+		</div>
+		</div>
+		</div>
+		<!--
+		
+		<label for="one">Search</label>
+		<input style="box-sizing: border-box;" type="text" id="one">
+		<!--
+		-->
+     
+       <ul data-role="listview" id="mylist2">
+            <!-- <li data-role="list-divider">High Court Kuala Lumpur</li>
+            <li><a href="">Audi</a></li>
+            <li><a href="">BMW</a></li> -->
+        </ul>
+        <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
+                <div data-role="navbar">
+                    <ul id="footerList">
+                        <li><a href="#" data-icon="star" class="">Latest</a></li>
+                        <li><a href="caseSearch.html" data-icon="search" data-theme="e">Cases</a></li>
+                        <li><a href="legislationSearch.html" data-icon="search">Legislation</a></li>
+                        <li><a href="references.html" data-icon="info">References</a></li>
+                        <li><a href="help.html" data-icon="alert">Help</a></li>
+                    </ul>
+                </div>
+        </div>    
+        </div>
+    <script>
+    $.urlParam = function(name){
+    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if(results)
+        return results[1] || '';
+    else
+        return '';
+    }
+    $("#back").on("click",function(){
+        window.history.back();
+    });
+    function buildUrl(){
+        var ec = $.urlParam('ec');
+        var url = 'http://elaw.com.my/test2/mobile/searchresultmobile.aspx?ec='+ec;
+        var ac = $.urlParam('ac');        
+        if(ac){
+            var ayc = $.urlParam('ayc');
+            var nc = $.urlParam('nc');
+            var y1 = $.urlParam('y1');
+            var y2 = $.urlParam('y2');
+            var t = $.urlParam('t');
+            var cn = $.urlParam('cn');
+            var j = $.urlParam('j');
+            url+='&ac='+ac+'&ayc='+ayc+'&nc='+nc+'&y1='+y1+'&y2='+y2+'&t='+t+'&cn='+cn+'&j='+j; 
+        }
+        url += '&ns='+$.urlParam("ns");
+        url += '&srt='+$.urlParam("srt");
+        url += '&srto='+$.urlParam("srto");
+        
+        url += '&callback=?';
+        return url;
+    }
+    function runIt(){
+		$("#footerList a").each(function(){				
+				var url = $(this).attr('href');
+				url += '?u='+$.urlParam('u');
+				$(this).attr('href',url);
+		});        
+        var url = buildUrl();
+        console.log(url)
+        var ec = $.urlParam("ec");
+        $.getJSON(url,function(data){
+                var html = '';
+                //console.log(data);
+				var u = $.urlParam('u');
+                $.each(data.results,function(index,elem){
+				var arguments = '?name='+elem.fileName+'&ec='+ec+'&u='+u;
+                html += '<li><a href="case.html'+arguments+'"><h1>'+elem.title+'</h1><p>'+elem.Court+'</p></a></li>';
+                    //console.log(elem);
+                });
+        if(html === ''){
+            html = '<li>No results</li>'
+            //console.log(html);
+        }
+            $('#mylist2').html(html);
+            $('#mylist2').listview('refresh');
+              
+            });
+            //$('#mylist2').html(html);
+            //$('#mylist2').listview('refresh');
+    }
+    //$(document).delegate('#main2', 'pageshow', runIt);
+	$("#dSearch").on("click",function(){
+		var ns = $.urlParam("ns");
+		var ec = $.urlParam("ec");
+        var u = $.urlParam("u");
+        var srt = $("#sort option:selected").val();
+        var srto = $("#order option:selected").val();
+        if(ns)
+		  ns += ' '+$("#newec").val();
+        else
+            ns = $("#newec").val();
+		url = "searchItems.html?ec="+ec+"&ns="+ns+"&u="+u;
+        if (srt != 'Sort by')
+            url += "&srt="+srt;
+        url += "&srto="+srto;
+        window.location = url;
+		//$.mobile.changePage(url,{reloadPage:"true",changeHash:"true"})
+	});
+    $('#resultMain').on('pageshow', runIt);
+    //$("#resultMain").swiperight(function(){
+    //    $.mobile.changePage("caseSearch.html",{transition:"slide",reverse:true});
+    //});
+    </script>
+    </div>
+</body>
+<html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Elaw.my</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/jquery.mobile-1.3.0.min.js"></script>
+   
+    <style>
+    </style>
+</head>
+<body>
+
+<div data-role="page" id="legislationSearch">
+
+    <div data-role="header" data-position="fixed" data-tap-toggle="false" data-id="header1">
+        <h1>Elaw.my</h1>
+        <a id="home" href="#" data-icon="home" data-theme="b">Home</a>
+        <a href="#" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>
+
+
+    </div><!-- /header -->
+
+    <div data-role="content">
+
+    <div data-role="fieldcontain">
+        <label for="ec">Search phrase</label>
+        <input type="text" name="name" id="ec" value=""/>
+    </div>  
+    <!-- <div data-role="fieldcontain">
+        <label for="name">Citation</label>
+        <input type="text" name="name" id="citation" value=""  />
+    </div>   -->
+    <fieldset class="ui-grid-a">
+        <div class="ui-block-a">
+            <a href="" data-role="button" data-theme="e" data-mini="true" id="lsearchb">Search</a> 
+        </div>
+        <div class="ui-block-b">
+            <a href="" data-role="button" data-theme="e" data-mini="true" id="cancleb">Cancle</a>
+        </div>   
+   </fieldset>
+    
+   <div data-role="collapsible" data-inset="false">
+   <h3>Advance search</h3>
+  
+    <label for="name" style="paddin-right:10px;">All these words</label>
+    <input type="text" name="name" id="ac" value=""  />
+    <label for="name">Any of these words</label>
+    <input type="text" name="name" id="ayc" value=""  />
+    <label for="name">Without these words</label>
+    <input type="text" name="name" id="nc" value=""  />    
+    <label for="name">Title of the Case</label>
+    <input type="text" name="name" id="t" value=""  />
+    <label for="name">Act number</label>
+    <input type="text" name="name" id="cn" value=""  />
+    <fieldset class="ui-grid-a">
+        <div class="ui-block-a">
+        <a href="" data-role="button" data-theme="e" data-mini="true" id="alsearchb">Search</a>        
+        </div>
+        <div class="ui-block-b">
+        <a href="" data-role="button" data-theme="e" data-mini="true" id="acancleb">Cancle</a>        
+        </div>   
+   </fieldset>      
+    </div>
+
+    
+       
+        <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-id="footer1">        
+            <div data-role="navbar">
+                <ul id="footerList">
+                    <li><a href="latestCases.html" data-icon="star">Latest</a></li>
+                    <li><a href="caseSearch.html" data-icon="search" class="">Search</a></li>
+                    <li><a href="#" data-icon="search" data-theme="e">Legislation</a></li>
+                    <li><a href="references.html" data-icon="info">References</a></li>
+                    <li><a href="help.html" data-icon="alert">Help</a></li>
+                </ul>
+            </div><!-- /navbar -->
+        </div><!-- /footer -->        
+    </div> <!-- content -->
+ <script>
+        $.urlParam = function(name){
+			var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+			if(results)
+				return results[1] || '';
+			else
+				return '';
+			}
+        function runIt(){
+            $("#footerList a").each(function(){	
+				var url = $(this).attr('href');			
+				//console.log(url);
+				url += '?u='+$.urlParam('u');	
+				$(this).attr('href',url);							
+			});
+			$("#home").attr('href','index.html?u='+$.urlParam('u'));
+        }
+        $("#alsearchb").bind("click",function(){
+                //console.log(checked);
+                //alert(checked);
+                //return false;
+                var ec = $("#ec").val();
+                var ac = $("#ac").val();
+                var ayc = $("#ayc").val();
+                var nc = $("#nc").val();
+                var t = $("#t").val();
+                var cn = $("#cn").val();
+                var url = 'searchItems2.html?page=1&ec='+ec+'&ac='+ac+'&ayc='+ayc+'&nc='+nc+'&t='+t+'&an='+cn;
+                url += '&u='+$.urlParam('u');
+                console.log(url);
+                //alert(url);
+                //return false;
+                $.mobile.changePage(url);
+            });   
+        $("#cancleb").on("vclick",function(){
+            //$("#ec").val("");
+        });
+        $("#cancleb").bind("click",function(event,ui){
+            $("#ec").val("");
+        });
+        $("#acancleb").bind("click",function(){
+            $("#ec").val("");
+        });
+        $("#lsearchb").bind("click",function(event,ui){
+           var key = $("#ec").val();
+           //console.log('ya');
+            $.mobile.changePage('searchItems2.html?ec='+key+'&page=1&u='+$.urlParam('u'));
+        });
+        $('#legislationSearch').on('pageshow', runIt);
+        //$("#legislationSearch").swiperight(function(){
+        //$.mobile.changePage("index.html",{transition:"slide",reverse:true});
+        //});
+        //$("#courttype input[type='radio']").css("")
+    </script>        
+</div><!-- /page -->
+    
+</body>
+</html>

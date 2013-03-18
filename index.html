@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Elaw.my</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/jquery.mobile-1.3.0.min.js"></script>
+    <script>
+   
+    </script>
+    <style>
+        #list{
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="main" data-role="page">
+	<div data-role="panel" id="mypanel" data-display="overlay" data-dismissible="true">		  
+            <div>
+              <h3 align="center">Please sign in</h3>
+              <label for="un" class="ui-hidden-accessible">Username:</label>
+              <input name="user" id="un" value="" placeholder="username" type="text">
+              <label for="pw" class="ui-hidden-accessible">Password:</label>
+              <input name="pass" id="pw" value="" placeholder="password" type="password">
+              <button id="login" data-icon="check">Sign in</button>
+			  <p id="error" style="color:red;"></p>
+            </div>
+			<div>
+				<h3 align="center">Or register ?</h3>
+				<button id="register">Open browser</button>
+			</div>
+		<!-- panel content goes here -->
+	</div><!-- /panel -->
+
+    <div data-role="header" data-position="fixed" data-id="header1">
+        <h1>Elaw.my</h1>
+        <a href="" data-icon="home" data-theme="b">Home</a>
+        <a href="options.html" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>
+
+
+    </div><!-- /header -->
+
+    <div data-role="content">
+        <article>
+    <ul data-role="listview" id="mylist" >
+        <li>
+            <!-- <img class="ui-li-thumb" src="icons/Documents-icon_2.png"> -->            
+            <a data-ajax="false" href="latestCases.html">         
+                <img src="icons/Documents-icon_2.png" class="ui-li-thumb">
+                <h1 class="ui-li-heading">Lates cases</h1>           
+                <p class="ui-li-desc">view latest cases</p>
+            </a>
+            <span id="num" class="ui-li-count ui-btn-up-c ui-btn-corner-all">12</span>
+        </li>
+        <li>
+            <!--<a href="caseSearch.html">-->
+            <a id="caseClick" href="#mypanel" data-rel="panel">
+            <img src="icons/searchIcon.png" class="ui-li-thumb">
+            <h1>Case search</h1>           
+            <p>search for cases</p>
+            </a>
+        </li>
+        <li>
+            <a id="legislationClick" href="#mypanel" data-rel="panel">
+            <img src="icons/legislation.png" class="ui-li-thumb">
+            <h1>Legislation search</h1>           
+            <p>search for legislations</p>
+            </a>
+        </li>
+        <li>
+            <a id="referencesClick" href="#mypanel">
+            <img src="icons/searchIcon2.png" class="ui-li-thumb">    
+            <h1>References</h1>           
+            <p>read the references</p>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            <img src="icons/helpIcon.png" class="ui-li-thumb">    
+            <h1>Help</h1>           
+            <p>look for help</p>
+            </a>
+        </li>
+    </ul>
+</article>
+         
+     </div><!-- /content -->
+
+        <div data-role="footer" data-position="fixed" data-id="footer1">        
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="latestCases.html" data-icon="star">Latest</a></li>
+                    <li><a id="caseClick1" href="#mypanel" data-icon="search">Cases</a></li>
+                    <li><a id="legislationClick1" href="#mypanel" data-icon="search">Legislation</a></li>
+                    <li><a id="referencesClick1" href="#mypanel" data-icon="info">References</a></li>
+                    <li><a href="help.html" data-icon="alert">Help</a></li>
+                </ul>
+            </div><!-- /navbar -->
+        </div><!-- /footer -->   
+		<script>
+		$.urlparam = function(name){
+			var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+			if(results)
+				return results[1] || 0;		
+			else
+				return '';
+			}
+		$("#register").on("click",function(){
+			url = "http://elaw.com.my/test2/subscription_single_corporate.aspx"
+			navigator.app.loadUrl(url, { openExternal:true });			
+		});
+		$("#caseClick").on("click",function(){
+			var u = $.urlparam('u');
+			//console.log(u);
+			if (u != ''){
+				$.mobile.changePage('caseSearch.html?u='+u);
+				return false;
+			}
+			else{
+				$.redirect = 'caseSearch.html';
+			}
+		});
+		$("#caseClick1").on("click",function(){
+			var u = $.urlparam('u');
+			if (u != ''){
+				$.mobile.changePage('caseSearch.html?u='+u);
+				return false;
+			}
+			else{
+				$.redirect = 'caseSearch.html';
+			}
+		});
+		$("#legislationClick").on("click",function(){
+			var u = $.urlparam('u');	
+			if (u != ''){
+				$.mobile.changePage('legislationSearch.html?u='+u);
+				return false;
+			}
+			else{
+				$.redirect = 'legislationSearch.html';
+			}
+		});
+		$("#legislationClick1").on("click",function(){
+			var u = $.urlparam('u');
+			if (u != ''){
+				$.mobile.changePage('legislationSearch.html?u='+u);
+				return false;
+			}
+			else{
+				$.redirect = 'legislationSearch.html';
+			}
+		});
+		$("#referencesClick").on("click",function(){
+			var u = $.urlparam('u');	
+			if (u != ''){
+				$.mobile.changePage('references.html?u='+u);
+				return false;
+			}
+			else{
+				$.redirect = 'references.html';
+			}
+		});
+		$("#referencesClick1").on("click",function(){
+			var u = $.urlparam('u');
+			if (u != ''){
+				$.mobile.changePage('references.html?u='+u);
+				return false;
+			}
+			else{
+				$.redirect = 'references.html';
+			}
+		});
+		$("#login").on("click",function(){
+			$("#error").html("");
+			var username = $("#un").val();
+			var password = $("#pw").val();
+			//console.log(
+			if (username && password){
+				url = 'http://elaw.com.my/test2/mobile/loginmobile.aspx?u='+username;
+				url += '&pass='+password;
+				url += '&callback=?';
+				$.getJSON(url,function(json){
+					//console.log(json);
+					if(json.reply == "loggedin"){
+						//console.log($.redirect);
+						$.mobile.changePage($.redirect+'?u='+username);
+					}
+					else{
+						$("#error").html(json.reply);
+					}
+					//console.log(json.reply);
+					
+				});
+				//console.log("continue");
+			}
+			
+		});
+		</script>
+        </div><!-- /page -->
+<script>
+    function runIt(){
+		
+        /*$.getJSON("server.php",function(json){
+            $("#num").text(json.len);
+        });        
+         $("li a").css("white-space","norm");   
+         //alert('what"');*/
+    }
+    function swipe_it(){
+        $.moible.changePage("latestCases.html");
+        alert('ys');
+    }
+     
+    //$(document).delegate('#main', 'pageshow', runIt);
+	$('#main').on('pageshow', runIt);
+    $("#main").swipeleft(function(){
+        //$.mobile.changePage("latestCases.html","slide");
+    });
+</script>
+</body>
+</html>

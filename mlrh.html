@@ -1,0 +1,71 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Elaw.my</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/jquery.mobile-1.2.0.min.css" />
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/jquery.mobile-1.2.0.min.js"></script>
+   
+    <script>
+    </script>
+   
+</head>
+<body>
+ <div data-role="page" id="main2">
+
+        <div data-role="header" data-position="fixed" data-id="header1">
+            <h1 data-theme="e">Elaw.my</h1>
+            <a href="index.html" data-icon="home" data-theme="b">Home</a>
+            <a href="options.html" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>  
+        </div><!-- /header -->
+        <h1>
+            Latest cases and informations
+        </h1>
+        <div data-role="controlgroup" data-type="horizontal" style="text-align:center;">
+            <a href="latestCases.html" data-role="button">All</a>
+            <a href="#" data-role="button" data-theme="e">MLRH</a>
+            <a href="#" data-role="button">MELR</a>
+            <a href="#" data-role="button">MLRA</a>
+        </div>
+       <ul data-role="listview" id="mylist2">
+            <!-- <li data-role="list-divider">High Court Kuala Lumpur</li>
+            <li><a href="">Audi</a></li>
+            <li><a href="">BMW</a></li> -->
+        </ul>
+        <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" data-icon="star" class="" data-theme="e">Latest</a></li>
+                        <li><a href="caseSearch.html" data-icon="search">Cases</a></li>
+                        <li><a href="legislationSearch.html" data-icon="search">Legislation</a></li>
+                        <li><a href="references.html" data-icon="info">References</a></li>
+                        <li><a href="help.html" data-icon="alert">Help</a></li>
+                    </ul>
+                </div>
+        </div>    
+    <script>
+    function runIt(){
+        $("li a p").css("white-space","normal");   
+        //$("li a h1").css("white-space","normal"); 
+        $.getJSON('http://elaw.com.my/test2/casessearchresult2.aspx?ec="malaysia"',function(json){
+                //console.log(json);
+                //alert(json.cases.mlrh.case1.casename);
+            var html = '<li data-role="list-divider">High Court Kuala Lumpur</li>';
+
+            $.each(json.cases.mlrh,function(id,elem){            
+              html += '<li><a href="#"><h1>'+elem.casename+'</h1><p>'+elem.jdate+'</p></a></li>';
+                    //alert(html);
+                });
+            $('#mylist2').html(html);
+            $('#mylist2').listview('refresh');
+    });
+    }
+    $(document).delegate('#main2', 'pageshow', runIt);
+    $("#main2").swiperight(function(){
+        $.mobile.changePage("latestCases.html",{transition:"slide",reverse:true});
+    });
+    </script>
+    </div>
+</body>
+<html>

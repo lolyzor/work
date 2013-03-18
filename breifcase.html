@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Elaw.my</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/jquery.mobile-1.3.0.min.js"></script>
+    <script>
+     
+        
+    </script>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<div data-role="page" id="briefcasePage">
+
+    <div data-role="header" data-position="fixed" data-tap-toggle="false" data-id="header1">
+        <h1>Elaw.my</h1>
+        <a id="home" href="#" data-icon="home" data-theme="b">Home</a>
+        <a href="options.html" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>  
+    </div><!-- /header -->
+    <div data-role="content">
+
+    <div id="nohtml"></div>
+	<div data-role="listview" id="briefcaseId">
+	
+	</div>
+	
+
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-id="footer1">        
+            <div data-role="navbar">
+                <ul id="footerList">
+                    <li><a href="latestCases.html" data-icon="star" class="">Latest</a></li>
+                    <li><a href="caseSearch.html" data-icon="search">Cases</a></li>
+                    <li><a href="legislationSearch.html" data-icon="search">Legislation</a></li>
+                    <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear" >More</a></li> 
+                </ul>
+            </div><!-- /navbar -->
+        </div><!-- /footer -->      
+        <div data-role="popup" id="popupMenu" id="footerlist2">
+	        <ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="d">
+	            <li data-theme="e"><a href="references.html">References</a></li>
+	            <li><a href="help.html">Help</a></li>                            
+	        </ul>
+        </div> 
+	<script>
+		$.urlparam = function(name){
+			var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+			if(results)
+				return results[1] || 0;		
+			else
+				return '';
+			}
+		function runIt(){
+			$("#footerList a").each(function(){				
+				var url = $(this).attr('href');
+				if(url.indexOf('#popupMenu') == -1){
+					url += '?u='+$.urlparam('u');
+					$(this).attr('href',url);	
+				}				
+			});
+			$("#home").attr('href','index.html?u='+$.urlparam('u'));
+			var url = 'http://elaw.com.my/test2/mobile/mybreifcasemobile.aspx?u='+$.urlparam('u')+'&callback=?';
+			$.getJSON(url,function(data){
+				console.log(data);
+				//console.log(data.result);
+				var html = '';				
+				$.each(data,function(){
+					//console.log(data.result.Title);
+					if(data.result.Title){
+					html += '<li><a href="case.html?name='+data.result.xmlFileName+'"><h1>'+data.result.Title+'<h1></a></li>';	
+					}
+					
+				});
+				//console.log(html);
+				if(!html){
+					$("#nohtml").html('<h2>No cases saved</h2>');
+					$("#nohtml").attr('align','center')
+				}
+				else{
+					$("#briefcaseId").html(html);
+					$("#briefcaseId").listview("refresh");				
+				}
+				
+			});
+		}		
+		$('#briefcasePage').on('pageshow', runIt);
+	</script>
+	</div>
+</div><!-- /page -->
+
+</body>
+</html>
