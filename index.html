@@ -201,6 +201,44 @@
 		</script>
         </div><!-- /page -->
 <script>
+	$('[data-role=page]').on('pageinit',function(event){
+		if(event.target.id=='#main'){
+			$("#login").on("click",function(){
+				$("#error").html("");
+				var username = $("#un").val();
+				var password = $("#pw").val();
+				if(username && password){
+					url = 'http://elaw.com.my/test2/mobile/loginmobile.aspx?u='+username;
+					url += '&pass='+password;
+					url += '&callback=?';
+					getJson(url,event.target.id);
+				}
+			});
+		}
+	});
+	function handleData(data,pageId){
+		if(pageId == "#main"){
+			if(data.reply == "loggedin"){
+			console.log('loggedin');
+			}	
+			else{
+				$("#error").html(json.reply);
+			}
+		}
+
+		
+	}
+	function getJson(url,pageId){
+		$.getJSON(url,function(data){
+			handleData(data,pageId);
+		});
+	}
+	function makeUrl(){
+
+	}
+	function getData(data){
+
+	}
     function runIt(){
 		
         /*$.getJSON("server.php",function(json){
@@ -210,8 +248,8 @@
          //alert('what"');*/
     }
     function swipe_it(){
-        $.moible.changePage("latestCases.html");
-        alert('ys');
+        //$.moible.changePage("latestCases.html");
+        //alert('ys');
     }
      
     //$(document).delegate('#main', 'pageshow', runIt);
