@@ -108,12 +108,17 @@
                 var args = $("#normalSearch").serialize()+'&'+$("#advanceSearch").serialize();
                 $.caseSearchArgs = args;
                 $.mobile.changePage('searchItems.html');
+                if($.ns)
+                    $.ns = '';
             });
         $("#caseSearch #searchb").bind("click",function(){                
                 console.log('normal search');
                 var args = $("#normalSearch").serialize();
                 $.caseSearchArgs = args;                
+                $.ec = $("#ec").val();
                 $.mobile.changePage('searchItems.html');
+                if($.ns)
+                    $.ns = '';
         });
       </script> 
 </div><!-- /page -->

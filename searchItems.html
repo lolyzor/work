@@ -27,33 +27,36 @@
 			</div>
 			</div>
 		</div><!-- /grid-a --> 
+        <form id="searchInside">
 		<div style="margin-bottom:20px;">
 		<div class="ui-grid-a">
 		<div class="ui-block-a">
-        <div style="margin-left:5px;">
-        <form id="searchInside"></form>
-         <input name="text-12" id="newec" value="" type="search" placeholder="search..." data-mini="true">
+        <div style="margin-left:5px;">        
+         <input name="ns" id="newec" value="" type="search" placeholder="search..." data-mini="true">
 		</div>
         </div>
 		<div class="ui-block-b">
 			<a id="dSearch" data-role="button" rel="external" href="#" data-mini="true" data-theme="e">Search</a>
 		</div>  
+        
 		<div class="ui-block-a">
-			<select name="select-choice-mini" data-mini="true" id="sort">
-				<option value="standard">Sort by</option>
+			<select name="srt" data-mini="true" id="sort">
+				<option value="">Sort by</option>
 				<option value="t">Title</option>
 				<option value="y">Year</option>
 				<option value="j">Judge</option>				
 			</select>						
 		</div>
 		<div class="ui-block-b">
-			<select name="select-choice-mini" data-mini="true" id="order">
+			<select name="srto" data-mini="true" id="order">
 				<option value="a">Ascending</option>
 				<option value="d">Descending</option>
-			</select>						
+			</select>			
+        		
 		</div>
 		</div>
 		</div>
+        </form> 
 		<!--
 		
 		<label for="one">Search</label>
@@ -79,25 +82,37 @@
         </div>    
         </div>
     <script>
+    function url(args){
+        var url = 'http://elaw.com.my/Elawf4/mobile/searchresultmobile.aspx?'
+        url += args;
+        url += '&callback=?'
+        return url;
+    }
     function runIt(){
         //console.log('what');
         //console.log($.caseSearchArgs);
         if(!$.caseSearchArgs){
             $.mobile.changePage('caseSearch.html');
         }
-        var url = 'http://elaw.com.my/Elawf4/mobile/searchresultmobile.aspx?'+$.caseSearchArgs;
-        url += '&callback=?'
-        $.getJson(url,'caseSearchResults')
+        var urltext = url($.caseSearchArgs);
+        $.getJson(urltext,'caseSearchResults')
     }
     function runIt2(){
     $("#dSearch").on("click",function(){
-        var args = $("searchInside").serialize();
-        console.log(args);
+        var args = $("#searchInside").serialize();
+        if(!$.ns)
+            $.ns = $("#newec").val();        
+        else
+            $.ns += ' '+$("#newec").val();
+        var urltext = url($.caseSearchArgs+'&ns='+$.ns+'&'+args);
+        console.log(urltext);
         return false;
+        $.getJson(urltext,'caseSearchResults');
+        //return false;
     });    
     }
     //$(document).delegate('#main2', 'pageshow', runIt);
-	$("#dSearch").on("click",function(){
+	/*$("#dSearch").on("click",function(){
 		var ns = $.urlParam("ns");
 		var ec = $.urlParam("ec");
         var u = $.urlParam("u");
@@ -113,7 +128,7 @@
         url += "&srto="+srto;
         window.location = url;
 		//$.mobile.changePage(url,{reloadPage:"true",changeHash:"true"})
-	});
+	});*/
     $('#caseSearchResults').on('pageshow', runIt);
     $('#caseSearchResults').on('pageinit', runIt2);
     //$("#caseSearchResults").swiperight(function(){
