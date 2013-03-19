@@ -16,7 +16,7 @@
  <div data-role="content">
         <div data-role="header" data-position="fixed" data-id="header1">
             <h1 data-theme="e">Elaw.my</h1>
-            <a href="#" id="back" data-icon="arrow-l" data-role="back" data-theme="b">Back</a>
+            <a href="caseSearch.html" id="back" data-icon="arrow-l" data-role="back" data-theme="b">Back</a>
             <a href="options.html" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>  
         </div><!-- /header -->
 		<!--
@@ -78,16 +78,6 @@
         </div>    
         </div>
     <script>
-    $.urlParam = function(name){
-    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
-    if(results)
-        return results[1] || '';
-    else
-        return '';
-    }
-    $("#back").on("click",function(){
-        window.history.back();
-    });
     function buildUrl(){
         var ec = $.urlParam('ec');
         var url = 'http://elaw.com.my/test2/mobile/searchresultmobile.aspx?ec='+ec;
@@ -110,11 +100,9 @@
         return url;
     }
     function runIt(){
-		$("#footerList a").each(function(){				
-				var url = $(this).attr('href');
-				url += '?u='+$.urlParam('u');
-				$(this).attr('href',url);
-		});        
+        console.log('what');
+        console.log($.caseSearchArgs);
+        return false;      
         var url = buildUrl();
         console.log(url)
         var ec = $.urlParam("ec");
@@ -160,7 +148,9 @@
     //$("#caseSearchResults").swiperight(function(){
     //    $.mobile.changePage("caseSearch.html",{transition:"slide",reverse:true});
     //});
-    </script>
+    //console.log('im here !');
+    //console.log($.caseSearchArgs);
+        </script>
     </div>
 </body>
 <html>

@@ -57,7 +57,7 @@
         </li>
         <li>
             <!--<a href="caseSearch.html">-->
-            <a id="caseClick" href="#mypanel" data-rel="panel">
+            <a id="caseClick" href="caseSearch.html" data-rel="panel">
             <img src="icons/searchIcon.png" class="ui-li-thumb">
             <h1>Case search</h1>           
             <p>search for cases</p>
@@ -118,95 +118,108 @@
 		});*/
 		</script>
         </div><!-- /page -->
+
+</body>
 <script>
-	$('[data-role=page]').on('pageinit',function(event){
-		console.log(event.target.id);
-		//return false;
-		if(event.target.id == 'main'){
-			//console.log('in the main');
-			$("#main #login").on("click",function(){
-				//console.log('login click ?');
-				$("#error").html("");
-				var username = $("#un").val();
-				var password = $("#pw").val();
-				if(username && password){
-					url = 'http://elaw.com.my/test2/mobile/loginmobile.aspx?u='+username;
-					url += '&pass='+password;
-					url += '&callback=?';
-					getJson(url,event.target.id);
-				}
-			});
+    $('[data-role=page]').on('pageinit pageshow',function(event){
+        console.log(event.target.id+' <- id of page');
+        console.log(event.type);
+        //console.log(event);
+        //return false;
+        if(event.type = 'pageinit'){
+            console.log('pageinit');
+        if(event.target.id == 'main'){
+            //console.log('in the main');
+            $("#main #login").on("click",function(){
+                //console.log('login click ?');
+                $("#error").html("");
+                var username = $("#un").val();
+                var password = $("#pw").val();
+                if(username && password){
+                    url = 'http://elaw.com.my/test2/mobile/loginmobile.aspx?u='+username;
+                    url += '&pass='+password;
+                    url += '&callback=?';
+                    getJson(url,event.target.id);
+                }
+            });
 
-			$("#main a").on("click",function(){
-				//console.log($(this).attr('id')+" "+$(this).attr('href'));
-				var obj = $(this);
-				//console.log(obj.attr('id'));
-				if(obj.attr('id') == 'caseClick' || obj.attr('id')=='caseClick1'){
-					$.redirectTo = 'caseSearch.html';
-				}
-				if(obj.attr('id') == 'legislationClick1' || obj.attr('id')=='legislationClick'){
-					$.redirectTo = 'legislationSearch.html'
-				}
-			});
-		}
-		if(event.target.id == 'caseSearch'){
-			$("#caseSearch #asearchb").bind("click",function(){                
-                var args = $("#normalSearch").serialize()+'&'+$("#advanceSearch").serialize();
-                $.caseSearchArgs = args;
-                $.mobile.changePage('searchItems.html');
+            $("#main a").on("click",function(){
+                //console.log($(this).attr('id')+" "+$(this).attr('href'));
+                var obj = $(this);
+                //console.log(obj.attr('id'));
+                if(obj.attr('id') == 'caseClick' || obj.attr('id')=='caseClick1'){
+                    $.redirectTo = 'caseSearch.html';
+                }
+                if(obj.attr('id') == 'legislationClick1' || obj.attr('id')=='legislationClick'){
+                    $.redirectTo = 'legislationSearch.html';
+                }
+                if(obj.attr('id') == 'referencesClick' || obj.attr('id')=='referencesClick1'){
+                    $.redirectTo = 'references.html';
+                }
+            });
+        }
+        if(event.target.id == 'caseSearch'){
+            console.log('its case search');
+            
+        }
+        if(event.target.id == 'caseSearchResults'){
+            //$("#caseSearchResults #")             
+            console.log(args);
+            console.log('yaay');
+
+        }
+        else{
+            //console.log("not in the main");
+        }     
+        }
+        else{
+            console.log('pageshow?');
+        }
+        
+    });
+    function handleData(data,pageId){
+        //console.log(data);
+        if(pageId == "main"){
+            if(data.reply == "loggedin"){
+            console.log('loggedin');
+            console.log($.redirectTo);
+            $.mobile.changePage($.redirectTo);
+            }   
+            else{
+                //console.log('what');
+                $("#error").html(data.reply);
             }
-            $("#caseSearch #searchb").bind("click",function(){                
-                var args = $("#normalSearch").serialize();
-                $.caseSearchArgs = args;
-                $.mobile.changePage('searchItems.html');
-            }
-		}
-		if(event.target.id == 'caseSearchResults'){
-			
-		}
-		else{
-			console.log("not in the main");
-		}
-	});
-	function handleData(data,pageId){
-		if(pageId == "main"){
-			if(data.reply == "loggedin"){
-			//console.log('loggedin');
-			//console.log($.redirectTo);
-			$.mobile.changePage($.redirectTo);
-			}	
-			else{
-				$("#error").html(data.reply);
-			}
-		}
+        }
 
 
-		
-	}
-	function getJson(url,pageId){
-		//console.log("getjson "+url+" "+pageId);
-		$.getJSON(url,function(data){
-			handleData(data,pageId);
-		});
-	}
-	function makeUrl(pageId){
-		if(pageId == "#main"){
+        
+    }
+    function getJson(url,pageId){
+        //console.log("getjson "+url+" "+pageId);
+        data = {};
+        data.reply = 'loggedin'
+        /*$.getJSON(url,function(data){
+            handleData(data,pageId);
+        });*/
+        handleData(data,pageId);
+    }
+    function makeUrl(pageId){
+        if(pageId == "#main"){
 
-		}
-	}
-	function getData(data){
+        }
+    }
+    function getData(data){
 
-	}
+    }
     function swipe_it(){
         //$.moible.changePage("latestCases.html");
         //alert('ys');
     }
      
     /*$(document).delegate('#main', 'pageshow', runIt);
-	$('#main').on('pageshow', runIt);
+    $('#main').on('pageshow', runIt);
     $("#main").swipeleft(function(){
         $.mobile.changePage("latestCases.html","slide");
     });*/
 </script>
-</body>
 </html>

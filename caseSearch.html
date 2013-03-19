@@ -19,7 +19,7 @@
 
     <div data-role="header" data-position="fixed" data-tap-toggle="false" data-id="header1">
         <h1>Elaw.my</h1>
-        <a id="home" href="#" data-icon="home" data-theme="b">Home</a>
+        <a id="home" href="index.html" data-icon="home" data-theme="b">Home</a>
         <a href="index.html" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>
 
 
@@ -102,7 +102,20 @@
             </div><!-- /navbar -->
         </div><!-- /footer -->        
     </div> <!-- content -->
-       
+      <script>
+        //console.log('what the fuck');
+        $("#caseSearch #asearchb").bind("click",function(){                
+                var args = $("#normalSearch").serialize()+'&'+$("#advanceSearch").serialize();
+                $.caseSearchArgs = args;
+                $.mobile.changePage('searchItems.html');
+            });
+        $("#caseSearch #searchb").bind("click",function(){                
+                console.log('normal search');
+                var args = $("#normalSearch").serialize();
+                $.caseSearchArgs = args;                
+                $.mobile.changePage('searchItems.html');
+        });
+      </script> 
 </div><!-- /page -->
     
 </body>
