@@ -16,7 +16,7 @@
  <div data-role="content">
         <div data-role="header" data-position="fixed" data-id="header1" data-tap-toggle="false">
             <h1 data-theme="e">Elaw.my</h1>
-            <a id="linkback" href="" data-icon="arrow-l" data-role="back" data-theme="b">Back</a>
+            <a id="linkback" href="seatchItems.html" data-icon="arrow-l" data-theme="b">Back</a>
             <a href="options.html" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>  
         </div><!-- /header -->
         <h1 align="center">
@@ -38,17 +38,6 @@
         </div>    
         </div>
     <script>
-    $.urlParam = function(name){
-    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
-    if(results)
-        return results[1] || 0;
-    else
-        return '';
-    }
-	$("#linkback").bind("click",function(){
-		window.history.back();
-	});
-
     function getJson(url,loadOrReplace){
         console.log('what');
         $.getJSON(url,function(data){
@@ -116,25 +105,6 @@
     }
     //$(document).delegate('#main2', 'pageshow', runIt);
     $('#caseMain').on('pageshow', runIt);
-   /* $("#caseMain").swipeleft(function(){
-        //$.mobile.changePage("searchItems.html?ec="+$.urlParam('ec'),{transition:"slide",reverse:true});
-        if($.lastPage){
-            if($.page<$.lastPage){
-                $.page += 1;
-            }
-        }        
-        //console.log($.page);
-        var url = makeUrl();
-        getJson(url,1);
-    });
-    $("#caseMain").swiperight(function(){        
-        if($.page > 1)
-            $.page -= 1;
-        //console.log($.page);
-        var url = makeUrl();
-        getJson(url,1);
-    });*/
-
     $(window).scroll(function(e){
         if(!e.id == 'caseMain'){
             console.log(e);
