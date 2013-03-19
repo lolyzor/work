@@ -100,11 +100,13 @@
     function runIt2(){
     $("#dSearch").on("click",function(){
         var args = $("#searchInside").serialize();
+        var match = $("#newec").val();
+        args = args.replace('ns='+match,'');
         if(!$.ns)
             $.ns = $("#newec").val();        
         else
             $.ns += ' '+$("#newec").val();
-        var urltext = url($.caseSearchArgs+'&ns='+$.ns+'&'+args);
+        var urltext = url($.caseSearchArgs+'&ns='+$.ns+args);
         console.log(urltext);
         return false;
         $.getJson(urltext,'caseSearchResults');
