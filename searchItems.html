@@ -113,32 +113,9 @@
         //return false;
     });    
     }
-    //$(document).delegate('#main2', 'pageshow', runIt);
-	/*$("#dSearch").on("click",function(){
-		var ns = $.urlParam("ns");
-		var ec = $.urlParam("ec");
-        var u = $.urlParam("u");
-        var srt = $("#sort option:selected").val();
-        var srto = $("#order option:selected").val();
-        if(ns)
-		  ns += ' '+$("#newec").val();
-        else
-            ns = $("#newec").val();
-		url = "searchItems.html?ec="+ec+"&ns="+ns+"&u="+u;
-        if (srt != 'Sort by')
-            url += "&srt="+srt;
-        url += "&srto="+srto;
-        window.location = url;
-		//$.mobile.changePage(url,{reloadPage:"true",changeHash:"true"})
-	});*/
     $('#caseSearchResults').on('pageshow', runIt);
     $('#caseSearchResults').on('pageinit', runIt2);
-    //$("#caseSearchResults").swiperight(function(){
-    //    $.mobile.changePage("caseSearch.html",{transition:"slide",reverse:true});
-    //});
-    //console.log('im here !');
-    //console.log($.caseSearchArgs);
-        </script>
+    </script>
     </div>
 </body>
 <html>
