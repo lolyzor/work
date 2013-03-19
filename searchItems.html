@@ -31,6 +31,7 @@
 		<div class="ui-grid-a">
 		<div class="ui-block-a">
         <div style="margin-left:5px;">
+        <form id="searchInside"></form>
          <input name="text-12" id="newec" value="" type="search" placeholder="search..." data-mini="true">
 		</div>
         </div>
@@ -78,53 +79,22 @@
         </div>    
         </div>
     <script>
-    function buildUrl(){
-        var ec = $.urlParam('ec');
-        var url = 'http://elaw.com.my/test2/mobile/searchresultmobile.aspx?ec='+ec;
-        var ac = $.urlParam('ac');        
-        if(ac){
-            var ayc = $.urlParam('ayc');
-            var nc = $.urlParam('nc');
-            var y1 = $.urlParam('y1');
-            var y2 = $.urlParam('y2');
-            var t = $.urlParam('t');
-            var cn = $.urlParam('cn');
-            var j = $.urlParam('j');
-            url+='&ac='+ac+'&ayc='+ayc+'&nc='+nc+'&y1='+y1+'&y2='+y2+'&t='+t+'&cn='+cn+'&j='+j; 
-        }
-        url += '&ns='+$.urlParam("ns");
-        url += '&srt='+$.urlParam("srt");
-        url += '&srto='+$.urlParam("srto");
-        
-        url += '&callback=?';
-        return url;
-    }
     function runIt(){
-        console.log('what');
-        console.log($.caseSearchArgs);
-        return false;      
-        var url = buildUrl();
-        console.log(url)
-        var ec = $.urlParam("ec");
-        $.getJSON(url,function(data){
-                var html = '';
-                //console.log(data);
-				var u = $.urlParam('u');
-                $.each(data.results,function(index,elem){
-				var arguments = '?name='+elem.fileName+'&ec='+ec+'&u='+u;
-                html += '<li><a href="case.html'+arguments+'"><h1>'+elem.title+'</h1><p>'+elem.Court+'</p></a></li>';
-                    //console.log(elem);
-                });
-        if(html === ''){
-            html = '<li>No results</li>'
-            //console.log(html);
+        //console.log('what');
+        //console.log($.caseSearchArgs);
+        if(!$.caseSearchArgs){
+            $.mobile.changePage('caseSearch.html');
         }
-            $('#mylist2').html(html);
-            $('#mylist2').listview('refresh');
-              
-            });
-            //$('#mylist2').html(html);
-            //$('#mylist2').listview('refresh');
+        var url = 'http://elaw.com.my/Elawf4/mobile/searchresultmobile.aspx?'+$.caseSearchArgs;
+        url += '&callback=?'
+        $.getJson(url,'caseSearchResults')
+    }
+    function runIt2(){
+    $("#dSearch").on("click",function(){
+        var args = $("searchInside").serialize();
+        console.log(args);
+        return false;
+    });    
     }
     //$(document).delegate('#main2', 'pageshow', runIt);
 	$("#dSearch").on("click",function(){
@@ -145,6 +115,7 @@
 		//$.mobile.changePage(url,{reloadPage:"true",changeHash:"true"})
 	});
     $('#caseSearchResults').on('pageshow', runIt);
+    $('#caseSearchResults').on('pageinit', runIt2);
     //$("#caseSearchResults").swiperight(function(){
     //    $.mobile.changePage("caseSearch.html",{transition:"slide",reverse:true});
     //});
