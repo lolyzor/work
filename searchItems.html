@@ -95,6 +95,7 @@
             $.mobile.changePage('caseSearch.html');
         }
         var urltext = url($.caseSearchArgs);
+        $.mobile.loading('show');
         $.getJson(urltext,'caseSearchResults')
     }
     function runIt2(){
@@ -112,6 +113,14 @@
         $.getJson(urltext,'caseSearchResults');
         //return false;
     });    
+    $("#mylist2").on('click','li',function(){
+        var filename = $(this).attr('name');
+        //console.log($(this).attr('name'))    
+        $.filename = filename;
+        $.mobile.changePage('case.html');
+    });
+    
+
     }
     $('#caseSearchResults').on('pageshow', runIt);
     $('#caseSearchResults').on('pageinit', runIt2);

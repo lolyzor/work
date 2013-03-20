@@ -159,7 +159,8 @@
             var u = $.userName;
             $.each(data.results,function(index,elem){
                 //var arguments = '?name='+elem.fileName+'&ec='+ec+'&u='+u;
-                html += '<li><a href="case.html"><h1>'+elem.title+'</h1><p>'+elem.Court+'</p></a></li>';
+                html += '<li name="'+elem.fileName+'"><a href="#" name="'+elem.fileName+'"><h1>'+elem.title+'</h1><p>'+elem.Court+'</p></a></li>';
+                //console.log(elem.fileName);
                     //console.log(elem);
             });
             if(html === ''){
@@ -168,10 +169,30 @@
                 }
             $('#caseSearchResults #mylist2').html(html);
             $('#caseSearchResults #mylist2').listview('refresh'); 
+            $.mobile.loading('hide');
             //return html;
         }
         if(pageId == "caseMain"){
-
+            var html = '';
+                console.log(data);
+                if (data){
+                    //var lastPage = Integer.parseInt(data.lastPage);                    
+                    if($.page==1){
+                        var title = '<h2 align="center">'+data.result.Title+'</h2>';
+                        html+= title;
+                        $.lastPage = data.result.lastPage;
+                    }                    
+                        html+= data.result.JudgementBody;                                                                    
+                }
+                else{
+                    html='<h2 align="center">No content to display</h2>'
+                }
+                if($.page > 1)
+                    $("#caseMain #results").append(html);
+                else
+                    $("#caseMain #results").html(html);
+                //$.scroll = true;
+                $.mobile.loading('hide');
         }
 
 
