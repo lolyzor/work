@@ -16,18 +16,19 @@
 
     <div data-role="header" data-position="fixed" data-tap-toggle="false" data-id="header1">
         <h1>Elaw.my</h1>
-        <a id="home" href="#" data-icon="home" data-theme="b">Home</a>
+        <a id="home" href="index.html" data-icon="home" data-theme="b">Home</a>
         <a href="#" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>
 
 
     </div><!-- /header -->
 
     <div data-role="content">
-
+    <form id="simpleSearch">
     <div data-role="fieldcontain">
         <label for="ec">Search phrase</label>
-        <input type="text" name="name" id="ec" value=""/>
+        <input type="text" name="ec" id="ec" value=""/>
     </div>  
+    </form>
     <!-- <div data-role="fieldcontain">
         <label for="name">Citation</label>
         <input type="text" name="name" id="citation" value=""  />
@@ -43,17 +44,17 @@
     
    <div data-role="collapsible" data-inset="false">
    <h3>Advance search</h3>
-  
+    <form id="advanceSearch">
     <label for="name" style="paddin-right:10px;">All these words</label>
-    <input type="text" name="name" id="ac" value=""  />
+    <input type="text" name="ac" id="ac" value=""  />
     <label for="name">Any of these words</label>
-    <input type="text" name="name" id="ayc" value=""  />
+    <input type="text" name="ayc" id="ayc" value=""  />
     <label for="name">Without these words</label>
-    <input type="text" name="name" id="nc" value=""  />    
+    <input type="text" name="nc" id="nc" value=""  />    
     <label for="name">Title of the Case</label>
-    <input type="text" name="name" id="t" value=""  />
+    <input type="text" name="t" id="t" value=""  />
     <label for="name">Act number</label>
-    <input type="text" name="name" id="cn" value=""  />
+    <input type="text" name="cn" id="cn" value=""  />
     <fieldset class="ui-grid-a">
         <div class="ui-block-a">
         <a href="" data-role="button" data-theme="e" data-mini="true" id="alsearchb">Search</a>        
@@ -62,6 +63,7 @@
         <a href="" data-role="button" data-theme="e" data-mini="true" id="acancleb">Cancle</a>        
         </div>   
    </fieldset>      
+   </form>
     </div>
 
     
@@ -79,59 +81,31 @@
         </div><!-- /footer -->        
     </div> <!-- content -->
  <script>
-        $.urlParam = function(name){
-			var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
-			if(results)
-				return results[1] || '';
-			else
-				return '';
-			}
-        function runIt(){
-            $("#footerList a").each(function(){	
-				var url = $(this).attr('href');			
-				//console.log(url);
-				url += '?u='+$.urlParam('u');	
-				$(this).attr('href',url);							
-			});
-			$("#home").attr('href','index.html?u='+$.urlParam('u'));
+    function runIt(){
+        $("#legislationSearch #alsearchb").on("click",function(){ 
+            var arg = $("#simpleSearch").serialize();
+            arg += $("#advanceSearch").serialize();
+            //console.log(args);   
+            $.args = arg;
+            $.mobile.changePage('searchItems2.html');
         }
-        $("#alsearchb").bind("click",function(){
-                //console.log(checked);
-                //alert(checked);
-                //return false;
-                var ec = $("#ec").val();
-                var ac = $("#ac").val();
-                var ayc = $("#ayc").val();
-                var nc = $("#nc").val();
-                var t = $("#t").val();
-                var cn = $("#cn").val();
-                var url = 'searchItems2.html?page=1&ec='+ec+'&ac='+ac+'&ayc='+ayc+'&nc='+nc+'&t='+t+'&an='+cn;
-                url += '&u='+$.urlParam('u');
-                console.log(url);
-                //alert(url);
-                //return false;
-                $.mobile.changePage(url);
-            });   
-        $("#cancleb").on("vclick",function(){
+        $("#legislationSearch #lsearchb").on("click",function(){
+            //var key = $("#ec").val();
+            $.ec = $("#ec").val();
+            //console.log('ya');
+            $.args = 'ec='+ec;
+            $.mobile.changePage('searchItems2.html');
+        });
+        $("#legislationSearch #cancleb").on("click",function(){
+            $("#ec").val("");
+        });
+        $("#legislationSearch #acancleb").on("click",function(){
             //$("#ec").val("");
-        });
-        $("#cancleb").bind("click",function(event,ui){
-            $("#ec").val("");
-        });
-        $("#acancleb").bind("click",function(){
-            $("#ec").val("");
-        });
-        $("#lsearchb").bind("click",function(event,ui){
-           var key = $("#ec").val();
-           //console.log('ya');
-            $.mobile.changePage('searchItems2.html?ec='+key+'&page=1&u='+$.urlParam('u'));
-        });
-        $('#legislationSearch').on('pageshow', runIt);
-        //$("#legislationSearch").swiperight(function(){
-        //$.mobile.changePage("index.html",{transition:"slide",reverse:true});
-        //});
-        //$("#courttype input[type='radio']").css("")
-    </script>        
+            $("input[type=text]").val("");
+        });       
+    }
+    $('#legislationSearch').on('pageinit', runIt);
+</script>        
 </div><!-- /page -->
     
 </body>

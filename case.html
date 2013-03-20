@@ -101,6 +101,11 @@
     }
     //$(document).delegate('#main2', 'pageshow', runIt);
     $('#caseMain').on('pageshow', runIt);
+    $('#caseMain').on('scroll',function(){
+        if($(window).scrollTop() + $(window).height() >= $(document).height()){
+            console.log('bottom bitch');
+        }
+    });
    /* $(window).scroll(function(e){
         if(!e.id == 'caseMain'){
             console.log(e);

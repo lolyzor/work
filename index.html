@@ -64,7 +64,7 @@
             </a>
         </li>
         <li>
-            <a id="legislationClick" href="#mypanel" data-rel="panel">
+            <a id="legislationClick" href="legislationSearch.html" data-rel="panel">
             <img src="icons/legislation.png" class="ui-li-thumb">
             <h1>Legislation search</h1>           
             <p>search for legislations</p>
@@ -192,6 +192,39 @@
                 else
                     $("#caseMain #results").html(html);
                 //$.scroll = true;
+                $.mobile.loading('hide');
+        }
+        if(pageId == "lsResult"){
+            var html = '';
+            if(data.results.pages){
+            $.each(data.results,function(index,elem){
+                //elem.fileName
+                if(index%10 < 11){
+                html += '<li><a href="#" name='+elem.fileName+'"><h1>'+elem.title+'</h1><p>'+elem.Preamble+'</p></a></li>';}
+                    //console.log(elem);                
+            });            
+            var lastpage = parseInt(data.results.pages.LastPage);            
+            var currentpage = parseInt(data.results.pages.CurrentPage);
+            $.lastPage = lastpage;
+            $.currentPage = currentpage;
+            $.nextPage = currentpage+1;
+            $.prevPage = currentpage-1;
+            if($.nextPage > lastpage)
+                $.nextPage = lastPage;
+            if($.prevPage < 1)
+                $.prevPage = 1;
+                
+            $("#lsResult #lp").html($.lastPage);
+            $("#lsResult #cp").html($.currentPage);
+            //setPage(lastpage);
+            }
+            if(html == ''){
+                html = '<li>No results</li>'
+                $("#lsResult #lp,#lsResult #cp").html('');
+                //console.log(html);
+            }
+                $('#lsResult #mylist2').html(html);
+                $('#lsResult #mylist2').listview('refresh');
                 $.mobile.loading('hide');
         }
 
