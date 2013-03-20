@@ -88,12 +88,12 @@
             //console.log(args);   
             $.args = arg;
             $.mobile.changePage('searchItems2.html');
-        }
+        });
         $("#legislationSearch #lsearchb").on("click",function(){
             //var key = $("#ec").val();
-            $.ec = $("#ec").val();
-            //console.log('ya');
-            $.args = 'ec='+ec;
+            $.ec = $("#simpleSearch").serialize();
+            // console.log('ya');
+            $.args = $.ec;
             $.mobile.changePage('searchItems2.html');
         });
         $("#legislationSearch #cancleb").on("click",function(){

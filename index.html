@@ -214,8 +214,8 @@
             if($.prevPage < 1)
                 $.prevPage = 1;
                 
-            $("#lsResult #lp").html($.lastPage);
-            $("#lsResult #cp").html($.currentPage);
+            $("#lsResult #lp").html('Last page: '+$.lastPage);
+            $("#lsResult #cp").html('Current page: '+$.currentPage);
             //setPage(lastpage);
             }
             if(html == ''){
