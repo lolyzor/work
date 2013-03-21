@@ -48,13 +48,12 @@
 	        </ul>
         </div> 
 	<script>
-		$.urlparam = function(name){
-			var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
-			if(results)
-				return results[1] || 0;		
-			else
-				return '';
-			}
+	$("#briefcasePage").on("pageinit",function(){
+		 $("#briefcasePage #briefcaseId").on('click','li',function(){
+	        $.filename = $(this).attr('name');
+	        $.mobile.changePage('case.html');
+	        });
+	});
 		function runIt(){
 			var url = 'http://elaw.com.my/Elawf4/mobile/mybreifcasemobile.aspx?u='+$.u+'&callback=?';
 			console.log($.u);
