@@ -20,8 +20,8 @@
 
     <div data-role="header" data-position="fixed" data-tap-toggle="false" data-id="header1">
         <h1>Elaw.my</h1>
-        <a id="home" href="#" data-icon="home" data-theme="b">Home</a>
-        <a href="options.html" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>  
+        <a id="home" href="index.html" data-icon="home" data-theme="b">Home</a>
+        <!-- <a href="options.html" data-icon="gear" class="ui-btn-right" data-theme="b"></a>   -->
     </div><!-- /header -->
     <div data-role="content">
 
@@ -56,38 +56,11 @@
 				return '';
 			}
 		function runIt(){
-			$("#footerList a").each(function(){				
-				var url = $(this).attr('href');
-				if(url.indexOf('#popupMenu') == -1){
-					url += '?u='+$.urlparam('u');
-					$(this).attr('href',url);	
-				}				
-			});
-			$("#home").attr('href','index.html?u='+$.urlparam('u'));
-			var url = 'http://elaw.com.my/test2/mobile/mybreifcasemobile.aspx?u='+$.urlparam('u')+'&callback=?';
-			$.getJSON(url,function(data){
-				console.log(data);
-				//console.log(data.result);
-				var html = '';				
-				$.each(data,function(){
-					//console.log(data.result.Title);
-					if(data.result.Title){
-					html += '<li><a href="case.html?name='+data.result.xmlFileName+'"><h1>'+data.result.Title+'<h1></a></li>';	
-					}
-					
-				});
-				//console.log(html);
-				if(!html){
-					$("#nohtml").html('<h2>No cases saved</h2>');
-					$("#nohtml").attr('align','center')
-				}
-				else{
-					$("#briefcaseId").html(html);
-					$("#briefcaseId").listview("refresh");				
-				}
-				
-			});
-		}		
+			var url = 'http://elaw.com.my/Elawf4/mobile/mybreifcasemobile.aspx?u='+$.u+'&callback=?';
+			console.log($.u);
+			//return false;
+			$.getJson(url,'briefcasePage');		
+		}
 		$('#briefcasePage').on('pageshow', runIt);
 	</script>
 	</div>

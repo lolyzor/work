@@ -17,7 +17,7 @@
         <div data-role="header" data-position="fixed" data-id="header1" data-tap-toggle="false">
             <h1 data-theme="e">Elaw.my</h1>
             <a id="home" href="legislationSearch.html" data-icon="arrow-l" data-theme="b">Back</a>
-            <a href="options.html" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>  
+            <a href="index.html" data-icon="gear" class="ui-btn-right" data-theme="b">Home</a>  
         </div><!-- /header -->
         <div class="ui-grid-c">
 			<div class="ui-block-a"><h3 id="cp">Current page: </h3></div>
@@ -96,6 +96,15 @@
         $.page = jtpage;
         loadJson();
     });
+     $("#lsResult #mylist2").on('click','li',function(){
+        //console.log($(this));
+        var filename = $(this).attr('name');
+        //console.log($(this).attr('name'))    
+        $.filename = filename;
+        console.log($.filename);
+        $.mobile.changePage('searchItems3.html');
+    });
+
     });
     $("#lsResult").on('pageshow',function(){
         //var url = makeUrl();

@@ -16,8 +16,8 @@
  <div data-role="content">
         <div data-role="header" data-position="fixed" data-id="header1">
             <h1 data-theme="e">Elaw.my</h1>
-            <a href="" id="linkback" data-icon="arrow-l" data-theme="b">Back</a>
-            <a href="options.html" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>  
+            <a href="searchItems2.html" id="linkback" data-icon="arrow-l" data-theme="b">Back</a>
+            <a href="index.html" data-icon="gear" class="ui-btn-right" data-theme="b">Home</a>  
         </div><!-- /header -->
        <ul data-role="listview" id="mylist2">
             <!-- <li data-role="list-divider">High Court Kuala Lumpur</li>
@@ -37,46 +37,26 @@
         </div>    
         </div>
     <script>
-    $.urlParam = function(name){
-    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
-    if(results)
-        return results[1] || '';
-    else
-        return '';
-    }
-	$("#linkback").bind("click",function(){
-		window.history.back();
-	});
-	
-    function runIt(){
-		$("#footerList a").each(function(){				
-				var url = $(this).attr('href');
-				url += '?u='+$.urlParam('u');
-				$(this).attr('href',url);
-		});
-		var ec = $.urlParam('ec');
-        var filename = $.urlParam('name')
-        var url = 'http://elaw.com.my/test2/mobile/legislationsearchmobile.aspx?&filename='+filename;
-        url += '&callback=?';	
-		console.log(url);
-        $.getJSON(url,function(data){
-			var html = '';
-			console.log(data);
-			//console.log(data.results[0]);
-			$.each(data.result,function(index,elem){				
-			html += '<li><a href="case2.html?filename='+filename+'&part='+index+'" rel="external"><h1>'+elem+'</h1><p>'+index+'</p></a></li>';
-			});
-			//console.log(html);
-			if(html === ''){
-				html = '<li>No results</li>'
-				//console.log(html);
-			}
-				$('#mylist2').html(html);
-				$('#mylist2').listview('refresh');
-              
+    function runIt2(){
+        $("#lssResult #mylist2").on('click','li',function(){
+        //var filename = $(this).attr('name');
+        //console.log($(this).attr('name'))    
+        //$.filename = filename;
+        $.part = $(this).attr('part');
+        $.mobile.changePage('case2.html');
         });
     }
-    //$('#lsResult').on('pageshow', runIt);
+    function buildUrl(){        
+        var url = 'http://elaw.com.my/Elawf4/mobile/legislationsearchmobile.aspx?filename='+$.filename;
+        url += '&callback=?';   
+        return url;
+    }
+    function runIt(){
+		var url = buildUrl();
+		//console.log(url);
+        $.getJson(url,'lssResult');
+    }
+    $('#lsResult').on('pageinit', runIt2);
     $('#lssResult').on('pageshow', runIt);
     //$("#resultMain2").swiperight(function(){
     //    $.mobile.changePage("caseSearch.html",{transition:"slide",reverse:true});

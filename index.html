@@ -105,25 +105,20 @@
 			url = "http://elaw.com.my/test2/subscription_single_corporate.aspx"
 			navigator.app.loadUrl(url, { openExternal:true });			
 		});
-		</script>
-        </div><!-- /page -->
-
-</body>
-<script>
-    $('#main').on('pageinit',function(event){
-        $("#main #login").on("click",function(){
-            //console.log('login click ?');
-            $("#error").html("");
-            var username = $("#un").val();
-            var password = $("#pw").val();
-            if(username && password){
-                $.userName = username;
-                url = 'http://elaw.com.my/test2/mobile/loginmobile.aspx?u='+username;
-                url += '&pass='+password;
-                url += '&callback=?';
-                getJson(url,"main");
-            }
-        });
+        $('#main').on('pageinit',function(){
+            $("#main #login").on("click",function(){
+                //console.log('login click ?');
+                $("#error").html("");
+                var username = $("#un").val();
+                var password = $("#pw").val();
+                if(username && password){
+                    $.u = username;
+                    url = 'http://elaw.com.my/Elawf4/mobile/loginmobile.aspx?u='+username;
+                    url += '&pass='+password;
+                    url += '&callback=?';
+                    $.getJson(url,"main");
+                }
+            });
 
             $("#main a").on("click",function(){
                 //console.log($(this).attr('id')+" "+$(this).attr('href'));
@@ -138,25 +133,35 @@
                 if(obj.attr('id') == 'referencesClick' || obj.attr('id')=='referencesClick1'){
                     $.redirectTo = 'references.html';
                 }
+                if($.u){
+                    console.log($.u);
+                    //$(this).stopPropagation();
+                    $.mobile.changePage($.redirectTo);
+                }
+                    
             });        
-    });
+        });
+		</script>
+        </div><!-- /page -->
+
+</body>
+<script>
     $.handleData = function(data,pageId){
-        //console.log(data);
+        console.log(data);
         if(pageId == "main"){
             if(data.reply == "loggedin"){
-            console.log('loggedin');
-            console.log($.redirectTo);
-            $.mobile.changePage($.redirectTo);
+                console.log('loggedin');
+                console.log($.redirectTo);
+                $.mobile.changePage($.redirectTo);
             }   
             else{
                 //console.log('what');
+                $.u = false;
                 $("#error").html(data.reply);
             }
         }
         if(pageId == "caseSearchResults"){
             var html = '';
-            console.log(data);
-            var u = $.userName;
             $.each(data.results,function(index,elem){
                 //var arguments = '?name='+elem.fileName+'&ec='+ec+'&u='+u;
                 html += '<li name="'+elem.fileName+'"><a href="#" name="'+elem.fileName+'"><h1>'+elem.title+'</h1><p>'+elem.Court+'</p></a></li>';
@@ -174,7 +179,7 @@
         }
         if(pageId == "caseMain"){
             var html = '';
-                console.log(data);
+                //console.log(data);
                 if (data){
                     //var lastPage = Integer.parseInt(data.lastPage);                    
                     if($.page==1){
@@ -200,8 +205,7 @@
             $.each(data.results,function(index,elem){
                 //elem.fileName
                 if(index%10 < 11){
-                html += '<li><a href="#" name='+elem.fileName+'"><h1>'+elem.title+'</h1><p>'+elem.Preamble+'</p></a></li>';}
-                    //console.log(elem);                
+                html += '<li name="'+elem.fileName+'"><a href="#"><h1>'+elem.title+'</h1><p>'+elem.Preamble+'</p></a></li>';}
             });            
             var lastpage = parseInt(data.results.pages.LastPage);            
             var currentpage = parseInt(data.results.pages.CurrentPage);
@@ -221,11 +225,41 @@
             if(html == ''){
                 html = '<li>No results</li>'
                 $("#lsResult #lp,#lsResult #cp").html('');
-                //console.log(html);
             }
                 $('#lsResult #mylist2').html(html);
                 $('#lsResult #mylist2').listview('refresh');
                 $.mobile.loading('hide');
+        }
+        if(pageId == 'lssResult'){
+            var html = '';
+            //console.log(data);
+            //console.log(data.results[0]);
+            $.each(data.result,function(index,elem){                
+            //html += '<li><a href="case2.html?filename='+filename+'&part='+index+'" rel="external"><h1>'+elem+'</h1><p>'+index+'</p></a></li>';
+            html += '<li name="'+$.fileName+'" part="'+index+'"><a href="#"><h1>'+elem+'</h1><p>'+index+'</p></a></li>'
+            });
+            if(html === ''){
+                html = '<li>No results</li>'
+            }
+                $('#lssResult #mylist2').html(html);
+                $('#lssResult #mylist2').listview('refresh');
+        }
+        if(pageId == 'briefcasePage'){
+            var html = '';              
+                $.each(data,function(){
+                    if(data.result.Title){
+                    html += '<li name="'+data.result.xmlFileName+'"><a href="#"><h1>'+data.result.Title+'<h1></a></li>';  
+                    }
+                    
+                });
+                if(!html){
+                    $("#nohtml").html('<h2>No cases saved</h2>');
+                    $("#nohtml").attr('align','center')
+                }
+                else{
+                    $("#briefcaseId").html(html);
+                    $("#briefcaseId").listview("refresh");              
+                }
         }
 
 
@@ -240,23 +274,5 @@
         });
         //$.handleData(data,pageId);
     }
-    function makeUrl(pageId){
-        if(pageId == "#main"){
-
-        }
-    }
-    function getData(data){
-
-    }
-    function swipe_it(){
-        //$.moible.changePage("latestCases.html");
-        //alert('ys');
-    }
-     
-    /*$(document).delegate('#main', 'pageshow', runIt);
-    $('#main').on('pageshow', runIt);
-    $("#main").swipeleft(function(){
-        $.mobile.changePage("latestCases.html","slide");
-    });*/
 </script>
 </html>
