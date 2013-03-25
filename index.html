@@ -214,12 +214,14 @@
             var currentpage = parseInt(data.results.pages.CurrentPage);
             $.lastPage = lastpage;
             $.currentPage = currentpage;
-            $.nextPage = currentpage+1;
+            /*$.nextPage = currentpage+1;
             $.prevPage = currentpage-1;
             if($.nextPage > lastpage)
                 $.nextPage = lastPage;
             if($.prevPage < 1)
-                $.prevPage = 1;
+                $.prevPage = 1;*/
+            $.nextPage+1 > lastpage ? $.nextPage = lastPage : $.nextPage = currentpage+1;
+            $.prevPage-1 < 1 ? $.prevPage = 1 : $.prevPage = currentpage-1;
                 
             $("#lsResult #lp").html('Last page: '+$.lastPage);
             $("#lsResult #cp").html('Current page: '+$.currentPage);

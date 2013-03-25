@@ -107,7 +107,7 @@
         $("#caseSearch #asearchb").bind("click",function(){                
                 var args = $("#normalSearch").serialize()+'&'+$("#advanceSearch").serialize();
                 $.caseSearchArgs = args;
-                $.mobile.changePage('searchItems.html');
+                $.mobile.changePage('searchItems2.html');
                 if($.ns)
                     $.ns = '';
             });
@@ -116,7 +116,7 @@
                 var args = $("#normalSearch").serialize();
                 $.caseSearchArgs = args;                
                 $.ec = $("#ec").val();
-                $.mobile.changePage('searchItems.html');
+                $.mobile.changePage('searchItems2.html');
                 if($.ns)
                     $.ns = '';
         });

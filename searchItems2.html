@@ -61,10 +61,17 @@
         </div>
     <script>
     function makeUrl(){
-        var url = 'http://elaw.com.my/Elawf4/mobile/legislationsearchmobile.aspx?'
-        if(!$.args)
-            $.mobile.changePage('legislationSearch.html');
-        url += $.args;
+        var url = ''
+        if($.args){
+            url = 'http://elaw.com.my/Elawf4/mobile/legislationsearchmobile.aspx?'
+            //$.mobile.changePage('legislationSearch.html');
+            url += $.args;
+        }
+        if($.caseSearchArgs){
+            url = 'http://elaw.com.my/Elawf4/mobile/legislationsearchmobile.aspx?'
+            url += $.caseSearchArgs;
+        }
+            
         if(!$.page)
             $.page=1;
         url += '&page='+$.page;
