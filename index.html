@@ -148,7 +148,7 @@
 </body>
 <script>
     $.handleData = function(data,pageId){
-        console.log(data);
+        //console.log(data);
         if(pageId == "main"){
             if(data.reply == "loggedin"){
                 console.log('loggedin');
@@ -164,6 +164,9 @@
         if(pageId == "caseSearchResults"){
             var html = '';
             $.each(data.results,function(index,elem){
+                if(index > 20)
+                    return false;
+
                 //var arguments = '?name='+elem.fileName+'&ec='+ec+'&u='+u;
                 html += '<li name="'+elem.fileName+'"><a href="#" name="'+elem.fileName+'"><h1>'+elem.title+'</h1><p>'+elem.Court+'</p></a></li>';
                 //console.log(elem.fileName);
@@ -179,6 +182,7 @@
             //return html;
         }
         if(pageId == "caseMain"){
+            console.log(data);
             var html = '';
                 //console.log(data);
                 if (data){
@@ -186,7 +190,7 @@
                     if($.page==1){
                         var title = '<h2 align="center">'+data.result.Title+'</h2>';
                         html+= title;
-                        $.lastPage = data.result.lastPage;
+                        $.lastPage = parseInt(data.result.lastPage);
                     }                    
                         html+= data.result.JudgementBody;                                                                    
                 }
@@ -198,6 +202,7 @@
                 else
                     $("#caseMain #results").html(html);
                 //$.scroll = true;
+                $.scrollAndLoad = true;
                 $.mobile.loading('hide');
         }
         if(pageId == "lsResult"){

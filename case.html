@@ -38,36 +38,6 @@
         </div>    
         </div>
     <script>
-    function getJson(url,loadOrReplace){
-        console.log('what');
-        $.getJSON(url,function(data){
-                var html = '';
-                console.log(data);
-                if (data){
-                    //var lastPage = Integer.parseInt(data.lastPage);                    
-                    if($.page==1){
-                        var title = '<h2 align="center">'+data.result.Title+'</h2>';
-                        html+= title;
-                        $.lastPage = data.result.lastPage;
-                    }                    
-                        html+= data.result.JudgementBody;                                                                    
-                }
-                else{
-                    html='<h2 align="center">No content to display</h2>'
-                }
-                
-                if(html === ''){
-                    html = '<h1>No content to display</h1>'
-                }
-                if(!loadOrReplace)
-                    $("#caseMain #results").append(html);
-                else
-                    $("#caseMain #results").html(html);
-                $.scroll = true;
-                $.mobile.loading('hide');
-        });
-        
-    }
     function makeUrl(p){
         var filename = $.filename;
         //var ec = $.urlParam('ec');
@@ -76,6 +46,9 @@
         if($.page){
             //$.page += 1;
             //console.log($.page);
+            $.page += 1;
+            /*if($.page > $.lastPage)
+                $.page -= 1;*/
             page = $.page;
         }
         else{
@@ -84,27 +57,35 @@
         }            
         url += '&p='+page;
         url += '&callback=?';
+        //console.log(url);
         return url;
     }
     function runIt(){
-        $.page = 1;
+        $.page = 0;
         var urltext = makeUrl();
         $.mobile.loading('show');
         $.getJson(urltext,'caseMain');
-        //var url = makeUrl();
-        //console.log(url);
-        //getJson(url);
-        //console.log($.filename);
-        //$('#mylist2').html(html);
-        //$('#mylist2').listview('refresh');
-
+        $(window).on('scroll',function(){
+            if($.mobile.activePage.attr('id') == 'caseMain'){
+                if($(window).scrollTop() + $(window).height() >= $(document).height()){
+                    if($.scrollAndLoad){                
+                        url = makeUrl();
+                        console.log(url);
+                        if($.page <= $.lastPage){
+                            $.getJson(url,'caseMain');
+                            $.mobile.loading('show');
+                        }                        
+                        $.scrollAndLoad = false;
+                        
+                    }                
+                }
+            }    
+        });
     }
     //$(document).delegate('#main2', 'pageshow', runIt);
     $('#caseMain').on('pageshow', runIt);
     $('#caseMain').on('scroll',function(){
-        if($(window).scrollTop() + $(window).height() >= $(document).height()){
-            console.log('bottom bitch');
-        }
+        
     });
    /* $(window).scroll(function(e){
         if(!e.id == 'caseMain'){

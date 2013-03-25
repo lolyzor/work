@@ -78,6 +78,7 @@
         $.getJson(url,'lsResult');
     }
     $("#lsResult").on('pageinit',function(){
+        $.page = false;
         $("#lsResult #pClick").on('click',function(){
             $.page = $.prevPage;
             loadJson();
