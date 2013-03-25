@@ -57,18 +57,34 @@
 		</div>
 		</div>
         </form> 
-		<!--
-		
-		<label for="one">Search</label>
-		<input style="box-sizing: border-box;" type="text" id="one">
-		<!--
-		-->
+         <div class="ui-grid-c">
+            <div class="ui-block-a"><h3 id="cp">Current page: </h3></div>
+            <div class="ui-block-b"><h3></h3></div>
+            <div class="ui-block-c"><h3></h3></div>
+            <div class="ui-block-d"><h3 id="lp">Last page: </h3></div>
+        </div><!-- /grid-c -->
      
        <ul data-role="listview" id="mylist2">
             <!-- <li data-role="list-divider">High Court Kuala Lumpur</li>
             <li><a href="">Audi</a></li>
             <li><a href="">BMW</a></li> -->
         </ul>
+        <fieldset class="ui-grid-a" style="margin-top: 20px;">
+            <div class="ui-block-a">
+            <a href="#" data-role="button" data-theme="e" data-mini="true" id="pClick" rel="external">Previous</a>        
+            </div>
+            <div class="ui-block-b">
+            <a href="#" data-role="button" data-theme="e" data-mini="true" id="nClick" rel="external">Next</a>        
+            </div>   
+            </fieldset>
+            <fieldset class="ui-grid-a">
+            <div class="ui-block-a">
+            <a href="#" data-role="button" data-theme="e" data-mini="true" id="jp" rel="external" style="margin-top: 8px;">Jump to page</a>        
+            </div>
+            <div class="ui-block-b">
+            <input type="number" name="name" id="jtp" value=""/>        
+            </div>   
+        </fieldset>
         <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
                 <div data-role="navbar">
                     <ul id="footerList">
@@ -85,6 +101,7 @@
     function url(args){
         var url = 'http://elaw.com.my/Elawf4/mobile/searchresultmobile.aspx?'
         url += args;
+        $.page == false ? $.page = 2 : url+='&page='+$.page;
         url += '&callback=?'
         console.log(url);
         return url;
@@ -99,7 +116,7 @@
         $.getJson(urltext,'caseSearchResults')
     }
     function runIt2(){
-    $("#dSearch").on("click",function(){
+    $("#caseSearchResults #dSearch").on("click",function(){
         var args = $("#searchInside").serialize();
         var match = $("#newec").val();
         args = args.replace('ns='+match,'');
@@ -111,9 +128,30 @@
         console.log(urltext);
         //return false;
         $.getJson(urltext,'caseSearchResults');
+
         //return false;
-    });    
-    $("#mylist2").on('click','li',function(){
+    });
+    $.page = false;
+    $("#caseSearchResults #pClick").on('click',function(){
+        $.page = $.prevPage;
+        loadJson();
+    });
+    $("#caseSearchResults #nClick").on('click',function(){
+        $.page = $.nextPage
+        loadJson();
+    });
+     $("#caseSearchResults #jp").on("click",function(){
+        var jtpage = parseInt($("#jtp").val());
+        var lastp = $.lastPage;
+        if(jtpage > lastp)
+            page = lastp;
+        if(jtpage < 0)
+            jtpage = 1;
+        $.page = jtpage;
+        loadJson();
+    });
+
+    $("#caseSearchResults #mylist2").on('click','li',function(){
         var filename = $(this).attr('name');
         //console.log($(this).attr('name'))    
         $.filename = filename;

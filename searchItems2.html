@@ -90,11 +90,12 @@
      $("#jp").on("click",function(){
         var jtpage = parseInt($("#jtp").val());
         var lastp = $.lastPage;
-        if(jtpage > lastp)
-            page = lastp;
+        /*if(jtpage > lastp)
+            $.page = lastp;
         if(jtpage < 0)
             jtpage = 1;
-        $.page = jtpage;
+        $.page = jtpage;*/
+        jtpage > lastp ? $.page = lastp : $.page = jtpage;
         loadJson();
     });
      $("#lsResult #mylist2").on('click','li',function(){

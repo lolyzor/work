@@ -169,6 +169,16 @@
                       html += '<li name="'+elem.fileName+'"><a href="#" name="'+elem.fileName+'"><h1>'+elem.title+'</h1><p>'+elem.Court+'</p></a></li>';
                 }                  
             });
+            if(data.results.pages){
+                var lastpage = parseInt(data.results.pages.LastPage);            
+                var currentpage = parseInt(data.results.pages.CurrentPage);
+                $.lastPage = lastpage;
+                $.currentPage = currentpage;
+                $.currentpage+1 > lastpage ? $.nextPage = lastPage : $.nextPage = currentpage+1;
+                $.currentpage-1 < 1 ? $.prevPage = 1 : $.prevPage = currentpage-1;    
+                $("#caseSearchResults #lp").html('Last page: '+$.lastPage);
+                $("#caseSearchResults #cp").html('Current page: '+$.currentPage);
+            }            
             if(html === ''){
                 html = '<li>No results</li>'
                 //console.log(html);
@@ -214,12 +224,14 @@
             var currentpage = parseInt(data.results.pages.CurrentPage);
             $.lastPage = lastpage;
             $.currentPage = currentpage;
-            $.nextPage = currentpage+1;
+            /*$.nextPage = currentpage+1;
             $.prevPage = currentpage-1;
             if($.nextPage > lastpage)
                 $.nextPage = lastPage;
             if($.prevPage < 1)
-                $.prevPage = 1;
+                $.prevPage = 1;*/
+            $.currentpage+1 > lastpage ? $.nextPage = lastPage : $.nextPage = currentpage+1;
+            $.currentpage-1 < 1 ? $.prevPage = 1 : $.prevPage = currentpage-1;
                 
             $("#lsResult #lp").html('Last page: '+$.lastPage);
             $("#lsResult #cp").html('Current page: '+$.currentPage);
