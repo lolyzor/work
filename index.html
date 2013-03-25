@@ -262,9 +262,11 @@
         }
         if(pageId == 'briefcasePage'){
             var html = '';              
-                $.each(data,function(){
+            var cases = '';
+                $.each(data,function(){                    
                     if(data.result.Title){
                     html += '<li name="'+data.result.xmlFileName+'"><a href="#"><h1>'+data.result.Title+'<h1></a></li>';  
+                    cases += '<option name="'+data.result.Title+'">'+data.result.Title+'</option>'
                     }
                     
                 });
@@ -274,7 +276,9 @@
                 }
                 else{
                     $("#briefcaseId").html(html);
-                    $("#briefcaseId").listview("refresh");              
+                    $("#briefcaseId").listview("refresh");   
+                    console.log(cases);           
+                    $("#briefcasePage #selectCase").html(cases);
                 }
         }
 

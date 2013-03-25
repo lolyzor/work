@@ -29,6 +29,16 @@
 	<div data-role="listview" id="briefcaseId">
 	
 	</div>
+    <div class="ui-grid-a">
+        <div class="ui-block-a">
+            <select id="selectCase" name="cases" data-mini="true" id="sort">            
+            </select>   
+        </div>
+        <div class="ui-block-b">
+            <!-- <a id="delete" data-role="button" href="#" data-mini="true" data-theme="e">Delete</a> -->
+            <button data-mini="true" data-theme="e">Delete</button>
+        </div>
+    </div>
 	
 
     <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-id="footer1">        
@@ -56,7 +66,7 @@
 	});
 		function runIt(){
 			var url = 'http://elaw.com.my/Elawf4/mobile/mybreifcasemobile.aspx?u='+$.u+'&callback=?';
-			console.log($.u);
+			//console.log($.u);
 			//return false;
 			$.getJson(url,'briefcasePage');		
 		}
