@@ -181,7 +181,8 @@
             }            
             if(html === ''){
                 html = '<li>No results</li>'
-                //console.log(html);
+                $("#caseSearchResults #lp").html('');
+                $("#caseSearchResults #cp").html('');                
                 }
             $('#caseSearchResults #mylist2').html(html);
             $('#caseSearchResults #mylist2').listview('refresh'); 

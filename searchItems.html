@@ -36,7 +36,7 @@
 		</div>
         </div>
 		<div class="ui-block-b">
-			<a id="dSearch" data-role="button" rel="external" href="#" data-mini="true" data-theme="e">Search</a>
+			<a id="dSearch" data-role="button" href="#" data-mini="true" data-theme="e">Search</a>
 		</div>  
         
 		<div class="ui-block-a">
@@ -85,23 +85,28 @@
             <input type="number" name="name" id="jtp" value=""/>        
             </div>   
         </fieldset>
-        <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
-                <div data-role="navbar">
-                    <ul id="footerList">
-                        <li><a href="#" data-icon="star" class="">Latest</a></li>
-                        <li><a href="caseSearch.html" data-icon="search" data-theme="e">Cases</a></li>
-                        <li><a href="legislationSearch.html" data-icon="search">Legislation</a></li>
-                        <li><a href="references.html" data-icon="info">References</a></li>
-                        <li><a href="help.html" data-icon="alert">Help</a></li>
-                    </ul>
-                </div>
-        </div>    
-        </div>
+        <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-id="footer1">        
+            <div data-role="navbar">
+                <ul id="footerList">
+                    <li><a href="latest.html" data-icon="star">Latest</a></li>
+                    <li><a href="caseSearch.html" data-icon="search" class="" data-theme="e">Cases</a></li>
+                    <li><a href="legislationSearch.html" data-icon="search">Legislation</a></li>
+                    <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
+                </ul>
+            </div><!-- /navbar -->
+        </div><!-- /footer --> 
+         <div data-role="popup" id="popupMenu" id="footerlist2">
+            <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                <li><a href="references.html">References</a></li>
+                <li><a href="help.html">Help</a></li>                            
+            </ul>
+        </div>        
+        </div> <!-- content ending -->
     <script>
     function url(args){
         var url = 'http://elaw.com.my/Elawf4/mobile/searchresultmobile.aspx?'
         url += args;
-        $.page == false ? $.page = 2 : url+='&page='+$.page;
+        $.page == false ? $.page = 1 : url+='&page='+$.page;
         url += '&callback=?'
         console.log(url);
         return url;
@@ -111,12 +116,12 @@
         if(!$.caseSearchArgs){
             $.mobile.changePage('caseSearch.html');
         }
-        var urltext = url($.caseSearchArgs);
-        $.mobile.loading('show');
-        $.getJson(urltext,'caseSearchResults')
+        //var urltext = url($.caseSearchArgs);
+        //$.mobile.loading('show');
+        //$.getJson(urltext,'caseSearchResults')
+        loadJson();
     }
-    function runIt2(){
-    $("#caseSearchResults #dSearch").on("click",function(){
+    function loadJson(){
         var args = $("#searchInside").serialize();
         var match = $("#newec").val();
         args = args.replace('ns='+match,'');
@@ -126,37 +131,41 @@
             $.ns += ' '+$("#newec").val();
         var urltext = url($.caseSearchArgs+'&ns='+$.ns+args);
         console.log(urltext);
-        //return false;
+        $.mobile.loading('show');
         $.getJson(urltext,'caseSearchResults');
+    }
+    function runIt2(){
+        $("#caseSearchResults #dSearch").on("click",function(){
+            $.page = 1;
+            loadJson();
+            //return false;
+        });
+        $.page = false;
+        $("#caseSearchResults #pClick").on('click',function(){
+            $.page = $.prevPage;
+            loadJson();
+        });
+        $("#caseSearchResults #nClick").on('click',function(){
+            $.page = $.nextPage
+            loadJson();
+        });
+         $("#caseSearchResults #jp").on("click",function(){
+            var jtpage = parseInt($("#jtp").val());
+            var lastp = $.lastPage;
+            if(jtpage > lastp)
+                page = lastp;
+            if(jtpage < 0)
+                jtpage = 1;
+            $.page = jtpage;
+            loadJson();
+        });
 
-        //return false;
-    });
-    $.page = false;
-    $("#caseSearchResults #pClick").on('click',function(){
-        $.page = $.prevPage;
-        loadJson();
-    });
-    $("#caseSearchResults #nClick").on('click',function(){
-        $.page = $.nextPage
-        loadJson();
-    });
-     $("#caseSearchResults #jp").on("click",function(){
-        var jtpage = parseInt($("#jtp").val());
-        var lastp = $.lastPage;
-        if(jtpage > lastp)
-            page = lastp;
-        if(jtpage < 0)
-            jtpage = 1;
-        $.page = jtpage;
-        loadJson();
-    });
-
-    $("#caseSearchResults #mylist2").on('click','li',function(){
-        var filename = $(this).attr('name');
-        //console.log($(this).attr('name'))    
-        $.filename = filename;
-        $.mobile.changePage('case.html');
-    });
+        $("#caseSearchResults #mylist2").on('click','li',function(){
+            var filename = $(this).attr('name');
+            //console.log($(this).attr('name'))    
+            $.filename = filename;
+            $.mobile.changePage('case.html');
+        });
     
 
     }
