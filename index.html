@@ -163,14 +163,11 @@
         }
         if(pageId == "caseSearchResults"){
             var html = '';
+            console.log(data);
             $.each(data.results,function(index,elem){
-                if(index > 20)
-                    return false;
-
-                //var arguments = '?name='+elem.fileName+'&ec='+ec+'&u='+u;
-                html += '<li name="'+elem.fileName+'"><a href="#" name="'+elem.fileName+'"><h1>'+elem.title+'</h1><p>'+elem.Court+'</p></a></li>';
-                //console.log(elem.fileName);
-                    //console.log(elem);
+                if(index != 'pages'){
+                      html += '<li name="'+elem.fileName+'"><a href="#" name="'+elem.fileName+'"><h1>'+elem.title+'</h1><p>'+elem.Court+'</p></a></li>';
+                }                  
             });
             if(html === ''){
                 html = '<li>No results</li>'

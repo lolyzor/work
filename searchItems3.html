@@ -53,7 +53,7 @@
     }
     function runIt(){
 		var url = buildUrl();
-		//console.log(url);
+		console.log(url);
         $.getJson(url,'lssResult');
     }
     $('#lsResult').on('pageinit', runIt2);
