@@ -48,7 +48,7 @@
     <ul data-role="listview" id="mylist" >
         <li>
             <!-- <img class="ui-li-thumb" src="icons/Documents-icon_2.png"> -->            
-            <a href="latestCases.html">         
+            <a href="latest.html">         
                 <img src="icons/Documents-icon_2.png" class="ui-li-thumb">
                 <h1 class="ui-li-heading">Lates cases</h1>           
                 <p class="ui-li-desc">view latest cases</p>
@@ -57,14 +57,14 @@
         </li>
         <li>
             <!--<a href="caseSearch.html">-->
-            <a id="caseClick" href="caseSearch.html" data-rel="panel">
+            <a id="caseClick" href="#mypanel" data-rel="panel">
             <img src="icons/searchIcon.png" class="ui-li-thumb">
             <h1>Case search</h1>           
             <p>search for cases</p>
             </a>
         </li>
         <li>
-            <a id="legislationClick" href="legislationSearch.html" data-rel="panel">
+            <a id="legislationClick" href="#mypanel" data-rel="panel">
             <img src="icons/legislation.png" class="ui-li-thumb">
             <h1>Legislation search</h1>           
             <p>search for legislations</p>
@@ -95,11 +95,16 @@
                     <li><a href="latestCases.html" data-icon="star">Latest</a></li>
                     <li><a id="caseClick1" href="#mypanel" data-icon="search">Cases</a></li>
                     <li><a id="legislationClick1" href="#mypanel" data-icon="search">Legislation</a></li>
-                    <li><a id="referencesClick1" href="#mypanel" data-icon="info">References</a></li>
-                    <li><a href="help.html" data-icon="alert">Help</a></li>
+                    <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
                 </ul>
             </div><!-- /navbar -->
         </div><!-- /footer -->   
+        <div data-role="popup" id="popupMenu" id="footerlist2">
+            <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                <li><a href="references.html">References</a></li>
+                <li><a href="help.html">Help</a></li>                            
+            </ul>
+        </div>
 		<script>
 		$("#register").on("click",function(){
 			url = "http://elaw.com.my/test2/subscription_single_corporate.aspx"
@@ -209,7 +214,6 @@
                     $("#caseMain #results").append(html);
                 else
                     $("#caseMain #results").html(html);
-                //$.scroll = true;
                 $.scrollAndLoad = true;
                 $.mobile.loading('hide');
         }
@@ -217,7 +221,6 @@
             var html = '';
             if(data.results.pages){
             $.each(data.results,function(index,elem){
-                //elem.fileName
                 if(index%10 < 11){
                 html += '<li name="'+elem.fileName+'"><a href="#"><h1>'+elem.title+'</h1><p>'+elem.Preamble+'</p></a></li>';}
             });            
@@ -225,18 +228,11 @@
             var currentpage = parseInt(data.results.pages.CurrentPage);
             $.lastPage = lastpage;
             $.currentPage = currentpage;
-            /*$.nextPage = currentpage+1;
-            $.prevPage = currentpage-1;
-            if($.nextPage > lastpage)
-                $.nextPage = lastPage;
-            if($.prevPage < 1)
-                $.prevPage = 1;*/
             $.currentpage+1 > lastpage ? $.nextPage = lastPage : $.nextPage = currentpage+1;
             $.currentpage-1 < 1 ? $.prevPage = 1 : $.prevPage = currentpage-1;
                 
             $("#lsResult #lp").html('Last page: '+$.lastPage);
-            $("#lsResult #cp").html('Current page: '+$.currentPage);
-            //setPage(lastpage);
+            $("#lsResult #cp").html('Current page: '+$.currentPage);            
             }
             if(html == ''){
                 html = '<li>No results</li>'
@@ -249,9 +245,7 @@
         if(pageId == 'lssResult'){
             var html = '';
             //console.log(data);
-            //console.log(data.results[0]);
             $.each(data.result,function(index,elem){                
-            //html += '<li><a href="case2.html?filename='+filename+'&part='+index+'" rel="external"><h1>'+elem+'</h1><p>'+index+'</p></a></li>';
             html += '<li name="'+$.fileName+'" part="'+index+'"><a href="#"><h1>'+elem+'</h1><p>'+index+'</p></a></li>'
             });
             if(html === ''){
@@ -279,21 +273,13 @@
                     $("#briefcaseId").listview("refresh");   
                     $("#briefcasePage #selectCase").html(cases);
                     $("#briefcasePage #selectCase").selectmenu('refresh');
-
                 }
-        }
-
-
-        
+        }    
     }
     $.getJson = function(url,pageId){
-        /*console.log("getjson "+url+" "+pageId);
-        data = {};
-        data.reply = 'loggedin'*/
         $.getJSON(url,function(data){
             $.handleData(data,pageId);
         });
-        //$.handleData(data,pageId);
     }
 </script>
 </html>

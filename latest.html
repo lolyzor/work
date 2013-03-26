@@ -15,76 +15,87 @@
             <a href="index.html" data-icon="home" data-theme="b">Home</a>
             <a href="options.html" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>  
         </div><!-- /header -->   
-        <h1>
-            Latest cases and informations
-        </h1>
-        <!-- <div data-role="controlgroup" data-type="horizontal" style="text-align:center;">
-            <a href="#" data-role="button" data-theme="e">All</a>
-            <a href="mlrh.html" data-role="button">MLRH</a>
-            <a href="#" data-role="button">MELR</a>
-            <a href="#" data-role="button">MLRA</a>
-        </div> -->
-        <ul data-role="listview" id="mylist">
-        </ul>
-        <select name="courts" id="courts">
-            <option value="ac">All courts</option>
-            <option value="hc">High Court Kuala Lumpur</option>
-            <option value="ic">Industrial Court Kuala Lumpur</option>
-            <option value="ac">Apeal Court Kuala Lumpur</option>
+        <div data-role="content">                
+            <h3 align="center">
+                Latest cases and informations
+            </h3>
+        <div style="margin-bottom: 20px;">
+        <select name="court" id="courts" style="margin-bottom: 50px;">
+            <option value="ac" page=1 selected="selected">All courts</option>
+            <option value="hc" page=2>High Court Kuala Lumpur</option>
+            <option value="ic" page=3>Industrial Court Kuala Lumpur</option>
+            <option value="ac" page=4>Apeal Court Kuala Lumpur</option>
         </select>
-        <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
-                <div data-role="navbar">
-                    <ul>
-                        <li><a href="#" data-icon="star" class="" data-theme="e">Latest</a></li>
-                        <li><a href="caseSearch.html" data-icon="search">Cases</a></li>
-                        <li><a href="legislationSearch.html" data-icon="search">Legislation</a></li>
-                        <li><a href="references.html" data-icon="info">References</a></li>
-                        <li><a href="help.html" data-icon="alert">Help</a></li>
-                    </ul>
-                </div>
+        </div>
+        <div id="aac"><div data-role="listview" id="aaclist"></div></div>
+        <div id="hc"><div data-role="listview" id="hclist"></div></div>
+        <div id="ic"><div data-role="listview" id="iclist"></div></div>
+        <div id="ac"><div data-role="listview" id="aclist"></div></div>
+            <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
+                    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#" data-icon="star" class="" data-theme="e">Latest</a></li>
+                            <li><a href="caseSearch.html" data-icon="search">Cases</a></li>
+                            <li><a href="legislationSearch.html" data-icon="search">Legislation</a></li>
+                            <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
+                        </ul>
+                    </div>
+            </div>  
+            <div data-role="popup" id="popupMenu" id="footerlist2">
+            <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                <li><a href="references.html">References</a></li>
+                <li><a href="help.html">Help</a></li>                            
+            </ul>
         </div>    
-    <script>
-        function runIt(){        
-            
-            $("li a p").css("white-space","normal");  
-            var url = "";  
-            $.mobile.loading( 'show' );    
-            //console.log('starting');
-            $.getJSON('latestcases.json',function(json){
-                //console.log(json);
-                //alert(json.cases.mlrh.case1.casename);
-            var html = '<li data-role="list-divider">High Court Kuala Lumpur</li>';
-
-            $.each(json.cases.mlrh,function(id,elem){            
-              html += '<li><a href="#"><h1>'+elem.casename+'</h1><p>'+elem.jdate+'</p></a></li>';
-                    //alert(html);
+        </div> <!-- content ends -->
+        <script>
+        function makeUrl(page){
+            var url = 'http://elaw.com.my/Elawf4/mobile/searchresultmobile.aspx?ec=law&page='+page+'&callback=?';
+            var html = '';
+            $.mobile.loading('show');
+            $.fetching = true;
+            $.getJSON(url,function(data){
+               $.each(data.results,function(index,elem){
+                if(index != 'pages'){
+                  html += '<li name="'+elem.fileName+'"><a href="#" name="'+elem.fileName+'"><h1>'+elem.title+'</h1><p>'+elem.Court+'</p></a></li>';
+                    }                  
                 });
-            //$('#mylist2').html(html);
-            
-            html += '<li data-role="list-divider">Industrial Court Kuala Lumpur</li>';
-            $.each(json.cases.melr,function(id,elem){
-             html += '<li><a href="#"><h1>'+elem.casename+'</h1><p>'+elem.jdate+'</p></a></li>';
-            });
-
-            html += '<li data-role="list-divider">Apeal Court Kuala Lumpur</li>';
-            $.each(json.cases.mlra,function(id,elem){
-             html += '<li><a href="#"><h1>'+elem.casename+'</h1><p>'+elem.jdate+'</p></a></li>';
-            });
-
-            $('#mylist').html(html);
-            $('#mylist').listview('refresh');
-            });
-            //alert(html);                        
-            $.mobile.loading( 'hide' );
-            }
-        $(document).delegate('#main', 'pageshow', runIt);
-        $("#main").swipeleft(function(){            
-            $.mobile.changePage("mlrh.html",{transition: "slide",reverse:false});
-        });
-    </script>
-    </div>
-   
-
-
+               switch(page){
+                case 1:
+                    $("#hclist,#iclist,#aclist").toggle(false);
+                    $("#aaclist").html(html).toggle(true);
+                    $("#aaclist").listview('refresh');
+                    break;
+                case 2:
+                    $("#aaclist,#iclist,#aclist").toggle(false);
+                    $('#hclist').html(html).toggle(true);
+                    $("#hclist").listview('refresh');
+                    break;
+                case 3:
+                    $("#aaclist,#hclist,#aclist").toggle(false);
+                    $('#iclist').html(html).toggle(true);
+                    $("#iclist").listview('refresh');
+                    break;
+                case 4:
+                    $("#aaclist,#iclist,#hclist").toggle(false);
+                    $('#aclist').html(html).toggle(true);
+                    $("#aclist").listview('refresh');
+                    break;
+               }
+            $.fetching = false;
+            $.mobile.loading('hide');
+           });
+        }
+       $("#latestCases").on('pageshow',function(){                
+            makeUrl(1);     
+       });
+       $("#courts").change(function(){
+            var page = $("#courts option:selected").attr('page');
+            //console.log(page);
+            if(!$.fetching)
+                makeUrl(parseInt(page));
+       });
+        </script>
+    </div> <!-- page ends here -->
 </body>
 </html>
