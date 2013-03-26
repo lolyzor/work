@@ -17,8 +17,8 @@
  <div data-role="content">
         <div data-role="header" data-position="fixed" data-id="header1" data-tap-toggle="false">
             <h1 data-theme="e">Elaw.my</h1>
-            <a id="linkback" href="#" data-icon="arrow-l" data-role="back" data-theme="b">Back</a>
-            <a href="options.html" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>  
+            <a id="linkback" href="searchItems3.html" data-icon="arrow-l" data-theme="b">Back</a>
+            <a href="index.html" data-icon="gear" class="ui-btn-right" data-theme="b">Home</a>  
         </div><!-- /header -->
        <div id="results">
        	
@@ -33,36 +33,24 @@
                         <li><a href="help.html" data-icon="alert">Help</a></li>
                     </ul>
                 </div>
-        </div>    
-        </div>
+        </div> <!-- FOOTER ends    -->
+        <div data-role="popup" id="popupMenu" id="footerlist2">
+            <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                <li><a href="references.html">References</a></li>
+                <li><a href="help.html">Help</a></li>                            
+            </ul>
+        </div> 
+        </div> <!-- content ends -->
     <script>
-    $.urlParam = function(name){
-    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
-    if(results)
-        return results[1] || 0;		
-    else
-        return '';
-    }
-	$("#linkback").bind("click",function(){
-		window.history.back();
-	});
     function runIt2(){
-		$("#footerList a").each(function(){				
-				var url = $(this).attr('href');
-				url += '?u='+$.urlparam('u');
-				$(this).attr('href',url);
-		});
-        var ec = $.urlParam('ec');
-		var referrer =  document.referrer;
-        $("#linkback").attr('href',referrer);
-        var filename = $.urlParam('filename')
-        var part = $.urlParam('part')
-        var url = 'http://elaw.com.my/test2/mobile/legislationsearchmobile.aspx?ec='+ec+'&filename='+filename+'&part='+part;
+        var filename = $.filename;
+        var part = $.part;
+        var url = 'http://elaw.com.my/test2/mobile/legislationsearchmobile.aspx?filename='+filename+'&part='+part;
          url += '&callback=?';       
-        console.log(url)
+        //console.log(url)
         $.getJSON(url,function(data){
                 var html = '';
-                console.log(data);
+                //console.log(data);
                 if (data){
 					$.each(data.result,function(index,elem){
 						//console.log(index);

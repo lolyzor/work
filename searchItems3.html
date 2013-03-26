@@ -20,9 +20,6 @@
             <a href="index.html" data-icon="gear" class="ui-btn-right" data-theme="b">Home</a>  
         </div><!-- /header -->
        <ul data-role="listview" id="mylist2">
-            <!-- <li data-role="list-divider">High Court Kuala Lumpur</li>
-            <li><a href="">Audi</a></li>
-            <li><a href="">BMW</a></li> -->
         </ul>		
         <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
                 <div data-role="navbar">
@@ -30,19 +27,22 @@
                         <li><a href="#" data-icon="star" class="">Latest</a></li>
                         <li><a href="caseSearch.html" data-icon="search">Cases</a></li>
                         <li><a href="legislationSearch.html" data-icon="search" data-theme="e">Legislation</a></li>
-                        <li><a href="references.html" data-icon="info">References</a></li>
-                        <li><a href="help.html" data-icon="alert">Help</a></li>
+                        <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
                     </ul>
                 </div>
-        </div>    
-        </div>
+        </div> <!-- footer ends -->
+        <div data-role="popup" id="popupMenu" id="footerlist2">
+            <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                <li><a href="references.html">References</a></li>
+                <li><a href="help.html">Help</a></li>                            
+            </ul>
+        </div> 
+        </div> <!-- content ends -->
     <script>
     function runIt2(){
         $("#lssResult #mylist2").on('click','li',function(){
-        //var filename = $(this).attr('name');
-        //console.log($(this).attr('name'))    
-        //$.filename = filename;
         $.part = $(this).attr('part');
+        $.filename = $(this).attr('name');
         $.mobile.changePage('case2.html');
         });
     }

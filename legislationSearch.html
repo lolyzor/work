@@ -74,11 +74,16 @@
                     <li><a href="latestCases.html" data-icon="star">Latest</a></li>
                     <li><a href="caseSearch.html" data-icon="search" class="">Search</a></li>
                     <li><a href="#" data-icon="search" data-theme="e">Legislation</a></li>
-                    <li><a href="references.html" data-icon="info">References</a></li>
-                    <li><a href="help.html" data-icon="alert">Help</a></li>
+                    <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
                 </ul>
             </div><!-- /navbar -->
         </div><!-- /footer -->        
+        <div data-role="popup" id="popupMenu" id="footerlist2">
+            <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                <li><a href="references.html">References</a></li>
+                <li><a href="help.html">Help</a></li>                            
+            </ul>
+        </div> 
     </div> <!-- content -->
  <script>
     function runIt(){

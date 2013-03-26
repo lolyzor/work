@@ -51,23 +51,6 @@
 	        </ul>
         </div> 
 	<script>
-		$.urlparam = function(name){
-			var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
-			if(results)
-				return results[1] || 0;		
-			else
-				return '';
-			}
-		function runIt(){
-			$("#footerList a, div[data-role='popup'] a").each(function(){				
-				var url = $(this).attr('href');
-				if(url.indexOf('popupMenu') == -1)
-				url += '?u='+$.urlparam('u');
-				$(this).attr('href',url);
-			});
-			$("#home").attr('href','index.html?u='+$.urlparam('u'));
-			$("#what").trigger('expand');
-		}
 		$("#filter").on("click",function(){
 			var url = 'http://elaw.com.my/Elawf4/mobile/dictionarymobile.aspx?f='+$("#name").val()+'&callback=?';
 			$.getJSON(url,function(data){
@@ -88,7 +71,7 @@
 				});
 			});
 		});
-		$('#referencesPage').on('pageshow', runIt);
+		//$('#referencesPage').on('pageshow', runIt);
 	</script>
 </div><!-- /page -->
 

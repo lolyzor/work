@@ -261,14 +261,14 @@
                 $('#lssResult #mylist2').listview('refresh');
         }
         if(pageId == 'briefcasePage'){
+            //console.log(data.result);
             var html = '';              
             var cases = '';
                 $.each(data,function(){                    
                     if(data.result.Title){
-                    html += '<li name="'+data.result.xmlFileName+'"><a href="#"><h1>'+data.result.Title+'<h1></a></li>';  
-                    cases += '<option name="'+data.result.Title+'">'+data.result.Title+'</option>'
-                    }
-                    
+                    html += '<li name="'+data.result.CaseID+'"><a href="#"><h1>'+data.result.Title+'<h1></a></li>';  
+                    cases += '<option value="'+data.result.CaseID+'">'+data.result.Title+'</option>'                   
+                    }                                
                 });
                 if(!html){
                     $("#nohtml").html('<h2>No cases saved</h2>');
@@ -277,8 +277,9 @@
                 else{
                     $("#briefcaseId").html(html);
                     $("#briefcaseId").listview("refresh");   
-                    console.log(cases);           
                     $("#briefcasePage #selectCase").html(cases);
+                    $("#briefcasePage #selectCase").selectmenu('refresh');
+
                 }
         }
 

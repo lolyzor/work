@@ -24,19 +24,17 @@
         <!-- <a href="options.html" data-icon="gear" class="ui-btn-right" data-theme="b"></a>   -->
     </div><!-- /header -->
     <div data-role="content">
-
-    <div id="nohtml"></div>
-	<div data-role="listview" id="briefcaseId">
-	
+	<div data-role="listview" id="briefcaseId">	
 	</div>
-    <div class="ui-grid-a">
+    <div id="nohtml"></div>
+    <div class="ui-grid-a" style="margin-top:20px;">
         <div class="ui-block-a">
-            <select id="selectCase" name="cases" data-mini="true" id="sort">            
+            <select id="selectCase" data-mini="true">            
             </select>   
         </div>
         <div class="ui-block-b">
             <!-- <a id="delete" data-role="button" href="#" data-mini="true" data-theme="e">Delete</a> -->
-            <button data-mini="true" data-theme="e">Delete</button>
+            <button data-mini="true" data-theme="e" id="delete">Delete</button>
         </div>
     </div>
 	
@@ -63,13 +61,31 @@
 	        $.filename = $(this).attr('name');
 	        $.mobile.changePage('case.html');
 	        });
+         $("#briefcasePage #delete").on('click',function(){
+            //var html = '';
+            var selected = $("#briefcasePage #selectCase option:selected").attr('value');
+            $("#briefcasePage #selectCase option:selected").remove();
+            $('#selectCase').selectmenu('refresh');
+            $("li[name="+selected+"]").remove();
+            $("#briefcaseId").listview('refresh');
+            if($("div[role=listview]").length == 0){
+                $("#nohtml").html('<h1 align="center" style="margin-top:50px;">You have no saved cases</h1>');
+                $(".ui-grid-a").toggle();
+            }
+            deleteIt(selected);
+         });
 	});
-		function runIt(){
-			var url = 'http://elaw.com.my/Elawf4/mobile/mybreifcasemobile.aspx?u='+$.u+'&callback=?';
-			//console.log($.u);
-			//return false;
-			$.getJson(url,'briefcasePage');		
-		}
+    function deleteIt (selected) {
+        //console.log(selected);
+        url = 'http://elaw.com.my/Elawf4/mobile/mybreifcasemobile.aspx?d='+selected+'&u='+$.u+'&callback=?';
+        console.log(url);
+        $.getJSON(url);
+    }
+	function runIt(){
+        $.selected = false;
+		var url = 'http://elaw.com.my/Elawf4/mobile/mybreifcasemobile.aspx?u='+$.u+'&callback=?';
+        $.getJson(url,'briefcasePage');                                     			
+	}
 		$('#briefcasePage').on('pageshow', runIt);
 	</script>
 	</div>

@@ -19,11 +19,11 @@
             <a id="home" href="legislationSearch.html" data-icon="arrow-l" data-theme="b">Back</a>
             <a href="index.html" data-icon="gear" class="ui-btn-right" data-theme="b">Home</a>  
         </div><!-- /header -->
-        <div class="ui-grid-c">
+        <div class="ui-grid-a">
 			<div class="ui-block-a"><h3 id="cp">Current page: </h3></div>
-			<div class="ui-block-b"><h3></h3></div>
-			<div class="ui-block-c"><h3></h3></div>
-			<div class="ui-block-d"><h3 id="lp">Last page: </h3></div>
+			<!-- <div class="ui-block-b"><h3></h3></div>
+            <div class="ui-block-c"><h3></h3></div> -->
+			<div class="ui-block-b"><h3 id="lp">Last page: </h3></div>
 		</div><!-- /grid-c -->
        <ul data-role="listview" id="mylist2">
             <!-- <li data-role="list-divider">High Court Kuala Lumpur</li>
@@ -32,15 +32,15 @@
         </ul>
 		<fieldset class="ui-grid-a" style="margin-top: 20px;">
         <div class="ui-block-a">
-        <a href="#" data-role="button" data-theme="e" data-mini="true" id="pClick" rel="external">Previous</a>        
+        <a href="#" data-role="button" data-theme="e" data-mini="true" id="pClick">Previous</a>        
         </div>
         <div class="ui-block-b">
-        <a href="#" data-role="button" data-theme="e" data-mini="true" id="nClick" rel="external">Next</a>        
+        <a href="#" data-role="button" data-theme="e" data-mini="true" id="nClick">Next</a>        
         </div>   
 		</fieldset>
 		<fieldset class="ui-grid-a">
         <div class="ui-block-a">
-        <a href="#" data-role="button" data-theme="e" data-mini="true" id="jp" rel="external" style="margin-top: 8px;">Jump to page</a>        
+        <a href="#" data-role="button" data-theme="e" data-mini="true" id="jp" style="margin-top: 8px;">Jump to page</a>        
         </div>
         <div class="ui-block-b">
 		<input type="number" name="name" id="jtp" value=""/>        
@@ -53,12 +53,17 @@
 					<li><a href="latest.html" data-icon="star" class="">Latest</a></li>
 					<li><a href="caseSearch.html" data-icon="search">Cases</a></li>
 					<li><a href="legislationSearch.html" data-icon="search" data-theme="e">Legislation</a></li>
-					<li><a href="references.html" data-icon="info">References</a></li>
-					<li><a href="help.html" data-icon="alert">Help</a></li>
+					<li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
                     </ul>
                 </div>
-        </div>    
-        </div>
+        </div> <!-- footer finished    -->
+        <div data-role="popup" id="popupMenu" id="footerlist2">
+            <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                <li><a href="references.html">References</a></li>
+                <li><a href="help.html">Help</a></li>                            
+            </ul>
+        </div> 
+        </div> <!-- content -->
     <script>
     function makeUrl(){
         var url = 'http://elaw.com.my/Elawf4/mobile/legislationsearchmobile.aspx?'
