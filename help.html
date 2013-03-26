@@ -32,7 +32,7 @@
     <div data-role="footer" data-position="fixed" id="footerlist">        
             <div data-role="navbar">
                 <ul>
-                    <li><a href="latestCases.html" data-icon="star" class="">Latest</a></li>
+                    <li><a href="latest.html" data-icon="star" class="">Latest</a></li>
                     <li><a href="caseSearch.html" data-icon="search">Cases</a></li>
                     <li><a href="legislationSearch.html" data-icon="search">Legislation</a></li>
                     <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear" >More</a></li>                    
@@ -46,30 +46,6 @@
                         </ul>
                     </div>
     <script>
-        $.urlParam = function(name){
-        var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
-        if(results)
-            return results[1] || '';
-        else
-            return '';
-        }
-        $("#footerlist a").each(function(){
-            var url = $(this).attr('href');
-            if(url.indexOf('popupMenu') == -1 ){                
-                var u = $.urlParam("u");
-                $(this).attr('href',url+='?u='+u);
-            }                            
-        });
-        $("div[data-role='popup'] a").each(function(){
-            //console.log($(this));
-            var url = $(this).attr('href');            
-            var u = $.urlParam("u");
-            $(this).attr('href',url+='?u='+u);
-                                        
-        });
-        var url = $("#home").attr('href');
-        $("#home").attr('href',url+=$.urlParam('u'));
-
     </script>
 </div><!-- /page -->
 
