@@ -38,22 +38,25 @@
 		<div class="ui-block-b">
 			<a id="dSearch" data-role="button" href="#" data-mini="true" data-theme="e">Search</a>
 		</div>  
-        
-		<div class="ui-block-a">
+        </div>
+		<!-- <div class="ui-block-a"> -->
 			<select name="srt" data-mini="true" id="sort">
-				<option value="">Sort by</option>
-				<option value="t">Title</option>
-				<option value="y">Year</option>
-				<option value="j">Judge</option>				
+				<option value="a" selected="selected">Ascending Order</option>
+                <option value="d">Descending Order</option>
+                <option value="j">Judge Name</option>
+                <option value="sc">Superior Court</option>
+                <option value="ac">Appeal Court</option>
+                <option value="lc">Lower Court</option>
+                <option value="ic">Industrial Court</option>			
 			</select>						
-		</div>
-		<div class="ui-block-b">
-			<select name="srto" data-mini="true" id="order">
-				<option value="a">Ascending</option>
-				<option value="d">Descending</option>
-			</select>		
-		</div>
-		</div>
+		<!-- </div>
+        <div class="ui-block-b">
+            <select name="srto" data-mini="true" id="order">
+                <option value="a">Ascending</option>
+                <option value="d">Descending</option>
+            </select>        
+        </div> -->
+		
 		</div>
         </form> 
          <div class="ui-grid-a">
@@ -129,6 +132,11 @@
         $.getJson(urltext,'caseSearchResults');
     }
     function runIt2(){
+        $("#sort").change(function(){
+            var query = $("#searchInside").serialize();
+            //console.log(query);
+            loadJson();
+        });
         $("#caseSearchResults #dSearch").on("click",function(){
             $.page = 1;
             loadJson();
