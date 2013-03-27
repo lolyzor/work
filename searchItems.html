@@ -39,24 +39,17 @@
 			<a id="dSearch" data-role="button" href="#" data-mini="true" data-theme="e">Search</a>
 		</div>  
         </div>
-		<!-- <div class="ui-block-a"> -->
 			<select name="srt" data-mini="true" id="sort">
-				<option value="a" selected="selected">Ascending Order</option>
-                <option value="d">Descending Order</option>
+                <option value="" selected="selected">Sorty by</option>
+				<option value="aa">Ascending Order</option>
+                <option value="dd">Descending Order</option>
                 <option value="j">Judge Name</option>
                 <option value="sc">Superior Court</option>
                 <option value="ac">Appeal Court</option>
-                <option value="lc">Lower Court</option>
+                <option value="hc">High Court</option>
+                <option value="fc">Federal Court</option>
                 <option value="ic">Industrial Court</option>			
-			</select>						
-		<!-- </div>
-        <div class="ui-block-b">
-            <select name="srto" data-mini="true" id="order">
-                <option value="a">Ascending</option>
-                <option value="d">Descending</option>
-            </select>        
-        </div> -->
-		
+			</select>								
 		</div>
         </form> 
          <div class="ui-grid-a">
@@ -113,13 +106,18 @@
         if(!$.caseSearchArgs){
             $.mobile.changePage('caseSearch.html');
         }
-        //var urltext = url($.caseSearchArgs);
-        //$.mobile.loading('show');
-        //$.getJson(urltext,'caseSearchResults')
         loadJson();
     }
-    function loadJson(){
+    function loadJson(sort){
         var args = $("#searchInside").serialize();
+        if(args.indexOf('aa') != -1){
+            args = args.replace('aa','');
+            args += '&srt=t&srto=a';
+        }
+        if(args.indexOf('dd')!= -1){
+            args = args.replace('dd','');
+            args += '&srt=t&srto=a';
+        }            
         var match = $("#newec").val();
         args = args.replace('ns='+match,'');
         if(!$.ns)
@@ -133,9 +131,9 @@
     }
     function runIt2(){
         $("#sort").change(function(){
-            var query = $("#searchInside").serialize();
-            //console.log(query);
-            loadJson();
+            //var query = $("#searchInside").serialize();
+            $.page = 1;
+            loadJson('sort');
         });
         $("#caseSearchResults #dSearch").on("click",function(){
             $.page = 1;

@@ -77,7 +77,7 @@
 	});
     function deleteIt (selected) {
         //console.log(selected);
-        url = 'http://elaw.com.my/Elawf4/mobile/mybreifcasemobile.aspx?d='+selected+'&u='+$.u+'&callback=?';
+        url = 'http://elaw.com.my/Elawf4/mobile/mybreifcasemobile.aspx?del='+selected+'&u='+$.u+'&callback=?';
         console.log(url);
         $.getJSON(url);
     }

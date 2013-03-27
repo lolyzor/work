@@ -19,33 +19,53 @@
             <a id="home" href="legislationSearch.html" data-icon="arrow-l" data-theme="b">Back</a>
             <a href="index.html" data-icon="gear" class="ui-btn-right" data-theme="b">Home</a>  
         </div><!-- /header -->
+        <form id="searchInside">
+        <div style="margin-bottom:20px;">
+        <div class="ui-grid-a">
+        <div class="ui-block-a">
+        <div style="margin-left:5px;">        
+         <input name="ns" id="newec" value="" type="search" placeholder="search..." data-mini="true">
+        </div>
+        </div>
+        <div class="ui-block-b">
+            <a id="dSearch" data-role="button" href="#" data-mini="true" data-theme="e">Search</a>
+        </div>  
+        </div>
+            <select name="srt" data-mini="true" id="sort">
+                <option value="" selected="selected">Sorty by</option>
+                <option value="aa">Ascending Order</option>
+                <option value="dd">Descending Order</option>
+                <option value="j">Judge Name</option>
+                <option value="sc">Superior Court</option>
+                <option value="ac">Appeal Court</option>
+                <option value="hc">High Court</option>
+                <option value="fc">Federal Court</option>
+                <option value="ic">Industrial Court</option>            
+            </select>                               
+        </div>
+        </form> 
         <div class="ui-grid-a">
 			<div class="ui-block-a"><h3 id="cp">Current page: </h3></div>
-			<!-- <div class="ui-block-b"><h3></h3></div>
-            <div class="ui-block-c"><h3></h3></div> -->
 			<div class="ui-block-b"><h3 id="lp">Last page: </h3></div>
-		</div><!-- /grid-c -->
-       <ul data-role="listview" id="mylist2">
-            <!-- <li data-role="list-divider">High Court Kuala Lumpur</li>
-            <li><a href="">Audi</a></li>
-            <li><a href="">BMW</a></li> -->
+		</div>
+        <ul data-role="listview" id="mylist2">
         </ul>
-		<fieldset class="ui-grid-a" style="margin-top: 20px;">
+        <fieldset class="ui-grid-a" style="margin-top: 20px;">
         <div class="ui-block-a">
         <a href="#" data-role="button" data-theme="e" data-mini="true" id="pClick">Previous</a>        
         </div>
         <div class="ui-block-b">
         <a href="#" data-role="button" data-theme="e" data-mini="true" id="nClick">Next</a>        
         </div>   
-		</fieldset>
-		<fieldset class="ui-grid-a">
+        </fieldset>
+        <fieldset class="ui-grid-a">
         <div class="ui-block-a">
         <a href="#" data-role="button" data-theme="e" data-mini="true" id="jp" style="margin-top: 8px;">Jump to page</a>        
         </div>
         <div class="ui-block-b">
-		<input type="number" name="name" id="jtp" value=""/>        
+        <input type="number" name="name" id="jtp" value=""/>        
         </div>   
-		</fieldset>
+        </fieldset>
 		
         <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
                 <div data-role="navbar">
@@ -92,14 +112,9 @@
             $.page = $.nextPage
             loadJson();
         });
-     $("#jp").on("click",function(){
+     $("#lsResult #jp").on("click",function(){
         var jtpage = parseInt($("#jtp").val());
         var lastp = $.lastPage;
-        /*if(jtpage > lastp)
-            $.page = lastp;
-        if(jtpage < 0)
-            jtpage = 1;
-        $.page = jtpage;*/
         jtpage > lastp ? $.page = lastp : $.page = jtpage;
         loadJson();
     });
