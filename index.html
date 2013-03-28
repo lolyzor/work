@@ -249,7 +249,7 @@
             html += '<li name="'+$.fileName+'" part="'+index+'"><a href="#"><h1>'+elem+'</h1><p>'+index+'</p></a></li>'
             });
             if(html === ''){
-                html = '<li>No results</li>'
+                html = '<h3 align="center">Document not available</h3>'
             }
                 $('#lssResult #mylist2').html(html);
                 $('#lssResult #mylist2').listview('refresh');

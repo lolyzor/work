@@ -48,17 +48,13 @@
         //var ec = $.urlParam('ec');
         var url = 'http://elaw.com.my/Elawf4/mobile/searchresultmobile.aspx?filename='+filename;
         var page = '';
-        if($.page){
-            //$.page += 1;
-            //console.log($.page);
-            $.page += 1;
-            /*if($.page > $.lastPage)
-                $.page -= 1;*/
-            page = $.page;
+        if($.casePage){
+            $.casePage += 1;
+            page = $.casePage;
         }
         else{
             page = 1;
-            $.page = 1;    
+            $.casePage = 1;    
         }            
         url += '&p='+page;
         url += '&callback=?';
@@ -66,7 +62,7 @@
         return url;
     }
     function runIt(){
-        $.page = 0;
+        $.casePage = 0;
         var urltext = makeUrl();
         $.mobile.loading('show');
         $.getJson(urltext,'caseMain');
@@ -76,7 +72,7 @@
                     if($.scrollAndLoad){                
                         url = makeUrl();
                         console.log(url);
-                        if($.page <= $.lastPage){
+                        if($.casePage <= $.lastPage){
                             $.getJson(url,'caseMain');
                             $.mobile.loading('show');
                         }                        
@@ -87,42 +83,7 @@
             }    
         });
     }
-    //$(document).delegate('#main2', 'pageshow', runIt);
-    $('#caseMain').on('pageshow', runIt);
-    $('#caseMain').on('scroll',function(){
-        
-    });
-   /* $(window).scroll(function(e){
-        if(!e.id == 'caseMain'){
-            console.log(e);
-            return false;
-        }
-        else{
-            console.log(e);
-        }
-         if($(window).scrollTop() + $(window).height() >= $(document).height()){
-            //console.log('in?');
-
-            if($.scroll){
-                //console.log('inside');
-                $.mobile.loading('show');
-                $.page +=1;
-                var url = makeUrl();
-                getJson(url);    
-                //$(window).height() -= 20;
-                $.scroll = false;
-                //me
-                //test 2 what on earth is this ?
-            }
-            else{
-                //console.log('outside');
-                //$.scroll = true;
-            }
-         }
-
-        });*/
-            
-
+    $('#caseMain').on('pageshow', runIt);  
     </script>
     </div>
 </body>
