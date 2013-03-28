@@ -105,7 +105,7 @@
             $.lns = $("#lsResult #newec").val();        
         else
             $.lns += ' '+$("#lsResult #newec").val();
-        args += '&ns='+$.lns;
+        args += '&ns='+$.lns;        
         $.sortingLegislation = args;
         loadJson();
     }
@@ -137,17 +137,17 @@
         loadJson();
     });
      $("#lsResult #mylist2").on('click','li',function(){
-        //console.log($(this));
         var filename = $(this).attr('name');
-        //console.log($(this).attr('name'))    
         $.filename = filename;
-        //console.log($.filename);
         $.mobile.changePage('searchItems3.html');
     });
 
     });
     $("#lsResult").on('pageshow',function(){
         //var url = makeUrl();
+        //$.lns = '';
+        //$.sortingLegislation = '';
+        //console.log($.lns);
         loadJson();
         //$.getJson(url,'lsResult');
     });

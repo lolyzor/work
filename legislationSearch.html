@@ -92,7 +92,9 @@
             arg += $("#advanceSearch").serialize();
             //console.log(args);   
             $.args = arg;
-            $.page = null;
+            $.page = false;
+            $.sortingLegislation = '';
+            $.lns = '';
             $.mobile.changePage('searchItems2.html');
         });
         $("#legislationSearch #lsearchb").on("click",function(){
@@ -100,7 +102,9 @@
             $.ec = $("#simpleSearch").serialize();
             // console.log('ya');
             $.args = $.ec;
-            $.page = null;
+            $.page =false;
+            $.sortingLegislation = '';
+            $.lns = '';
             $.mobile.changePage('searchItems2.html');
         });
         $("#legislationSearch #cancleb").on("click",function(){
