@@ -28,7 +28,7 @@
                     <ul id="footerList">
                         <li><a href="latest.html" data-icon="star" class="">Latest</a></li>
                         <li><a href="caseSearch.html" data-icon="search">Cases</a></li>
-                        <li><a href="legislationSearch.html" data-icon="search" data-theme="e">Legislation</a></li>
+                        <li><a href="legislationSearch.html" data-icon="search" data-theme="b">Legislation</a></li>
                         <li><a href="references.html" data-icon="info">References</a></li>
                         <li><a href="help.html" data-icon="alert">Help</a></li>
                     </ul>
@@ -46,15 +46,11 @@
         var filename = $.filename;
         var part = $.part;
         var url = 'http://elaw.com.my/test2/mobile/legislationsearchmobile.aspx?filename='+filename+'&part='+part;
-         url += '&callback=?';       
-        //console.log(url)
+         url += '&callback=?';
         $.getJSON(url,function(data){
                 var html = '';
-                //console.log(data);
                 if (data){
 					$.each(data.result,function(index,elem){
-						//console.log(index);
-						//console.log(elem);
 						html += '<div data-role="collapsible">';
 						html += '<h4 align="center">'+index+' '+elem.SectionTitle+'</h4>';						
 						html += '<p>'+elem.SectionContent+'</p>';   
