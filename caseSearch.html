@@ -113,9 +113,10 @@
                 var args = $("#normalSearch").serialize()+'&'+$("#advanceSearch").serialize();
                 $.caseSearchArgs = args;
                 $.page = false;
-                $.mobile.changePage('searchItems.html');
+                $.sortingCaseSearch = false;
                 if($.ns)
                     $.ns = '';
+                $.mobile.changePage('searchItems.html');                
             });
         $("#caseSearch #searchb").bind("click",function(){                
                 console.log('normal search');
@@ -123,9 +124,10 @@
                 $.caseSearchArgs = args;                
                 $.ec = $("#ec").val();
                 $.page = false;
-                $.mobile.changePage('searchItems.html');
+                $.sortingCaseSearch = false;
                 if($.ns)
                     $.ns = '';
+                $.mobile.changePage('searchItems.html');                
         });
       </script> 
 </div><!-- /page -->

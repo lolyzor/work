@@ -95,7 +95,12 @@
     <script>
     function url(args){
         var url = 'http://elaw.com.my/Elawf4/mobile/searchresultmobile.aspx?'
-        url += args;
+        if(!$.caseSearchArgs)
+            $.mobile.changePage('caseSearch.html');
+        else
+            url += $.caseSearchArgs;
+        if($.sortingCaseSearch)
+            url += $.sortingCaseSearch;
         $.page == false ? $.page = 1 : url+='&page='+$.page;
         url += '&callback=?'
         console.log(url);
@@ -108,7 +113,7 @@
         }
         loadJson();
     }
-    function loadJson(sort){
+    function changeAndSort(){
         var args = $("#searchInside").serialize();
         if(args.indexOf('aa') != -1){
             args = args.replace('aa','');
@@ -124,8 +129,12 @@
             $.ns = $("#newec").val();        
         else
             $.ns += ' '+$("#newec").val();
-        var urltext = url($.caseSearchArgs+'&ns='+$.ns+args);
-        console.log(urltext);
+        $.sortingCaseSearch = '&ns='+$.ns+args;
+        loadJson();
+    }
+    function loadJson(args){        
+        var urltext = url();
+        //console.log(urltext);
         $.mobile.loading('show');
         $.getJson(urltext,'caseSearchResults');
     }
@@ -133,14 +142,12 @@
         $("#sort").change(function(){
             //var query = $("#searchInside").serialize();
             $.page = 1;
-            loadJson('sort');
+            changeAndSort();
         });
         $("#caseSearchResults #dSearch").on("click",function(){
             $.page = 1;
-            loadJson();
-            //return false;
+            changeAndSort();
         });
-        //$.page = false;
         $("#caseSearchResults #pClick").on('click',function(){
             $.page = $.prevPage;
             loadJson();
