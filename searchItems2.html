@@ -36,8 +36,8 @@
                 <option value="a">Ascending Order</option>
                 <option value="d">Descending Order</option>
                 <option value="act">ACT</option>
-                <option value="puba">PU(A)</option>
-                <option value="pubb">PU(B)</option>           
+                <option value="pa">PU(A)</option>
+                <option value="pb">PU(B)</option>           
             </select>                               
         </div>
         </form> 
@@ -91,21 +91,29 @@
             $.page=1;
         url += '&page='+$.page;
         if($.sortingLegislation)
-            url += '&'+$.sortingLegislation;
+            url += $.sortingLegislation;
         url += '&callback=?';
-        //console.log(url);
+        console.log(url);
         return url;
 
     }
-    $("#lsResult #sort").change(function(){
+    function changeAndSort(){
         var args = $("#lsResult #searchInside").serialize();
-        if(args.indexOf('srt=a')!=-1 && args.indexOf('srt=act')==-1)
-            args = args.replace('srt=a','srt=t&srto=a');
-        if(args.indexOf('srt=d')!=-1)
-            args = args.replace('srt=d','srt=t&srto=d');
+        var match = $("#lsResult #newec").val();
+        args = args.replace('ns='+match,'');
+        if(!$.lns)
+            $.lns = $("#lsResult #newec").val();        
+        else
+            $.lns += ' '+$("#lsResult #newec").val();
+        args += '&ns='+$.lns;
         $.sortingLegislation = args;
         loadJson();
-
+    }
+    $("#lsResult #sort").change(function(){
+        changeAndSort();
+    });
+    $("#lsResult #dSearch").on('click',function(){
+        changeAndSort();
     });
     function loadJson(){
         var url = makeUrl();
