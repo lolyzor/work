@@ -32,15 +32,12 @@
         </div>  
         </div>
             <select name="srt" data-mini="true" id="sort">
-                <option value="" selected="selected">Sorty by</option>
-                <option value="aa">Ascending Order</option>
-                <option value="dd">Descending Order</option>
-                <option value="j">Judge Name</option>
-                <option value="sc">Superior Court</option>
-                <option value="ac">Appeal Court</option>
-                <option value="hc">High Court</option>
-                <option value="fc">Federal Court</option>
-                <option value="ic">Industrial Court</option>            
+                <option value="" selected="selected">Sort by</option>
+                <option value="a">Ascending Order</option>
+                <option value="d">Descending Order</option>
+                <option value="act">ACT</option>
+                <option value="puba">PU(A)</option>
+                <option value="pubb">PU(B)</option>           
             </select>                               
         </div>
         </form> 
@@ -93,10 +90,23 @@
         if(!$.page)
             $.page=1;
         url += '&page='+$.page;
+        if($.sortingLegislation)
+            url += '&'+$.sortingLegislation;
         url += '&callback=?';
+        //console.log(url);
         return url;
 
     }
+    $("#lsResult #sort").change(function(){
+        var args = $("#lsResult #searchInside").serialize();
+        if(args.indexOf('srt=a')!=-1 && args.indexOf('srt=act')==-1)
+            args = args.replace('srt=a','srt=t&srto=a');
+        if(args.indexOf('srt=d')!=-1)
+            args = args.replace('srt=d','srt=t&srto=d');
+        $.sortingLegislation = args;
+        loadJson();
+
+    });
     function loadJson(){
         var url = makeUrl();
         $.mobile.loading('show');
