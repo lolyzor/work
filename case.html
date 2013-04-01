@@ -46,14 +46,8 @@
         //var ec = $.urlParam('ec');
         var url = 'http://elaw.com.my/Elawf4/mobile/searchresultmobile.aspx?filename='+filename;
         var page = '';
-        if($.casePage){
-            $.casePage += 1;
-            page = $.casePage;
-        }
-        else{
-            page = 1;
-            $.casePage = 1;    
-        }            
+        $.casePage += 1;
+        page = $.casePage;           
         url += '&p='+page;
         url += '&callback=?';
         //console.log(url);
@@ -61,6 +55,7 @@
     }
     function runIt(){
         $.casePage = 0;
+        $.scrollAndLoad = true;
         var urltext = makeUrl();
         $.mobile.loading('show');
         $.getJson(urltext,'caseMain');
@@ -75,6 +70,7 @@
                             $.mobile.loading('show');
                         }                        
                         $.scrollAndLoad = false;
+                        //$(window).height() -= 20;
                         
                     }                
                 }

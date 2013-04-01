@@ -194,7 +194,7 @@
                 //console.log(data);
                 if (data){
                     //var lastPage = Integer.parseInt(data.lastPage);                    
-                    if($.page==1){
+                    if($.casePage==1){
                         var title = '<h2 align="center">'+data.result.Title+'</h2>';
                         html+= title;
                         $.lastPage = parseInt(data.result.lastPage);
@@ -204,10 +204,16 @@
                 else{
                     html='<h2 align="center">No content to display</h2>'
                 }
-                if($.page > 1)
+                if($.casePage > 1){
                     $("#caseMain #results").append(html);
-                else
+                    //console.log($.casePage);
+                }
+                    
+                else{
                     $("#caseMain #results").html(html);
+                    //console.log($.casePage);
+                }
+                    
                 $.scrollAndLoad = true;
                 $.mobile.loading('hide');
         }
