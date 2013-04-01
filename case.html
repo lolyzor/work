@@ -11,19 +11,18 @@
    
 </head>
 <body>
- <div data-role="page" id="caseMain" data-add-back-btn="true">
- <div data-role="content">
+ <div data-role="page" id="caseMain">
+
         <div data-role="header" data-position="fixed" data-id="header1" data-tap-toggle="false">
             <h1 data-theme="e">Elaw.my</h1>
             <a id="linkback" href="searchItems.html" data-icon="arrow-l" data-theme="b">Back</a>
             <a href="index.html" data-icon="gear" class="ui-btn-right" data-theme="b">Home</a>  
         </div><!-- /header -->
-        <h1 align="center">
-            
-        </h1>
-       <div id="results">
-       	
-       </div>
+         <div data-role="content">
+           <div id="results">
+           	
+           </div>
+       </div> <!-- ending content -->
         <div data-role="footer" data-tap-toggle="false" data-id="footer1">        
             <div data-role="navbar">
                 <ul id="footerList">
@@ -40,7 +39,7 @@
                 <li><a href="help.html">Help</a></li>                            
             </ul>
         </div>        
-        </div> <!-- ending content -->
+        
     <script>
     function makeUrl(p){
         var filename = $.filename;
