@@ -13,12 +13,12 @@
 </head>
 <body>
  <div data-role="page" id="lsResult">
- <div data-role="content">
-        <div data-role="header" data-position="fixed" data-id="header1" data-tap-toggle="false">
+    <div data-role="header" data-position="fixed" data-id="header1" data-tap-toggle="false">
             <h1 data-theme="e">Elaw.my</h1>
             <a id="home" href="legislationSearch.html" data-icon="arrow-l" data-theme="b">Back</a>
             <a href="index.html" data-icon="gear" class="ui-btn-right" data-theme="b">Home</a>  
         </div><!-- /header -->
+ <div data-role="content">        
         <form id="searchInside">
         <div style="margin-bottom:20px;">
         <div class="ui-grid-a">
@@ -73,6 +73,7 @@
 					<li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
                     </ul>
                 </div>
+          </div> <!-- content -->
         </div> <!-- footer finished    -->
         <div data-role="popup" id="popupMenu" id="footerlist2">
             <ul data-role="listview" data-inset="true" style="min-width:210px;">
@@ -80,7 +81,7 @@
                 <li><a href="help.html">Help</a></li>                            
             </ul>
         </div> 
-        </div> <!-- content -->
+      
     <script>
     function makeUrl(){
         var url = 'http://elaw.com.my/Elawf4/mobile/legislationsearchmobile.aspx?'

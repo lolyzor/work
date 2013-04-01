@@ -12,15 +12,16 @@
    
 </head>
 <body>
- <div data-role="page" id="lssResult">
- <div data-role="content">
+ <div data-role="page" id="lssResult"> 
         <div data-role="header" data-position="fixed" data-id="header1">
             <h1 data-theme="e">Elaw.my</h1>
             <a href="searchItems2.html" id="linkback" data-icon="arrow-l" data-theme="b">Back</a>
             <a href="index.html" data-icon="gear" class="ui-btn-right" data-theme="b">Home</a>  
         </div><!-- /header -->
+        <div data-role="content">
        <ul data-role="listview" id="mylist2">
         </ul>		
+         </div> <!-- content ends -->
         <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
                 <div data-role="navbar">
                     <ul id="footerList">
@@ -37,7 +38,7 @@
                 <li><a href="help.html">Help</a></li>                            
             </ul>
         </div> 
-        </div> <!-- content ends -->
+       
     <script>
     function runIt2(){
         $("#lssResult #mylist2").on('click','li',function(){
