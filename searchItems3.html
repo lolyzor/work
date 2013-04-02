@@ -42,9 +42,11 @@
     <script>
     function runIt2(){
         $("#lssResult #mylist2").on('click','li',function(){
-        $.part = $(this).attr('part');
-        $.filename = $(this).attr('name');
+        $.case2part = $(this).attr('part');
+        $.case2filename = $(this).attr('name');
+        //console.log($.case2filename);
         $.mobile.changePage('case2.html');
+
         });
     }
     function buildUrl(){        
@@ -57,7 +59,7 @@
 		console.log(url);
         $.getJson(url,'lssResult');
     }
-    $('#lsResult').on('pageinit', runIt2);
+    $('#lssResult').on('pageinit', runIt2);
     $('#lssResult').on('pageshow', runIt);
     //$("#resultMain2").swiperight(function(){
     //    $.mobile.changePage("caseSearch.html",{transition:"slide",reverse:true});

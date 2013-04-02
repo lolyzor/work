@@ -245,8 +245,9 @@
         if(pageId == 'lssResult'){
             var html = '';
             //console.log(data);
+            //console.log($.filename);
             $.each(data.result,function(index,elem){                
-            html += '<li name="'+$.fileName+'" part="'+index+'"><a href="#"><h1>'+elem+'</h1><p>'+index+'</p></a></li>'
+            html += '<li name="'+$.filename+'" part="'+index+'"><a href="#"><h1>'+elem+'</h1><p>'+index+'</p></a></li>'
             });
             if(html === ''){
                 html = '<h3 align="center">Document not available</h3>'

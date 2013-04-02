@@ -141,6 +141,7 @@
      $("#lsResult #mylist2").on('click','li',function(){
         var filename = $(this).attr('name');
         $.filename = filename;
+        console.log($.filename);
         $.mobile.changePage('searchItems3.html');
     });
 

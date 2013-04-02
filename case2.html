@@ -43,10 +43,13 @@
         </div> <!-- content ends -->
     <script>
     function runIt2(){
-        var filename = $.filename;
-        var part = $.part;
-        var url = 'http://elaw.com.my/test2/mobile/legislationsearchmobile.aspx?filename='+filename+'&part='+part;
+        var filename = $.case2filename;
+        var part = $.case2part;
+        //console.log($.case2filename);
+        //console.log(filename);
+        var url = 'http://elaw.com.my/Elawf4/mobile/legislationsearchmobile.aspx?filename='+filename+'&part='+part;
          url += '&callback=?';
+         console.log(url);
         $.getJSON(url,function(data){
                 var html = '';
                 if (data){
