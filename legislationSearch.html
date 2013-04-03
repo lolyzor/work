@@ -71,10 +71,10 @@
         <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-id="footer1">        
             <div data-role="navbar">
                 <ul id="footerList">
-                    <li><a href="latest.html" data-icon="star">Latest</a></li>
-                    <li><a href="caseSearch.html" data-icon="search" class="">Search</a></li>
-                    <li><a href="#" data-icon="search" data-theme="b">Legislation</a></li>
-                    <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
+                    <li><a link="latest.html" data-icon="star">Latest</a></li>
+                    <li><a link="caseSearch.html" data-icon="search" class="">Search</a></li>
+                    <li><a link="#" data-icon="search" data-theme="b">Legislation</a></li>
+                    <li><a link="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
                 </ul>
             </div><!-- /navbar -->
         </div><!-- /footer -->        
@@ -87,6 +87,11 @@
     </div> <!-- content -->
  <script>
     function runIt(){
+        $("#legislationSearch li a").on('vclick',function(){
+            //console.log();
+            var url = $(this).attr('link');
+            $.mobile.changePage(url);
+        });
         $("#legislationSearch #alsearchb").on("click",function(){ 
             var arg = $("#simpleSearch").serialize();
             arg += $("#advanceSearch").serialize();
