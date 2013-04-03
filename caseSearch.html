@@ -113,7 +113,7 @@
           $.mobile.changePage(url);
       });
         //console.log('what the fuck');
-        $("#caseSearch #asearchb").bind("click",function(){                
+        $("#caseSearch #asearchb").on("vclick",function(){                
                 var args = $("#normalSearch").serialize()+'&'+$("#advanceSearch").serialize();
                 $.caseSearchArgs = args;
                 $.page = false;
@@ -122,7 +122,7 @@
                     $.ns = '';
                 $.mobile.changePage('searchItems.html');                
             });
-        $("#caseSearch #searchb").bind("click",function(){                
+        $("#caseSearch #searchb").on("vclick",function(){                
                 console.log('normal search');
                 var args = $("#normalSearch").serialize();
                 $.caseSearchArgs = args;                
