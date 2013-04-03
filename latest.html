@@ -34,9 +34,9 @@
             <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
                     <div data-role="navbar">
                         <ul>
-                            <li><a href="#" data-icon="star" class="" data-theme="b">Latest</a></li>
-                            <li><a href="caseSearch.html" data-icon="search">Cases</a></li>
-                            <li><a href="legislationSearch.html" data-icon="search">Legislation</a></li>
+                            <li><a link="#" data-icon="star" class="" data-theme="b">Latest</a></li>
+                            <li><a link="caseSearch.html" data-icon="search">Cases</a></li>
+                            <li><a link="legislationSearch.html" data-icon="search">Legislation</a></li>
                             <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
                         </ul>
                     </div>
@@ -49,6 +49,12 @@
         </div>    
         </div> <!-- content ends -->
         <script>
+        $("#latestCases li a").on('vclick',function(){
+            //console.log();
+            var url = $(this).attr('link');
+            if(url)
+                $.mobile.changePage(url);
+        });
         function makeUrl(page){
             var url = 'http://elaw.com.my/Elawf4/mobile/searchresultmobile.aspx?ec=law&page='+page+'&callback=?';
             var html = '';

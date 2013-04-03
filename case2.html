@@ -27,9 +27,9 @@
         <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
                 <div data-role="navbar">
                     <ul id="footerList">
-                        <li><a href="latest.html" data-icon="star" class="">Latest</a></li>
-                        <li><a href="caseSearch.html" data-icon="search">Cases</a></li>
-                        <li><a href="legislationSearch.html" data-icon="search" data-theme="b">Legislation</a></li>
+                        <li><a link="latest.html" data-icon="star" class="">Latest</a></li>
+                        <li><a link="caseSearch.html" data-icon="search">Cases</a></li>
+                        <li><a link="legislationSearch.html" data-icon="search" data-theme="b">Legislation</a></li>
                         <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
                     </ul>
                 </div>
@@ -41,6 +41,12 @@
             </ul>
         </div>         
     <script>
+    $("#caseMain2 li a").on('vclick',function(){
+        //console.log();
+        var url = $(this).attr('link');
+        if(url)
+            $.mobile.changePage(url);
+    });
     function runIt2(){
         var filename = $.case2filename;
         var part = $.case2part;

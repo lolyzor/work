@@ -95,14 +95,14 @@
                     <li><a link="latest.html" data-icon="star">Latest</a></li>
                     <li><a link="caseSearch.html" data-icon="search" class="" data-theme="b">Cases</a></li>
                     <li><a link="legislationSearch.html" data-icon="search">Legislation</a></li>
-                    <li><a link="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
+                    <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
                 </ul>
             </div><!-- /navbar -->
         </div><!-- /footer --> 
          <div data-role="popup" id="popupMenu" id="footerlist2">
             <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                <li><a href="references.html">References</a></li>
-                <li><a href="help.html">Help</a></li>                            
+                <li><a link="references.html">References</a></li>
+                <li><a link="help.html">Help</a></li>                            
             </ul>
         </div>        
     </div> <!-- content -->
@@ -110,7 +110,8 @@
       $("#caseSearch li a").on('vclick',function(){
           //console.log();
           var url = $(this).attr('link');
-          $.mobile.changePage(url);
+          if(url)
+            $.mobile.changePage(url);
       });
         //console.log('what the fuck');
         $("#caseSearch #asearchb").on("vclick",function(){                

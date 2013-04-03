@@ -72,16 +72,16 @@
             <div data-role="navbar">
                 <ul id="footerList">
                     <li><a link="latest.html" data-icon="star">Latest</a></li>
-                    <li><a link="caseSearch.html" data-icon="search" class="">Search</a></li>
+                    <li><a link="caseSearch.html" data-icon="search" class="">Cases</a></li>
                     <li><a link="#" data-icon="search" data-theme="b">Legislation</a></li>
-                    <li><a link="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
+                    <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
                 </ul>
             </div><!-- /navbar -->
         </div><!-- /footer -->        
         <div data-role="popup" id="popupMenu" id="footerlist2">
             <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                <li><a href="references.html">References</a></li>
-                <li><a href="help.html">Help</a></li>                            
+                <li><a link="references.html">References</a></li>
+                <li><a link="help.html">Help</a></li>                            
             </ul>
         </div> 
     </div> <!-- content -->
@@ -90,9 +90,10 @@
         $("#legislationSearch li a").on('vclick',function(){
             //console.log();
             var url = $(this).attr('link');
-            $.mobile.changePage(url);
+            if(url)
+                $.mobile.changePage(url);
         });
-        $("#legislationSearch #alsearchb").on("click",function(){ 
+        $("#legislationSearch #alsearchb").on("vclick",function(){ 
             var arg = $("#simpleSearch").serialize();
             arg += $("#advanceSearch").serialize();
             //console.log(args);   
@@ -102,7 +103,7 @@
             $.lns = '';
             $.mobile.changePage('searchItems2.html');
         });
-        $("#legislationSearch #lsearchb").on("click",function(){
+        $("#legislationSearch #lsearchb").on("vclick",function(){
             //var key = $("#ec").val();
             $.ec = $("#simpleSearch").serialize();
             // console.log('ya');
@@ -112,10 +113,10 @@
             $.lns = '';
             $.mobile.changePage('searchItems2.html');
         });
-        $("#legislationSearch #cancleb").on("click",function(){
+        $("#legislationSearch #cancleb").on("vclick",function(){
             $("#ec").val("");
         });
-        $("#legislationSearch #acancleb").on("click",function(){
+        $("#legislationSearch #acancleb").on("vclick",function(){
             //$("#ec").val("");
             $("input[type=text]").val("");
         });       
