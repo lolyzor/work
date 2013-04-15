@@ -10,10 +10,10 @@
 <body>
     <div data-role="page" id="latestCases">
 
-        <div data-role="header" data-id="header1" data-position="fixed" data-tap-toggle="false">
+        <div data-role="header" data-id="header1" data-position="fixed" data-tap-toggle="false" data-mini="true">
             <h1 data-theme="e">Elaw.my</h1>
-            <a href="index.html" data-icon="home" data-theme="b">Home</a>
-            <a href="help.html" data-icon="gear" class="ui-btn-right" data-theme="b">Help</a>  
+            <a href="index.html" data-theme="b" data-mini="true">Home</a>
+            <a href="help.html" class="ui-btn-right" data-theme="b" data-mini="true">Help</a>  
         </div><!-- /header -->   
         <div data-role="content">                
             <h3 align="center">
@@ -34,10 +34,10 @@
             <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
                     <div data-role="navbar">
                         <ul>
-                            <li><a link="#" data-icon="star" class="" data-theme="b">Latest</a></li>
-                            <li><a link="caseSearch.html" data-icon="search">Cases</a></li>
-                            <li><a link="legislationSearch.html" data-icon="search">Legislation</a></li>
-                            <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
+                            <li><a link="#" class="" data-theme="b">Latest</a></li>
+                            <li><a link="caseSearch.html">Cases</a></li>
+                            <li><a link="legislationSearch.html">Legislation</a></li>
+                            <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">More</a></li>
                         </ul>
                     </div>
             </div>  
@@ -47,13 +47,13 @@
                 <li><a href="help.html">Help</a></li>                            
             </ul>
         </div>    
-        </div> <!-- content ends -->
         <style>
             .ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
                 padding-top:1px;
                 padding-bottom:1px;
             }
         </style>
+        </div> <!-- content ends -->        
         <script>
         $("#latestCases li a").on('vclick',function(){
             //console.log();
