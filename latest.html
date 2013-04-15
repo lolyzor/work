@@ -17,10 +17,10 @@
         </div><!-- /header -->   
         <div data-role="content">                
             <h3 align="center">
-                Latest cases and informations
+                Latest cases
             </h3>
         <div style="margin-bottom: 20px;">
-        <select name="court" id="courts" style="margin-bottom: 50px;" data-native-menu="false">
+        <select name="court" id="courts" style="margin-bottom: 50px;" data-native-menu="false" data-mini="true">
             <option value="ac" page=1 selected="selected">All courts</option>
             <option value="ac" page=4>Appellate Court</option>
             <option value="hc" page=2>High Court</option>
@@ -48,6 +48,12 @@
             </ul>
         </div>    
         </div> <!-- content ends -->
+        <style>
+            .ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
+                padding-top:1px;
+                padding-bottom:1px;
+            }
+        </style>
         <script>
         $("#latestCases li a").on('vclick',function(){
             //console.log();
@@ -71,6 +77,7 @@
                     $("#hclist,#iclist,#aclist").toggle(false);
                     $("#aaclist").html(html).toggle(true);
                     $("#aaclist").listview('refresh');
+                    // $("#aaclist .ui-li").css('padding-top','1px;');
                     break;
                 case 2:
                     $("#aaclist,#iclist,#aclist").toggle(false);
