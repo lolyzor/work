@@ -13,11 +13,11 @@
 </head>
 <body>
  <div data-role="page" id="lsResult">
-    <div data-role="header" data-position="fixed" data-id="header1" data-tap-toggle="false">
+    <!-- <div data-role="header" data-position="fixed" data-id="header1" data-tap-toggle="false">
             <h1 data-theme="e">Elaw.my</h1>
             <a id="home" href="legislationSearch.html" data-icon="arrow-l" data-theme="b">Back</a>
             <a href="index.html" data-icon="gear" class="ui-btn-right" data-theme="b">Home</a>  
-        </div><!-- /header -->
+    </div> --><!-- /header -->
  <div data-role="content">        
         <form id="searchInside">
         <div style="margin-bottom:20px;">
@@ -67,12 +67,18 @@
         <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
                 <div data-role="navbar">
                     <ul id="footerList">
-					<li><a link="latest.html" data-icon="star" class="">Latest</a></li>
-					<li><a link="caseSearch.html" data-icon="search">Cases</a></li>
-					<li><a link="legislationSearch.html" data-icon="search" data-theme="b">Legislation</a></li>
-					<li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
+					<li><a link="latest.html" class="">Latest</a></li>
+					<li><a link="caseSearch.html">Cases</a></li>
+					<li><a link="legislationSearch.html" data-theme="b">Legislation</a></li>
+					<li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">More</a></li>
                     </ul>
                 </div>
+        <style>
+             .ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
+                padding-top:1px;
+                padding-bottom:1px;
+            }
+        </style> 
           </div> <!-- content -->
         </div> <!-- footer finished    -->
         <div data-role="popup" id="popupMenu" id="footerlist2">

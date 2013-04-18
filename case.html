@@ -13,23 +13,24 @@
 <body>
  <div data-role="page" id="caseMain">
 
-        <div data-role="header" data-position="fixed" data-id="header1" data-tap-toggle="false">
+        <!-- <div data-role="header" data-position="fixed" data-id="header1" data-tap-toggle="false">
             <h1 data-theme="e">Elaw.my</h1>
             <a id="linkback" href="searchItems.html" data-icon="arrow-l" data-theme="b">Back</a>
             <a href="index.html" data-icon="gear" class="ui-btn-right" data-theme="b">Home</a>  
-        </div><!-- /header -->
+        </div> --><!-- /header -->
          <div data-role="content">
            <div id="results">
            	
            </div>
+           <button id="nextPage" data-mini="true">Next</button>
        </div> <!-- ending content -->
         <div data-role="footer" data-tap-toggle="false" data-id="footer1" data-position="fixed">        
             <div data-role="navbar">
                 <ul id="footerList">
-                    <li><a link="latest.html" data-icon="star">Latest</a></li>
-                    <li><a link="caseSearch.html" data-icon="search" class="" data-theme="b">Cases</a></li>
-                    <li><a link="legislationSearch.html" data-icon="search">Legislation</a></li>
-                    <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
+                    <li><a href="searchItems.html">Go back</a></li>
+                    <li><a href="caseSearch.html" class="" data-theme="b">Cases</a></li>
+                    <li><a href="legislationSearch.html">Legislation</a></li>
+                    <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">More</a></li>
                 </ul>
             </div><!-- /navbar -->
         </div><!-- /footer --> 
@@ -37,16 +38,11 @@
             <ul data-role="listview" data-inset="true" style="min-width:210px;">
                 <li><a href="references.html">References</a></li>
                 <li><a href="help.html">Help</a></li>                            
+                <li><a href="index.html">Home</a></li>                            
             </ul>
         </div>        
         
     <script>
-    $("#caseMain li a").on('vclick',function(){
-        //console.log();
-        var url = $(this).attr('link');
-        if(url)
-            $.mobile.changePage(url);
-    });
     function makeUrl(p){
         var filename = $.filename;
         //var ec = $.urlParam('ec');
@@ -59,29 +55,37 @@
         //console.log(url);
         return url;
     }
+    $("#nextPage").on('vclick',function(){
+        //console.log();
+        var url = makeUrl();
+        if($.casePage <= $.lastPage){
+            $.getJson(url,'caseMain');
+            $.mobile.loading('show');
+        }
+    });
     function runIt(){
         $.casePage = 0;
         $.scrollAndLoad = true;
         var urltext = makeUrl();
         $.mobile.loading('show');
         $.getJson(urltext,'caseMain');
-        $(window).on('scroll',function(){
-            if($.mobile.activePage.attr('id') == 'caseMain'){
-                if($(window).scrollTop() + $(window).height() >= $(document).height()){
-                    if($.scrollAndLoad){                
-                        url = makeUrl();
-                        console.log(url);
-                        if($.casePage <= $.lastPage){
-                            $.getJson(url,'caseMain');
-                            $.mobile.loading('show');
-                        }                        
-                        $.scrollAndLoad = false;
-                        //$(window).height() -= 20;
+        // $(window).on('scroll',function(){
+        //     if($.mobile.activePage.attr('id') == 'caseMain'){
+        //         if($(window).scrollTop() + $(window).height() >= $(document).height()){
+        //             if($.scrollAndLoad){                
+        //                 url = makeUrl();
+        //                 console.log(url);
+        //                 if($.casePage <= $.lastPage){
+        //                     $.getJson(url,'caseMain');
+        //                     $.mobile.loading('show');
+        //                 }                        
+        //                 $.scrollAndLoad = false;
+        //                 //$(window).height() -= 20;
                         
-                    }                
-                }
-            }    
-        });
+        //             }                
+        //         }
+        //     }    
+        // });
     }
     $('#caseMain').on('pageshow', runIt);  
     </script>

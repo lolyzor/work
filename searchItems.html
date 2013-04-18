@@ -13,11 +13,11 @@
 <body>
  <div data-role="page" id="caseSearchResults">
  <div data-role="content">
-        <div data-role="header" data-position="fixed" data-tap-toggle="false" data-id="header1">
+        <!-- <div data-role="header" data-position="fixed" data-tap-toggle="false" data-id="header1">
             <h1 data-theme="e">Elaw.my</h1>
             <a href="caseSearch.html" id="back" data-icon="arrow-l" data-role="back" data-theme="b">Back</a>
             <a href="index.html" data-icon="gear" class="ui-btn-right" data-theme="b">Home</a>  
-        </div><!-- /header -->
+        </div> --><!-- /header -->
 		<!--
 		<div class="ui-grid-a">
 			<div class="ui-block-a"><div><h2>Search</h2></div></div>
@@ -77,19 +77,26 @@
         <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-id="footer1">        
             <div data-role="navbar">
                 <ul id="footerList">
-                    <li><a link="latest.html" data-icon="star">Latest</a></li>
-                    <li><a link="caseSearch.html" data-icon="search" class="" data-theme="b">Cases</a></li>
-                    <li><a link="legislationSearch.html" data-icon="search">Legislation</a></li>
-                    <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
+                    <li><a link="latest.html">Latest</a></li>
+                    <li><a link="caseSearch.html" class="" data-theme="b">Cases</a></li>
+                    <li><a link="legislationSearch.html">Legislation</a></li>
+                    <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">More</a></li>
                 </ul>
             </div><!-- /navbar -->
         </div><!-- /footer --> 
          <div data-role="popup" id="popupMenu" id="footerlist2">
             <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                <li><a link="index.html">Home</a></li>
                 <li><a link="references.html">References</a></li>
                 <li><a link="help.html">Help</a></li>                            
             </ul>
-        </div>        
+        </div>
+        <style>
+             .ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
+                padding-top:1px;
+                padding-bottom:1px;
+            }
+        </style>        
         </div> <!-- content ending -->
     <script>
     function url(args){
