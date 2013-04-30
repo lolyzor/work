@@ -22,12 +22,12 @@
            <div id="results">
            	
            </div>
-           <button id="nextPage" data-mini="true">Next</button>
+           <button id="nextPage" data-mini="true">Read More</button>
        </div> <!-- ending content -->
         <div data-role="footer" data-tap-toggle="false" data-id="footer1" data-position="fixed">        
             <div data-role="navbar">
                 <ul id="footerList">
-                    <li><a href="searchItems.html">Go back</a></li>
+                    <li><a id="goBack" href="searchItems.html">Go back</a></li>
                     <li><a href="caseSearch.html" class="" data-theme="b">Cases</a></li>
                     <li><a href="legislationSearch.html">Legislation</a></li>
                     <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">More</a></li>
@@ -69,6 +69,12 @@
         var urltext = makeUrl();
         $.mobile.loading('show');
         $.getJson(urltext,'caseMain');
+        if($.latest){
+            $("#goBack").attr('href','latest.html');
+            $.latest=false;
+            console.log($.latest);
+            console.log($("#goBack").attr('href'));
+        }
         // $(window).on('scroll',function(){
         //     if($.mobile.activePage.attr('id') == 'caseMain'){
         //         if($(window).scrollTop() + $(window).height() >= $(document).height()){
@@ -87,7 +93,16 @@
         //     }    
         // });
     }
+    function runIt2(){
+        if($.latest){
+            $("#goBack").attr('href','latest.html');
+            $.latest=false;
+            console.log($.latest);
+            console.log($("#goBack").attr('href'));
+        }
+    }
     $('#caseMain').on('pageshow', runIt);  
+    $('#caseMain').on('pageinit', runIt2);  
     </script>
     </div>
 </body>

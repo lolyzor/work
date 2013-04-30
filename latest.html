@@ -16,15 +16,15 @@
             <a href="help.html" class="ui-btn-right" data-theme="b" data-mini="true">Help</a>  
         </div> --><!-- /header -->   
         <div data-role="content">                
-            <h3 align="center">
+            <h3 align="center" style="margin-bottom: 5px;margin-top: 5px;"> 
                 Latest cases
             </h3>
         <div style="margin-bottom: 20px;">
         <div id="buttongroup" data-role="controlgroup" data-type="horizontal" align="center">
-            <a href="" data-role="button" data-mini="true">All</a>
-            <a href="" data-role="button" data-mini="true">High court</a>
-            <a href="" data-role="button" data-mini="true">KL court</a>   
-            <a href="" data-role="button" data-mini="true">Industrial court</a> 
+            <a href="" page=1 data-role="button" data-mini="true">All</a>
+            <a href="" page=4 data-role="button" data-mini="true">Appellate</a>
+            <a href="" page=2 data-role="button" data-mini="true">High</a>   
+            <a href="" page=3 data-role="button" data-mini="true">Industrial</a> 
         </div>
         <!-- <select name="court" id="courts" style="margin-bottom: 50px;" data-native-menu="false" data-mini="true">
             <option value="ac" page=1 selected="selected">All courts</option>
@@ -33,10 +33,10 @@
             <option value="ic" page=3>Industrial Court</option>            
         </select> -->
         </div>
-        <div id="aac"><div data-role="listview" id="aaclist"></div></div>
-        <div id="hc"><div data-role="listview" id="hclist"></div></div>
-        <div id="ic"><div data-role="listview" id="iclist"></div></div>
-        <div id="ac"><div data-role="listview" id="aclist"></div></div>
+        <div id="aac" class="latestList"><div data-role="listview" id="aaclist"></div></div>
+        <div id="hc" class="latestList"><div data-role="listview" id="hclist"></div></div>
+        <div id="ic" class="latestList"><div data-role="listview" id="iclist"></div></div>
+        <div id="ac" class="latestList"><div data-role="listview" id="aclist"></div></div>
             <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
                     <div data-role="navbar">
                         <ul>
@@ -66,11 +66,18 @@
         </div> <!-- content ends -->        
         <script>
         $("#latestCases li a").on('vclick',function(){
-            //console.log();
             var url = $(this).attr('link');
             if(url)
                 $.mobile.changePage(url);
+                });
+        $(".latestList").on('vclick','li',function(){
+            var filename = $(this).attr('name');
+            //console.log($(this).attr('name'))    
+            $.latest = true;
+            $.filename = filename;
+            $.mobile.changePage('case.html');
         });
+
         function makeUrl(page){
             var url = 'http://elaw.com.my/Elawf4/mobile/searchresultmobile.aspx?ec=law&page='+page+'&callback=?';
             var html = '';
@@ -115,6 +122,14 @@
        $("#courts").change(function(){
             var page = $("#courts option:selected").attr('page');
             //console.log(page);
+            if(!$.fetching)
+                makeUrl(parseInt(page));
+                });
+        $("#buttongroup a").on('click',function(){
+            //var page = $("#courts option:selected").attr('page');
+            //console.log(page);
+            var page = $(this).attr('page');
+            console.log(page);
             if(!$.fetching)
                 makeUrl(parseInt(page));
        });
