@@ -58,8 +58,10 @@
         $("#latestCases li a").on('vclick',function(){
             //console.log();
             var url = $(this).attr('link');
-            if(url)
+            if(url && $.user)
                 $.mobile.changePage(url);
+            else
+                $.mobile.changePage('index.html');
         });
         function makeUrl(page){
             var url = 'http://elaw.com.my/Elawf4/mobile/searchresultmobile.aspx?ec=law&page='+page+'&callback=?';
