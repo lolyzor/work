@@ -20,12 +20,18 @@
                 Latest cases
             </h3>--> 
         <div style="margin-bottom: 20px;">
-        <select name="court" id="courts" style="margin-bottom: 50px;" data-native-menu="false" data-mini="true">
+        <!--<select name="court" id="courts" style="margin-bottom: 50px;" data-native-menu="false" data-mini="true">
             <option value="ac" page=1 selected="selected">All courts</option>
             <option value="ac" page=4>Appellate Court</option>
             <option value="hc" page=2>High Court</option>
             <option value="ic" page=3>Industrial Court</option>            
-        </select>
+        </select>-->
+        <div id="buttongroup" data-role="controlgroup" data-type="horizontal" align="center">
+            <a href="" page=1 data-role="button" data-mini="true">All</a>
+            <a href="" page=4 data-role="button" data-mini="true">Appellate Courts</a>
+            <a href="" page=2 data-role="button" data-mini="true">High Court</a>   
+            <a href="" page=3 data-role="button" data-mini="true">Industrial Court</a> 
+        </div>
         </div>
         <div id="aac"><div data-role="listview" id="aaclist"></div></div>
         <div id="hc"><div data-role="listview" id="hclist"></div></div>
