@@ -27,7 +27,7 @@
             <div data-role="navbar">
                 <ul id="footerList">
                     <li><a link="latest.html" data-icon="star">Latest</a></li>
-                    <li><a link="caseSearch.html" data-icon="search" class="" data-theme="b">Cases</a></li>
+                    <li><a link="caseSearch.html" data-icon="search" class="" id="caseSearchLink" data-theme="b">Cases</a></li>
                     <li><a link="legislationSearch.html" data-icon="search">Legislation</a></li>
                     <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="gear">More</a></li>
                 </ul>
@@ -83,7 +83,16 @@
             }    
         });
     }
+    function runIt2(){
+        if($.latest){
+            $("#caseSearchLink").attr('href','latest.html');
+            $.latest=false;
+            console.log($.latest);
+            console.log($("#goBack").attr('href'));
+        }
+    }
     $('#caseMain').on('pageshow', runIt);  
+    $('#caseMain').on('pageinit', runIt2);  
     </script>
     </div>
 </body>
