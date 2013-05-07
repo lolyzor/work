@@ -3,9 +3,9 @@
 <head>
     <title>Elaw.my</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
-    <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
+    <link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" />
     <script src="js/jquery-1.8.2.min.js"></script>
-    <script src="js/jquery.mobile-1.3.0.min.js"></script>  
+    <script src="js/jquery.mobile-1.3.1.min.js"></script>  
 </head>
 <body>
     <div data-role="page" id="latestCases">
@@ -16,15 +16,15 @@
             <a href="help.html" class="ui-btn-right" data-theme="b" data-mini="true">Help</a>  
         </div> --><!-- /header -->   
         <div data-role="content">                
-            <h3 align="center" style="margin-bottom: 5px;margin-top: 5px;"> 
+            <!--<h3 align="center" style="margin-bottom: 5px;margin-top: 5px;"> 
                 Latest cases
-            </h3>
+            </h3>-->
         <div style="margin-bottom: 20px;">
         <div id="buttongroup" data-role="controlgroup" data-type="horizontal" align="center">
             <a href="" page=1 data-role="button" data-mini="true">All</a>
-            <a href="" page=4 data-role="button" data-mini="true">Appellate</a>
-            <a href="" page=2 data-role="button" data-mini="true">High</a>   
-            <a href="" page=3 data-role="button" data-mini="true">Industrial</a> 
+            <a href="" page=4 data-role="button" data-mini="true">Appellate court</a>
+            <a href="" page=2 data-role="button" data-mini="true">High court</a>   
+            <a href="" page=3 data-role="button" data-mini="true">Industrial court</a> 
         </div>
         <!-- <select name="court" id="courts" style="margin-bottom: 50px;" data-native-menu="false" data-mini="true">
             <option value="ac" page=1 selected="selected">All courts</option>
@@ -54,6 +54,10 @@
             </ul>
         </div>    
         <style>
+            .ui-li-heading{
+                /*font-family:Thompson;*/
+                font-size:13px;
+            }
            .ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all ui-mini {
             padding-left: 1px;
             padding-right: 1px;
@@ -86,7 +90,7 @@
             $.getJSON(url,function(data){
                $.each(data.results,function(index,elem){
                 if(index != 'pages'){
-                  html += '<li name="'+elem.fileName+'"><a href="#" name="'+elem.fileName+'"><h1>'+elem.title+'</h1><p>'+elem.Court+'</p></a></li>';
+                  html += '<li name="'+elem.fileName+'"><a href="#" name="'+elem.fileName+'"><h3>'+elem.title+'</h3><p>'+elem.Court+'</p></a></li>';
                     }                  
                 });
                switch(page){
