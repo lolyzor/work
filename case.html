@@ -85,10 +85,10 @@
     }
     function runIt2(){
         if($.latest){
-            $("#caseSearchLink").attr('href','latest.html');
+            $("#linkback").attr('href','latest.html');
             $.latest=false;
             console.log($.latest);
-            console.log($("#goBack").attr('href'));
+            console.log($("#linkback").attr('href'));
         }
     }
     $('#caseMain').on('pageshow', runIt);  
