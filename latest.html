@@ -69,6 +69,13 @@
             else
                 $.mobile.changePage('index.html');
         });
+        $(".latestList").on('vclick','li',function(){
+            var filename = $(this).attr('name');
+            //console.log($(this).attr('name'))    
+            $.latest = true;
+            $.filename = filename;
+            $.mobile.changePage('case.html');
+        });
         function makeUrl(page){
             var url = 'http://elaw.com.my/Elawf4/mobile/searchresultmobile.aspx?ec=law&page='+page+'&callback=?';
             var html = '';
