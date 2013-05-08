@@ -54,9 +54,11 @@
     <label for="nc">Without these words</label>
     <input type="text" name="nc" id="nc" value=""  />    
     <label for="y1">From this year</label>
-    <input type="text" name="y1" id="y1" value=""  />
+    <!--<input type="text" name="y1" id="y1" value=""  />-->
+    <input name="y1" id="y1" min="1894" max="2012" value="2000" type="range" />
     <label for="y2">To this year </label>    
-    <input type="text" name="y2" id="y2" value=""  />
+    <input name="y2" id="y2" min="1895" max="2013" value="2013" type="range" />
+    <!--<input type="text" name="y2" id="y2" value=""  />-->
     <label for="t">Title of the Case</label>
     <input type="text" name="t" id="t" value=""  />
     <label for="cn">Case number</label>
@@ -107,6 +109,18 @@
         </div>        
     </div> <!-- content -->
       <script>
+          //$("#y1,#y2").slider({ stop: function( event, ui ) {console.log('yay');} });
+          $("#y1").on('slidestop',function(event,ui){
+              console.log('slide stop');
+              var y1 = $("#y1").val();
+              var y2 = $("#y2").val();
+              y1 >= y2 ? $("#y1").val(y2-1):true;
+          });
+          $("#y2").on('slidestop',function(){
+              var y1 = $("#y1").val();
+              var y2 = $("#y2").val();
+              y2 <= y1 ? $("#y2").val(y1+1):true;
+          });
       $("#caseSearch li a").on('vclick',function(){
           //console.log();
           var url = $(this).attr('link');
