@@ -109,6 +109,7 @@
 			navigator.app.loadUrl(url, { openExternal:true });			
 		});
         $('#main').on('pageinit',function(){
+            onLoad();
             $("#main #login").on("vclick",function(){
                 //console.log('login click ?');
                 $("#error").html("");
@@ -286,9 +287,14 @@
             $.handleData(data,pageId);
         });
     }
-    
-    $(document).on('backbutton',function(e){
-         e.preventDefault();
-    });
+    function onLoad(){
+        document.addEventListener("deviceready", onDeviceReady,false);
+    }
+    function onDeviceReady(){
+        document.addEventListener("backbutton", onBackKeyDown,false);
+    }
+    function onBackKeyDown(){
+        history.back();
+    }
 </script>
 </html>
