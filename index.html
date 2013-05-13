@@ -10,7 +10,7 @@
     </script>
     <style ></style>
 </head>
-<body>
+<body onload="onLoad()">
 <div id="main" data-role="page">
 	<div data-role="panel" id="mypanel" data-display="overlay" data-dismissible="true" data-tap-toggle="false">		  
             <div>
@@ -99,8 +99,12 @@
         </div>
 		<script>
         //onLoad();
+       // $(document).bind("mobileinit", function() {
+       //     $.support.cors = true;
+       //     $.mobile.allowCrossDomainPages = true;
+       // });
         $(function(){
-            //document.addEventListener("deviceready", onDeviceReady, true);
+            //document.addEventListener("deviceready", onDeviceReady, false);
         });
         $("#main li a").on('vclick',function(){
             //console.log();
