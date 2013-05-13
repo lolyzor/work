@@ -305,6 +305,8 @@ function onLoad(){
     }
     function onBackKeyDown(e){
        history.back();
+       if($.mobile.activePage.attr('id') == 'main')
+             navigator.app.exitApp();
        //navigator.app.backHistory();
        //e.preventDefault();
     }
