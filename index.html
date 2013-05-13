@@ -103,9 +103,10 @@
    //     $.support.cors = true;
    //     $.mobile.allowCrossDomainPages = true;
    // });
-    document.addEventListener("deviceready", onDeviceReady,false);
+    //document.addEventListener("deviceready", onDeviceReady,false);
     $(function(){
         //document.addEventListener("deviceready", onDeviceReady, false);
+        $(document).bind('deviceready',onDeviceReady);
     });
     $("#main li a").on('vclick',function(){
         //console.log();
