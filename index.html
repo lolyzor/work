@@ -4,304 +4,307 @@
     <title>Elaw.my</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
     <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
-    <script src="js/jquery-1.8.2.min.js"></script>
-    <script src="js/jquery.mobile-1.3.0.min.js"></script>
-    <script>
-    </script>
-    <style ></style>
+<script src="js/jquery-1.8.2.min.js"></script>
+<script src="js/jquery.mobile-1.3.0.min.js"></script>
+<script>
+</script>
+<style ></style>
 </head>
 <body>
 <div id="main" data-role="page">
-	<div data-role="panel" id="mypanel" data-display="overlay" data-dismissible="true" data-tap-toggle="false">		  
-            <div>
-              <h3 align="center">Please sign in</h3>
-              <label for="un" class="ui-hidden-accessible">Username:</label>
-              <input name="user" id="un" value="" placeholder="username" type="text">
-              <label for="pw" class="ui-hidden-accessible">Password:</label>
-              <input name="pass" id="pw" value="" placeholder="password" type="password">
-              <button id="login" data-icon="check">Sign in</button>
-			  <p id="error" style="color:red;"></p>
-            </div>
-			<div>
-				<h3 align="center">Or register ?</h3>
-				<button id="register">Open browser</button>
-			</div>
-		<!-- panel content goes here -->
-	</div><!-- /panel -->
-
-        <!-- <div data-role="header" data-position="fixed" data-id="header1" data>
-        <h1>Elaw.my</h1>
-        <a href="" data-icon="home" data-theme="b">Home</a>
-        <a href="options.html" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>
-        </div> --><!-- /header -->
-
-    <div data-role="content">
-        <article>
-    <ul data-role="listview" id="mylist" >
-        <li>
-            <!-- <img class="ui-li-thumb" src="icons/Documents-icon_2.png"> -->            
-            <a link="latest.html">         
-                <img src="icons/Documents-icon_2.png" class="ui-li-thumb">
-                <h1 class="ui-li-heading">Lates cases</h1>           
-                <p class="ui-li-desc">view latest cases</p>
-            </a>
-            <span id="num" class="ui-li-count ui-btn-up-c ui-btn-corner-all">12</span>
-        </li>
-        <li>
-            <!--<a href="caseSearch.html">-->
-            <a id="caseClick" href="#mypanel" data-rel="panel">
-            <img src="icons/searchIcon.png" class="ui-li-thumb">
-            <h1>Case search</h1>           
-            <p>search for cases</p>
-            </a>
-        </li>
-        <li>
-            <a id="legislationClick" href="#mypanel" data-rel="panel">
-            <img src="icons/legislation.png" class="ui-li-thumb">
-            <h1>Legislation search</h1>           
-            <p>search for legislations</p>
-            </a>
-        </li>
-        <li>
-            <a id="referencesClick" href="#mypanel">
-            <img src="icons/searchIcon2.png" class="ui-li-thumb">    
-            <h1>References</h1>           
-            <p>read the references</p>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-            <img src="icons/helpIcon.png" class="ui-li-thumb">    
-            <h1>Help</h1>           
-            <p>look for help</p>
-            </a>
-        </li>
-    </ul>
-</article>
-         
-     </div><!-- /content -->
-
-        <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
-            <div data-role="navbar">
-                <ul>
-                    <li><a link="latest.html">Latest</a></li>
-                    <li><a id="caseClick1" href="#mypanel">Cases</a></li>
-                    <li><a id="legislationClick1" href="#mypanel">Legislation</a></li>
-                    <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">More</a></li>
-                </ul>
-            </div><!-- /navbar -->
-        </div><!-- /footer -->   
-        <div data-role="popup" id="popupMenu" id="footerlist2">
-            <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                <li><a link="references.html">References</a></li>
-                <li><a link="help.html">Help</a></li>                            
-            </ul>
+<div data-role="panel" id="mypanel" data-display="overlay" data-dismissible="true" data-tap-toggle="false">		  
+        <div>
+          <h3 align="center">Please sign in</h3>
+          <label for="un" class="ui-hidden-accessible">Username:</label>
+          <input name="user" id="un" value="" placeholder="username" type="text">
+          <label for="pw" class="ui-hidden-accessible">Password:</label>
+          <input name="pass" id="pw" value="" placeholder="password" type="password">
+          <button id="login" data-icon="check">Sign in</button>
+          <p id="error" style="color:red;"></p>
         </div>
-		<script>
-        //onLoad();
-       // $(document).bind("mobileinit", function() {
-       //     $.support.cors = true;
-       //     $.mobile.allowCrossDomainPages = true;
-       // });
-        $(function(){
-            //document.addEventListener("deviceready", onDeviceReady, false);
-        });
-        $("#main li a").on('vclick',function(){
-            //console.log();
-            var url = $(this).attr('link');
-            if(url)
-                $.mobile.changePage(url);
-        });
-		$("#register").on("vclick",function(){
-			url = "http://elaw.com.my/test2/subscription_single_corporate.aspx"
-			navigator.app.loadUrl(url, { openExternal:true });			
-		});
-        $('#main').on('pageinit',function(){
-            $("#main #login").on("vclick",function(){
-                //console.log('login click ?');
-                $("#error").html("");
-                var username = $("#un").val();
-                var password = $("#pw").val();
-                if(username && password){
-                    $.u = username;
-                    url = 'http://elaw.com.my/Elawf4/mobile/loginmobile.aspx?u='+username;
-                    url += '&pass='+password;
-                    url += '&callback=?';
-                    $.getJson(url,"main");
-                }
-            });
+        <div>
+            <h3 align="center">Or register ?</h3>
+            <button id="register">Open browser</button>
+        </div>
+    <!-- panel content goes here -->
+</div><!-- /panel -->
 
-            $("#main a").on("click",function(){
-                //console.log($(this).attr('id')+" "+$(this).attr('href'));
-                var obj = $(this);
-                //console.log(obj.attr('id'));
-                if(obj.attr('id') == 'caseClick' || obj.attr('id')=='caseClick1'){
-                    $.redirectTo = 'caseSearch.html';
-                }
-                if(obj.attr('id') == 'legislationClick1' || obj.attr('id')=='legislationClick'){
-                    $.redirectTo = 'legislationSearch.html';
-                }
-                if(obj.attr('id') == 'referencesClick' || obj.attr('id')=='referencesClick1'){
-                    $.redirectTo = 'references.html';
-                }
-                if($.u){
-                    console.log($.u);
-                    //$(this).stopPropagation();
-                    $.mobile.changePage($.redirectTo);
-                    //return false; // should I do this ???
-                }
-                    
-            });        
+    <!-- <div data-role="header" data-position="fixed" data-id="header1" data>
+    <h1>Elaw.my</h1>
+    <a href="" data-icon="home" data-theme="b">Home</a>
+    <a href="options.html" data-icon="gear" class="ui-btn-right" data-theme="b">Options</a>
+    </div> --><!-- /header -->
+
+<div data-role="content">
+    <article>
+<ul data-role="listview" id="mylist" >
+    <li>
+        <!-- <img class="ui-li-thumb" src="icons/Documents-icon_2.png"> -->            
+        <a link="latest.html">         
+            <img src="icons/Documents-icon_2.png" class="ui-li-thumb">
+            <h1 class="ui-li-heading">Lates cases</h1>           
+            <p class="ui-li-desc">view latest cases</p>
+        </a>
+        <span id="num" class="ui-li-count ui-btn-up-c ui-btn-corner-all">12</span>
+    </li>
+    <li>
+        <!--<a href="caseSearch.html">-->
+        <a id="caseClick" href="#mypanel" data-rel="panel">
+        <img src="icons/searchIcon.png" class="ui-li-thumb">
+        <h1>Case search</h1>           
+        <p>search for cases</p>
+        </a>
+    </li>
+    <li>
+        <a id="legislationClick" href="#mypanel" data-rel="panel">
+        <img src="icons/legislation.png" class="ui-li-thumb">
+        <h1>Legislation search</h1>           
+        <p>search for legislations</p>
+        </a>
+    </li>
+    <li>
+        <a id="referencesClick" href="#mypanel">
+        <img src="icons/searchIcon2.png" class="ui-li-thumb">    
+        <h1>References</h1>           
+        <p>read the references</p>
+        </a>
+    </li>
+    <li>
+        <a href="#">
+        <img src="icons/helpIcon.png" class="ui-li-thumb">    
+        <h1>Help</h1>           
+        <p>look for help</p>
+        </a>
+    </li>
+</ul>
+</article>
+     
+ </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
+        <div data-role="navbar">
+            <ul>
+                <li><a link="latest.html">Latest</a></li>
+                <li><a id="caseClick1" href="#mypanel">Cases</a></li>
+                <li><a id="legislationClick1" href="#mypanel">Legislation</a></li>
+                <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">More</a></li>
+            </ul>
+        </div><!-- /navbar -->
+    </div><!-- /footer -->   
+    <div data-role="popup" id="popupMenu" id="footerlist2">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li><a link="references.html">References</a></li>
+            <li><a link="help.html">Help</a></li>                            
+        </ul>
+    </div>
+    <script>
+    //onLoad();
+   // $(document).bind("mobileinit", function() {
+   //     $.support.cors = true;
+   //     $.mobile.allowCrossDomainPages = true;
+   // });
+    document.addEventListener("deviceready", onDeviceReady,false);
+    $(function(){
+        //document.addEventListener("deviceready", onDeviceReady, false);
+    });
+    $("#main li a").on('vclick',function(){
+        //console.log();
+        var url = $(this).attr('link');
+        if(url)
+            $.mobile.changePage(url);
+    });
+    $("#register").on("vclick",function(){
+        url = "http://elaw.com.my/test2/subscription_single_corporate.aspx"
+        navigator.app.loadUrl(url, { openExternal:true });			
+    });
+    $('#main').on('pageinit',function(){
+        $("#main #login").on("vclick",function(){
+            //console.log('login click ?');
+            $("#error").html("");
+            var username = $("#un").val();
+            var password = $("#pw").val();
+            if(username && password){
+                $.u = username;
+                url = 'http://elaw.com.my/Elawf4/mobile/loginmobile.aspx?u='+username;
+                url += '&pass='+password;
+                url += '&callback=?';
+                $.getJson(url,"main");
+            }
         });
-		</script>
-        </div><!-- /page -->
+
+        $("#main a").on("click",function(){
+            //console.log($(this).attr('id')+" "+$(this).attr('href'));
+            var obj = $(this);
+            //console.log(obj.attr('id'));
+            if(obj.attr('id') == 'caseClick' || obj.attr('id')=='caseClick1'){
+                $.redirectTo = 'caseSearch.html';
+            }
+            if(obj.attr('id') == 'legislationClick1' || obj.attr('id')=='legislationClick'){
+                $.redirectTo = 'legislationSearch.html';
+            }
+            if(obj.attr('id') == 'referencesClick' || obj.attr('id')=='referencesClick1'){
+                $.redirectTo = 'references.html';
+            }
+            if($.u){
+                console.log($.u);
+                //$(this).stopPropagation();
+                $.mobile.changePage($.redirectTo);
+                //return false; // should I do this ???
+            }
+                
+        });        
+    });
+    </script>
+    </div><!-- /page -->
 
 </body>
 <script>
-    $.handleData = function(data,pageId){
-        //console.log(data);
-        if(pageId == "main"){
-            if(data.reply == "loggedin"){
-                console.log('loggedin');
-                console.log($.redirectTo);
-                $.mobile.changePage($.redirectTo);
-            }   
-            else{
-                //console.log('what');
-                $.u = false;
-                $("#error").html(data.reply);
-            }
+$.handleData = function(data,pageId){
+    //console.log(data);
+    if(pageId == "main"){
+        if(data.reply == "loggedin"){
+            console.log('loggedin');
+            console.log($.redirectTo);
+            $.mobile.changePage($.redirectTo);
+        }   
+        else{
+            //console.log('what');
+            $.u = false;
+            $("#error").html(data.reply);
         }
-        if(pageId == "caseSearchResults"){
-            var html = '';
-            console.log(data);
-            $.each(data.results,function(index,elem){
-                if(index != 'pages'){
-                      html += '<li name="'+elem.fileName+'"><a href="#" name="'+elem.fileName+'"><h1>'+elem.title+'</h1><p>'+elem.Court+'</p></a></li>';
-                }                  
-            });
-            if(data.results.pages){
-                var lastpage = parseInt(data.results.pages.LastPage);            
-                var currentpage = parseInt(data.results.pages.CurrentPage);
-                $.lastPage = lastpage;
-                $.currentPage = currentpage;
-                $.currentpage+1 > lastpage ? $.nextPage = lastPage : $.nextPage = currentpage+1;
-                $.currentpage-1 < 1 ? $.prevPage = 1 : $.prevPage = currentpage-1;    
-                $("#caseSearchResults #lp").html('Last page: '+$.lastPage);
-                $("#caseSearchResults #cp").html('Current page: '+$.currentPage);
-            }            
-            if(html === ''){
-                html = '<li>No results</li>'
-                $("#caseSearchResults #lp").html('');
-                $("#caseSearchResults #cp").html('');                
-                }
-            $('#caseSearchResults #mylist2').html(html);
-            $('#caseSearchResults #mylist2').listview('refresh'); 
-            $.mobile.loading('hide');
-            //return html;
-        }
-        if(pageId == "caseMain"){
-            console.log(data);
-            var html = '';
-                //console.log(data);
-                if (data){
-                    //var lastPage = Integer.parseInt(data.lastPage);                    
-                    if($.casePage==1){
-                        var title = '<h2 align="center">'+data.result.Title+'</h2>';
-                        html+= title;
-                        $.lastPage = parseInt(data.result.lastPage);
-                    }                    
-                        html+= data.result.JudgementBody;                                                                    
-                }
-                else{
-                    html='<h2 align="center">No content to display</h2>'
-                }
-                if($.casePage > 1){
-                    $("#caseMain #results").append(html);
-                    //console.log($.casePage);
-                }
-                    
-                else{
-                    $("#caseMain #results").html(html);
-                    //console.log($.casePage);
-                }
-                    
-                $.scrollAndLoad = true;
-                $.mobile.loading('hide');
-        }
-        if(pageId == "lsResult"){
-            var html = '';
-            if(data.results.pages){
-            $.each(data.results,function(index,elem){
-                if(index%10 < 11){
-                html += '<li name="'+elem.fileName+'"><a href="#"><h1>'+elem.title+'</h1><p>'+elem.Preamble+'</p></a></li>';}
-            });            
+    }
+    if(pageId == "caseSearchResults"){
+        var html = '';
+        console.log(data);
+        $.each(data.results,function(index,elem){
+            if(index != 'pages'){
+                  html += '<li name="'+elem.fileName+'"><a href="#" name="'+elem.fileName+'"><h1>'+elem.title+'</h1><p>'+elem.Court+'</p></a></li>';
+            }                  
+        });
+        if(data.results.pages){
             var lastpage = parseInt(data.results.pages.LastPage);            
             var currentpage = parseInt(data.results.pages.CurrentPage);
             $.lastPage = lastpage;
             $.currentPage = currentpage;
             $.currentpage+1 > lastpage ? $.nextPage = lastPage : $.nextPage = currentpage+1;
-            $.currentpage-1 < 1 ? $.prevPage = 1 : $.prevPage = currentpage-1;
-                
-            $("#lsResult #lp").html('Last page: '+$.lastPage);
-            $("#lsResult #cp").html('Current page: '+$.currentPage);            
+            $.currentpage-1 < 1 ? $.prevPage = 1 : $.prevPage = currentpage-1;    
+            $("#caseSearchResults #lp").html('Last page: '+$.lastPage);
+            $("#caseSearchResults #cp").html('Current page: '+$.currentPage);
+        }            
+        if(html === ''){
+            html = '<li>No results</li>'
+            $("#caseSearchResults #lp").html('');
+            $("#caseSearchResults #cp").html('');                
             }
-            if(html == ''){
-                html = '<li>No results</li>'
-                $("#lsResult #lp,#lsResult #cp").html('');
-            }
-                $('#lsResult #mylist2').html(html);
-                $('#lsResult #mylist2').listview('refresh');
-                $.mobile.loading('hide');
-        }
-        if(pageId == 'lssResult'){
-            var html = '';
+        $('#caseSearchResults #mylist2').html(html);
+        $('#caseSearchResults #mylist2').listview('refresh'); 
+        $.mobile.loading('hide');
+        //return html;
+    }
+    if(pageId == "caseMain"){
+        console.log(data);
+        var html = '';
             //console.log(data);
-            //console.log($.filename);
-            $.each(data.result,function(index,elem){                
-            html += '<li name="'+$.filename+'" part="'+index+'"><a href="#"><h1>'+elem+'</h1><p>'+index+'</p></a></li>'
-            });
-            if(html === ''){
-                html = '<h3 align="center">Document not available</h3>'
+            if (data){
+                //var lastPage = Integer.parseInt(data.lastPage);                    
+                if($.casePage==1){
+                    var title = '<h2 align="center">'+data.result.Title+'</h2>';
+                    html+= title;
+                    $.lastPage = parseInt(data.result.lastPage);
+                }                    
+                    html+= data.result.JudgementBody;                                                                    
             }
-                $('#lssResult #mylist2').html(html);
-                $('#lssResult #mylist2').listview('refresh');
+            else{
+                html='<h2 align="center">No content to display</h2>'
+            }
+            if($.casePage > 1){
+                $("#caseMain #results").append(html);
+                //console.log($.casePage);
+            }
+                
+            else{
+                $("#caseMain #results").html(html);
+                //console.log($.casePage);
+            }
+                
+            $.scrollAndLoad = true;
+            $.mobile.loading('hide');
+    }
+    if(pageId == "lsResult"){
+        var html = '';
+        if(data.results.pages){
+        $.each(data.results,function(index,elem){
+            if(index%10 < 11){
+            html += '<li name="'+elem.fileName+'"><a href="#"><h1>'+elem.title+'</h1><p>'+elem.Preamble+'</p></a></li>';}
+        });            
+        var lastpage = parseInt(data.results.pages.LastPage);            
+        var currentpage = parseInt(data.results.pages.CurrentPage);
+        $.lastPage = lastpage;
+        $.currentPage = currentpage;
+        $.currentpage+1 > lastpage ? $.nextPage = lastPage : $.nextPage = currentpage+1;
+        $.currentpage-1 < 1 ? $.prevPage = 1 : $.prevPage = currentpage-1;
+            
+        $("#lsResult #lp").html('Last page: '+$.lastPage);
+        $("#lsResult #cp").html('Current page: '+$.currentPage);            
         }
-        if(pageId == 'briefcasePage'){
-            //console.log(data.result);
-            var html = '';              
-            var cases = '';
-                $.each(data,function(){                    
-                    if(data.result.Title){
-                    html += '<li name="'+data.result.CaseID+'"><a href="#"><h1>'+data.result.Title+'<h1></a></li>';  
-                    cases += '<option value="'+data.result.CaseID+'">'+data.result.Title+'</option>'                   
-                    }                                
-                });
-                if(!html){
-                    $("#nohtml").html('<h2>No cases saved</h2>');
-                    $("#nohtml").attr('align','center')
-                }
-                else{
-                    $("#briefcaseId").html(html);
-                    $("#briefcaseId").listview("refresh");   
-                    $("#briefcasePage #selectCase").html(cases);
-                    $("#briefcasePage #selectCase").selectmenu('refresh');
-                }
-        }    
+        if(html == ''){
+            html = '<li>No results</li>'
+            $("#lsResult #lp,#lsResult #cp").html('');
+        }
+            $('#lsResult #mylist2').html(html);
+            $('#lsResult #mylist2').listview('refresh');
+            $.mobile.loading('hide');
     }
-    $.getJson = function(url,pageId){
-        $.getJSON(url,function(data){
-            $.handleData(data,pageId);
+    if(pageId == 'lssResult'){
+        var html = '';
+        //console.log(data);
+        //console.log($.filename);
+        $.each(data.result,function(index,elem){                
+        html += '<li name="'+$.filename+'" part="'+index+'"><a href="#"><h1>'+elem+'</h1><p>'+index+'</p></a></li>'
         });
+        if(html === ''){
+            html = '<h3 align="center">Document not available</h3>'
+        }
+            $('#lssResult #mylist2').html(html);
+            $('#lssResult #mylist2').listview('refresh');
     }
-    function onLoad(){
-        document.addEventListener("deviceready", onDeviceReady,false);
+    if(pageId == 'briefcasePage'){
+        //console.log(data.result);
+        var html = '';              
+        var cases = '';
+            $.each(data,function(){                    
+                if(data.result.Title){
+                html += '<li name="'+data.result.CaseID+'"><a href="#"><h1>'+data.result.Title+'<h1></a></li>';  
+                cases += '<option value="'+data.result.CaseID+'">'+data.result.Title+'</option>'                   
+                }                                
+            });
+            if(!html){
+                $("#nohtml").html('<h2>No cases saved</h2>');
+                $("#nohtml").attr('align','center')
+            }
+            else{
+                $("#briefcaseId").html(html);
+                $("#briefcaseId").listview("refresh");   
+                $("#briefcasePage #selectCase").html(cases);
+                $("#briefcasePage #selectCase").selectmenu('refresh');
+            }
+    }    
+}
+$.getJson = function(url,pageId){
+    $.getJSON(url,function(data){
+        $.handleData(data,pageId);
+    });
+}
+function onLoad(){
+    document.addEventListener("deviceready", onDeviceReady,false);
     }
     function onDeviceReady(){
         document.addEventListener("backbutton", onBackKeyDown,true);
     }
-    function onBackKeyDown(){
-        history.back();
+    function onBackKeyDown(e){
+        //history.back();
+        navigator.app.backHistory();
+        e.preventDefault();
     }
 </script>
 </html>
