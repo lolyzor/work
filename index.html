@@ -10,7 +10,7 @@
     </script>
     <style ></style>
 </head>
-<body>
+<body onload="onLoad()">
 <div id="main" data-role="page">
 	<div data-role="panel" id="mypanel" data-display="overlay" data-dismissible="true" data-tap-toggle="false">		  
             <div>
@@ -109,7 +109,6 @@
 			navigator.app.loadUrl(url, { openExternal:true });			
 		});
         $('#main').on('pageinit',function(){
-            onLoad();
             $("#main #login").on("vclick",function(){
                 //console.log('login click ?');
                 $("#error").html("");
