@@ -34,15 +34,65 @@
                 </ul>
             </div><!-- /navbar -->
         </div><!-- /footer --> 
-         <div data-role="popup" id="popupMenu" id="footerlist2">
+        <div data-role="popup" id="popupMenu"> 
             <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                <li><a href="#searchPopUp" data-rel="popup" data-position-to="window">Search</a></li>
                 <li><a href="references.html">References</a></li>
                 <li><a href="help.html">Help</a></li>                            
                 <li><a href="index.html">Home</a></li>                            
             </ul>
         </div>        
+         <div data-role="popup" id="searchPopUp">
+                <div style="padding:10px 20px;">
+                    <input data-mini="true" id="searchText" name="search" type="text">
+                    <button id="searchInside" data-mini="true">Search</button>
+                </div>
+        </div>        
         
     <script>
+        //$("#searchInside").on('vclick',function(){
+        function replaceAll(find, replace, str) {
+          return str.replace(new RegExp(find, 'g'), replace);
+        }
+        $('button').on('vclick',function(){
+            //console.log($(this).attr('id'));
+            if($(this).attr('id') == 'searchInside'){
+                var query = $("#searchText").val(); 
+                console.log('clicked');
+                searchIt(query);
+                //$.searchNext = false;
+            }
+            //return false;
+        });
+        function searchIt(query){
+            console.log(query);
+            var content = $("#results").html();
+            var result  = content.indexOf(query);
+            console.log('index '+result);
+            if(result != -1){
+                var replaced = content.indexOf('<span class="scrollTo">'+query+'</span>');
+                if(replaced == -1){
+                    //console.log('not replaced');
+                    $.searchNext = false;
+                    content = replaceAll(query,'<span class="scrollTo">'+query+'</span>',content);
+                    $("#results").html(content);
+                    $.searchCount = $(".scrollTo").length; 
+                }
+                if($.searchNext){
+                    //console.log('remainder is '+$.searchNext%$.searchCount+' and count is '+$.searchCount);
+
+                    var n = $.searchNext%$.searchCount;
+                    $.searchNext+=1;
+                }
+                else{
+                    $.searchNext = 1;
+                    var n = 0;
+                }
+                console.log("number n "+n);
+                $('html, body').animate({ scrollTop: $(".scrollTo:eq("+n+")").offset().top},500);
+                $("#searchPopUp").popup("close");
+            }
+        }
     function makeUrl(p){
         var filename = $.filename;
         //var ec = $.urlParam('ec');
@@ -69,29 +119,16 @@
         var urltext = makeUrl();
         $.mobile.loading('show');
         $.getJson(urltext,'caseMain');
+        for(var i=0;i<$.lastPage;i++){
+            urltext = makeUrl();
+            $.getJson(urltext,'caseMain');
+        }
         if($.latest){
             $("#goBack").attr('href','latest.html');
             $.latest=false;
             console.log($.latest);
             console.log($("#goBack").attr('href'));
         }
-        // $(window).on('scroll',function(){
-        //     if($.mobile.activePage.attr('id') == 'caseMain'){
-        //         if($(window).scrollTop() + $(window).height() >= $(document).height()){
-        //             if($.scrollAndLoad){                
-        //                 url = makeUrl();
-        //                 console.log(url);
-        //                 if($.casePage <= $.lastPage){
-        //                     $.getJson(url,'caseMain');
-        //                     $.mobile.loading('show');
-        //                 }                        
-        //                 $.scrollAndLoad = false;
-        //                 //$(window).height() -= 20;
-                        
-        //             }                
-        //         }
-        //     }    
-        // });
     }
     function runIt2(){
         if($.latest){

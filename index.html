@@ -9,7 +9,6 @@
 <script src="phonegap.js"></script>
 <script>
 </script>
-<style ></style>
 </head>
 <body>
 <div id="main" data-role="page">
@@ -98,6 +97,12 @@
             <li><a link="help.html">Help</a></li>                            
         </ul>
     </div>
+    <style>
+     .ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
+        padding-top:3px;
+        padding-bottom:3px;
+    }
+    </style>
     <script>
     //onLoad();
    // $(document).bind("mobileinit", function() {
@@ -118,6 +123,17 @@
     $("#register").on("vclick",function(){
         url = "http://elaw.com.my/test2/subscription_single_corporate.aspx"
         navigator.app.loadUrl(url, { openExternal:true });			
+    });
+    $('#main').on('pageshow',function(){
+        $("li img").each(function(){
+            var $this = $(this);
+            var height = $this.height();
+            var width = $this.width();
+            $this.height(height/2);
+            $this.width(width/2);
+            $this.css('padding-left','15px');
+            $this.css('padding-top','10px');
+        });
     });
     $('#main').on('pageinit',function(){
         $("#main #login").on("vclick",function(){
