@@ -99,8 +99,8 @@
     </div>
     <style>
      .ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
-        padding-top:3px;
-        padding-bottom:3px;
+        padding-top:1px;
+        padding-bottom:1px;
     }
     </style>
     <script>
@@ -125,15 +125,18 @@
         navigator.app.loadUrl(url, { openExternal:true });			
     });
     $('#main').on('pageshow',function(){
-        $("li img").each(function(){
-            var $this = $(this);
-            var height = $this.height();
-            var width = $this.width();
-            $this.height(height/2);
-            $this.width(width/2);
-            $this.css('padding-left','15px');
-            $this.css('padding-top','10px');
-        });
+        if(!$.smallerImages){
+            $.smallerImages = true;
+            $("li img").each(function(){
+                var $this = $(this);
+                var height = $this.height();
+                var width = $this.width();
+                $this.height(height/2);
+                $this.width(width/2);
+                $this.css('padding-left','15px');
+                $this.css('padding-top','10px');
+            });
+        }
     });
     $('#main').on('pageinit',function(){
         $("#main #login").on("vclick",function(){
