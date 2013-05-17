@@ -223,15 +223,16 @@ $.handleData = function(data,pageId){
         //return html;
     }
     if(pageId == "caseMain"){
-        console.log(data);
+        //console.log(data);
         var html = '';
-            //console.log(data);
+            //console.log(data.result.lastPage);
             if (data){
                 //var lastPage = Integer.parseInt(data.lastPage);                    
                 if($.casePage==1){
                     var title = '<h2 align="center">'+data.result.Title+'</h2>';
                     html+= title;
                     $.lastPage = parseInt(data.result.lastPage);
+                    console.log($.lastPage);
                 }                    
                     html+= data.result.JudgementBody;                                                                    
             }
@@ -250,6 +251,7 @@ $.handleData = function(data,pageId){
                 
             $.scrollAndLoad = true;
             $.mobile.loading('hide');
+            //console.log('casemain finished');
     }
     if(pageId == "lsResult"){
         var html = '';
@@ -315,6 +317,24 @@ $.getJson = function(url,pageId){
     $.getJSON(url,function(data){
         $.handleData(data,pageId);
     });
+}
+$.getJsonAsync = function(url,pageId){
+    /*$.ajax({
+        type: 'GET',
+        url: url,
+        dataType: 'json',
+        success: function(data){
+            $.handleData(data,pageId)
+        },
+        data: {},
+        async: false
+    });*/
+    $.ajaxSetup({"async":false});
+    $.getJSON(url,function(data){
+        $.handleData(data,pageId);
+    });
+    $.ajaxSetup({"async":true});
+    console.log('finished');
 }
 function onLoad(){
     document.addEventListener("deviceready", onDeviceReady,false);

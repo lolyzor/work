@@ -64,8 +64,23 @@
             }
             //return false;
         });
+        $("#searchPopUp").on('popupafteropen',function(){
+            //console.log('popup closed !');
+            //var screenTop = $(document).scrollTop();
+            //if($.offset)
+                //$("#searchPopUp").css('top',$.offset);
+        });
         function searchIt(query){
-            console.log(query);
+            if(!$.searchQuery){
+                $.searchQuery = query
+            }
+            else{
+                if($.searchQuery != query){
+                    $(".scrollTo").contents().unwrap();
+                    $.searchQuery = query;
+                }
+            }
+            //console.log(query);
             var content = $("#results").html();
             var result  = content.indexOf(query);
             console.log('index '+result);
@@ -89,8 +104,15 @@
                     var n = 0;
                 }
                 console.log("number n "+n);
-                $('html, body').animate({ scrollTop: $(".scrollTo:eq("+n+")").offset().top},500);
-                $("#searchPopUp").popup("close");
+                var offset = $(".scrollTo:eq("+n+")").offset().top;
+                console.log(offset+' offset 2');
+                $('html, body').animate({ scrollTop:offset},500,function(){
+                    console.log('animation done');
+                    $("#searchPopUp").css("top",$.offset+10);
+                    var offset1 = $("#searchPopUp").offset().top;
+                   console.log(offset1+' offset 1'); 
+                });
+                //$("#searchPopUp").popup("close");
             }
         }
     function makeUrl(p){
@@ -113,22 +135,30 @@
             $.mobile.loading('show');
         }
     });
+    function loadNext(){
+        if(!$.lastPage){
+            setTimeout(loadNext,100);
+        }
+        else{
+            for(var i=0;i<$.lastPage;i++){
+                urltext = makeUrl();
+                $.getJson(urltext,'caseMain');
+            }
+        }
+    }
     function runIt(){
         $.casePage = 0;
         $.scrollAndLoad = true;
         var urltext = makeUrl();
         $.mobile.loading('show');
         $.getJson(urltext,'caseMain');
-        for(var i=0;i<$.lastPage;i++){
-            urltext = makeUrl();
-            $.getJson(urltext,'caseMain');
-        }
         if($.latest){
             $("#goBack").attr('href','latest.html');
             $.latest=false;
             console.log($.latest);
             console.log($("#goBack").attr('href'));
         }
+        loadNext();
     }
     function runIt2(){
         if($.latest){
