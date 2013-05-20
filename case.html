@@ -45,7 +45,8 @@
          <div data-role="popup" id="searchPopUp">
                 <div style="padding:10px 20px;">
                     <input data-mini="true" id="searchText" name="search" type="text">
-                    <button id="searchInside" data-mini="true">Search</button>
+                    <button id="searchInside" data-mini="true" data-inline="true">Search</button>
+                    <button id="closeSearchBox" data-mini="true" data-inline="true">Close</button>
                 </div>
         </div>        
         
@@ -62,22 +63,40 @@
                 searchIt(query);
                 //$.searchNext = false;
             }
+            if($(this).attr('id')=='closeSearchBox'){
+                $("#searchPopUp").popup("close");
+                $("#searchPopUp").toggle(false);
+            }
             //return false;
         });
+        function callback(match, p1) {
+            return ((p1 == undefined) || (p1 == '')) ? match : '<span class="found">' + match + '</span>';
+        }
+        function surroundTags(search) {
+              $('#results').html($('#results').html().replace(new RegExp("<[^>]+>|&nbsp;|&amp;|(" + search + ")", 'ig'), callback));
+        }
+        function remTags() {
+            $('.found').contents().unwrap();
+        }
         $("#searchPopUp").on('popupafteropen',function(){
-            //console.log('popup closed !');
-            //var screenTop = $(document).scrollTop();
-            //if($.offset)
-                //$("#searchPopUp").css('top',$.offset);
+            var $$ = $(this);
+            var width = $$.width;
+            $$.css('position','fixed');
+            $$.css('top','25px');
+            $$.css('left','60px');
+            $$.toggle(true);
         });
         function searchIt(query){
+            var newSearch = false;
             if(!$.searchQuery){
                 $.searchQuery = query
+                newSearch = true;
             }
             else{
                 if($.searchQuery != query){
-                    $(".scrollTo").contents().unwrap();
+                    remTags();
                     $.searchQuery = query;
+                    newSearch = true;
                 }
             }
             //console.log(query);
@@ -95,7 +114,6 @@
                 }
                 if($.searchNext){
                     //console.log('remainder is '+$.searchNext%$.searchCount+' and count is '+$.searchCount);
-
                     var n = $.searchNext%$.searchCount;
                     $.searchNext+=1;
                 }
@@ -103,6 +121,7 @@
                     $.searchNext = 1;
                     var n = 0;
                 }
+
                 console.log("number n "+n);
                 var offset = $(".scrollTo:eq("+n+")").offset().top;
                 console.log(offset+' offset 2');
