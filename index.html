@@ -139,6 +139,25 @@
         }
     });
     $('#main').on('pageinit',function(){
+        var end = $(document).height();
+        var win = $(window);
+        var winH = win.height();
+        $(window).on('scroll',function(){
+            var top = win.scrollTop();
+            //console.log(top);
+            if(!$.winH){
+                $.winH = win.height();
+                //console.log($.winH);
+            }
+            if(top < 8){
+                win.scrollTop(8);
+                //console.log(top);
+            }
+            if(top+winH > end-10){
+                win.scrollTop(end-winH-10);
+                //console.log('end');
+            }
+        });
         $("#main #login").on("vclick",function(){
             //console.log('login click ?');
             $("#error").html("");
