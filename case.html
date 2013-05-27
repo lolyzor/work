@@ -45,7 +45,8 @@
          <div data-role="popup" id="searchPopUp">
                 <div style="padding:10px 20px;">
                     <input data-mini="true" id="searchText" name="search" type="text">
-                    <button id="searchInside" data-mini="true" data-inline="true">Search</button>
+                    <button id="nextSearch" data-mini="true" data-inline="true">next</button>
+                    <button id="prevSearch" data-mini="true" data-inline="true">prev</button>
                     <button id="closeSearchBox" data-mini="true" data-inline="true">Close</button>
                 </div>
         </div>        
@@ -57,11 +58,12 @@
         }
         $('button').on('vclick',function(){
             //console.log($(this).attr('id'));
-            if($(this).attr('id') == 'searchInside'){
+            var options = $(this).attr('id');
+            if(options == 'nextSearch' || options == 'prevSearch'){
                 var query = $("#searchText").val(); 
-                console.log('clicked');
-                searchIt(query);
-                //$.searchNext = false;
+                $.trim(query);
+                if(query)
+                    searchIt(query,options);
             }
             if($(this).attr('id')=='closeSearchBox'){
                 $("#searchPopUp").popup("close");
@@ -86,7 +88,7 @@
             $$.css('left','60px');
             $$.toggle(true);
         });
-        function searchIt(query){
+        function searchIt(query,options){
             var newSearch = false;
             if(!$.searchQuery){
                 $.searchQuery = query
@@ -100,40 +102,39 @@
                 }
             }
             //console.log(query);
-            var content = $("#results").html();
-            var result  = content.indexOf(query);
-            console.log('index '+result);
-            if(result != -1){
-                var replaced = content.indexOf('<span class="scrollTo">'+query+'</span>');
-                if(replaced == -1){
-                    //console.log('not replaced');
-                    $.searchNext = false;
-                    content = replaceAll(query,'<span class="scrollTo">'+query+'</span>',content);
-                    $("#results").html(content);
-                    $.searchCount = $(".scrollTo").length; 
+            if(newSearch){
+                surroundTags($.searchQuery);
+                if($('.found').size()){
+                    $.fndsz = $('.found').size();
+                    if(options=='prevSearch'){
+                        $.curr = $.fndSz - 1;
+                        $('body,html').animate({ scrollTop: $('.found:eq(' + $.curr + ')').offset().top - 90 }, 800);
+                        $('.found:eq(' + $.curr + ')').addClass('currentFound');
+                    }
+                    else{
+                        $('body,html').animate({ scrollTop: $('.found:eq(0)').offset().top - 90 }, 800);
+                        $('.found:eq(0)').addClass('currentFound');
+                    }
                 }
-                if($.searchNext){
-                    //console.log('remainder is '+$.searchNext%$.searchCount+' and count is '+$.searchCount);
-                    var n = $.searchNext%$.searchCount;
-                    $.searchNext+=1;
-                }
-                else{
-                    $.searchNext = 1;
-                    var n = 0;
-                }
-
-                console.log("number n "+n);
-                var offset = $(".scrollTo:eq("+n+")").offset().top;
-                console.log(offset+' offset 2');
-                $('html, body').animate({ scrollTop:offset},500,function(){
-                    console.log('animation done');
-                    $("#searchPopUp").css("top",$.offset+10);
-                    var offset1 = $("#searchPopUp").offset().top;
-                   console.log(offset1+' offset 1'); 
-                });
-                //$("#searchPopUp").popup("close");
             }
+            else{
+                if(!$.curr){
+                    $.curr = 0;
+                }
+            if ($('.found').size()) {
+                //jump to the next/prev and add currentFound class + remove the prev class
+                $('.found:eq(' + $.curr + ')').removeClass('currentFound');
+                if (options=='prevSearch') {
+                    $.curr = (--$.curr);
+                    if ($.curr < 0)
+                        $.curr = $.fndsz - 1;
+                } else
+                    $.curr = (++$.curr) % $.fndsz;
+                $('body,html').animate({ scrollTop: $('.found:eq(' + $.curr + ')').offset().top - 90 }, 800);
+                $('.found:eq(' + $.curr + ')').addClass('currentFound');
+            }
         }
+    }
     function makeUrl(p){
         var filename = $.filename;
         //var ec = $.urlParam('ec');
@@ -174,8 +175,8 @@
         if($.latest){
             $("#goBack").attr('href','latest.html');
             $.latest=false;
-            console.log($.latest);
-            console.log($("#goBack").attr('href'));
+            //console.log($.latest);
+            //console.log($("#goBack").attr('href'));
         }
         loadNext();
     }
@@ -183,8 +184,8 @@
         if($.latest){
             $("#goBack").attr('href','latest.html');
             $.latest=false;
-            console.log($.latest);
-            console.log($("#goBack").attr('href'));
+            //console.log($.latest);
+            //console.log($("#goBack").attr('href'));
         }
     }
     $('#caseMain').on('pageshow', runIt);  
