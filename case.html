@@ -35,12 +35,118 @@
         </div><!-- /footer --> 
          <div data-role="popup" id="popupMenu" id="footerlist2">
             <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                <li><a href="#searchPopUp" data-rel="popup" data-position-to="window">Search</a></li>
                 <li><a href="references.html">References</a></li>
                 <li><a href="help.html">Help</a></li>                            
             </ul>
         </div>        
-        
+         <div data-role="popup" id="searchPopUp">
+                <div style="padding:10px 20px;">
+                    <input data-mini="true" id="searchText" name="search" type="text">
+                    <button id="nextSearch" data-mini="true" data-inline="true">next</button>
+                    <button id="prevSearch" data-mini="true" data-inline="true">prev</button>
+                    <button id="closeSearchBox" data-mini="true" data-inline="true">Close</button>
+                </div>
+        </div><!--end of searchPopup --!>
+    <style>
+        .found{
+            background-color: Yellow;
+            font: inherit;
+            }
+         .currentFound {
+            background-color: orange;
+            }
+        div.ui-btn {
+            padding-top:1px;
+            padding-bottom:1px;
+            margin-top:1px;
+            margin-bottom:1px;
+        }
+    </style> 
     <script>
+        function replaceAll(find, replace, str) {
+          return str.replace(new RegExp(find, 'g'), replace);
+        }
+        $('button').on('vclick',function(){
+            //console.log($(this).attr('id'));
+            var options = $(this).attr('id');
+            if(options == 'nextSearch' || options == 'prevSearch'){
+                var query = $("#searchText").val(); 
+                $.trim(query);
+                if(query)
+                    searchIt(query,options);
+            }
+            if($(this).attr('id')=='closeSearchBox'){
+                $("#searchPopUp").popup("close");
+                $("#searchPopUp").toggle(false);
+            }
+            //return false;
+        });
+        function callback(match, p1) {
+            return ((p1 == undefined) || (p1 == '')) ? match : '<span class="found">' + match + '</span>';
+        }
+        function surroundTags(search) {
+              $('#results').html($('#results').html().replace(new RegExp("<[^>]+>|&nbsp;|&amp;|(" + search + ")", 'ig'), callback));
+        }
+        function remTags() {
+            $('.found').contents().unwrap();
+        }
+        $("#searchPopUp").on('popupafteropen',function(){
+            var $$ = $(this);
+            var width = $$.width;
+            $$.css('position','fixed');
+            $$.css('top','1px');
+            $$.css('left','60px');
+            $$.toggle(true);
+        });
+        function searchIt(query,options){
+            var newSearch = false;
+            if(!$.searchQuery){
+                $.searchQuery = query
+                newSearch = true;
+            }
+            else{
+                if($.searchQuery != query){
+                    remTags();
+                    $.searchQuery = query;
+                    newSearch = true;
+                }
+            }
+            //console.log(query);
+            if(newSearch){
+                console.log("new search");
+                surroundTags($.searchQuery);
+                if($('.found').size()){
+                    $.fndsz = $('.found').size();
+                    if(options=='prevSearch'){
+                        $.curr = $.fndSz - 1;
+                        $('body,html').animate({ scrollTop: $('.found:eq(' + $.curr + ')').offset().top - 99 }, 400);
+                        $('.found:eq(' + $.curr + ')').addClass('currentFound');
+                    }
+                    else{
+                        $('body,html').animate({ scrollTop: $('.found:eq(0)').offset().top - 99 }, 400);
+                        $('.found:eq(0)').addClass('currentFound');
+                    }
+                }
+            }
+            else{
+                if(!$.curr){
+                    $.curr = 0;
+                }
+            if ($('.found').size()) {
+                //jump to the next/prev and add currentFound class + remove the prev class
+                $('.found:eq(' + $.curr + ')').removeClass('currentFound');
+                if (options=='prevSearch') {
+                    $.curr = (--$.curr);
+                    if ($.curr < 0)
+                        $.curr = $.fndsz - 1;
+                } else
+                    $.curr = (++$.curr) % $.fndsz;
+                $('body,html').animate({ scrollTop: $('.found:eq(' + $.curr + ')').offset().top - 99 }, 400);
+                $('.found:eq(' + $.curr + ')').addClass('currentFound');
+            }
+        }
+    }
     $("#caseMain li a").on('vclick',function(){
         //console.log();
         var url = $(this).attr('link');
