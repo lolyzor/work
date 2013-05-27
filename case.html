@@ -50,7 +50,21 @@
                     <button id="closeSearchBox" data-mini="true" data-inline="true">Close</button>
                 </div>
         </div>        
-        
+    <style>
+        .found{
+            background-color: Yellow;
+            font: inherit;
+            }
+         .currentFound {
+            background-color: orange;
+            }
+        div.ui-btn {
+            padding-top:1px;
+            padding-bottom:1px;
+            margin-top:1px;
+            margin-bottom:1px;
+        }
+    </style> 
     <script>
         //$("#searchInside").on('vclick',function(){
         function replaceAll(find, replace, str) {
@@ -84,7 +98,7 @@
             var $$ = $(this);
             var width = $$.width;
             $$.css('position','fixed');
-            $$.css('top','25px');
+            $$.css('top','1px');
             $$.css('left','60px');
             $$.toggle(true);
         });
@@ -103,16 +117,17 @@
             }
             //console.log(query);
             if(newSearch){
+                console.log("new search");
                 surroundTags($.searchQuery);
                 if($('.found').size()){
                     $.fndsz = $('.found').size();
                     if(options=='prevSearch'){
                         $.curr = $.fndSz - 1;
-                        $('body,html').animate({ scrollTop: $('.found:eq(' + $.curr + ')').offset().top - 90 }, 800);
+                        $('body,html').animate({ scrollTop: $('.found:eq(' + $.curr + ')').offset().top - 99 }, 400);
                         $('.found:eq(' + $.curr + ')').addClass('currentFound');
                     }
                     else{
-                        $('body,html').animate({ scrollTop: $('.found:eq(0)').offset().top - 90 }, 800);
+                        $('body,html').animate({ scrollTop: $('.found:eq(0)').offset().top - 99 }, 400);
                         $('.found:eq(0)').addClass('currentFound');
                     }
                 }
@@ -130,7 +145,7 @@
                         $.curr = $.fndsz - 1;
                 } else
                     $.curr = (++$.curr) % $.fndsz;
-                $('body,html').animate({ scrollTop: $('.found:eq(' + $.curr + ')').offset().top - 90 }, 800);
+                $('body,html').animate({ scrollTop: $('.found:eq(' + $.curr + ')').offset().top - 99 }, 400);
                 $('.found:eq(' + $.curr + ')').addClass('currentFound');
             }
         }
