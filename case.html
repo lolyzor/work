@@ -64,6 +64,12 @@
             margin-top:1px;
             margin-bottom:1px;
         }
+        #searchPopUp {
+            position:fixed;
+            top:1px;
+            left:60px;
+            display:none;
+        }
     </style> 
     <script>
         //$("#searchInside").on('vclick',function(){
@@ -96,10 +102,10 @@
         }
         $("#searchPopUp").on('popupafteropen',function(){
             var $$ = $(this);
-            var width = $$.width;
-            $$.css('position','fixed');
-            $$.css('top','1px');
-            $$.css('left','60px');
+            //var width = $$.width;
+            //$$.css('position','fixed');
+            //$$.css('top','1px');
+            //$$.css('left','60px');
             $$.toggle(true);
         });
         function searchIt(query,options){
