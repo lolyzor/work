@@ -183,11 +183,13 @@
                 $.currentpage-1 < 1 ? $.prevPage = 1 : $.prevPage = currentpage-1;    
                 $("#caseSearchResults #lp").html('Last page: '+$.lastPage);
                 $("#caseSearchResults #cp").html('Current page: '+$.currentPage);
+                $(".ui-grid-a").toggle(true);                
             }            
             if(html === ''){
                 html = '<li>No results</li>'
                 $("#caseSearchResults #lp").html('');
                 $("#caseSearchResults #cp").html('');                
+                $(".ui-grid-a").toggle(false);                
                 }
             $('#caseSearchResults #mylist2').html(html);
             $('#caseSearchResults #mylist2').listview('refresh'); 
@@ -239,10 +241,12 @@
                 
             $("#lsResult #lp").html('Last page: '+$.lastPage);
             $("#lsResult #cp").html('Current page: '+$.currentPage);            
+            $(".ui-grid-a").toggle(true);                
             }
             if(html == ''){
                 html = '<li>No results</li>'
                 $("#lsResult #lp,#lsResult #cp").html('');
+                $(".ui-grid-a").toggle(false);                
             }
                 $('#lsResult #mylist2').html(html);
                 $('#lsResult #mylist2').listview('refresh');
