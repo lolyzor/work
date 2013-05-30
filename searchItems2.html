@@ -146,6 +146,9 @@
     });
      $("#lsResult #mylist2").on('vclick','li',function(){
         var filename = $(this).attr('name');
+        if(!filename){
+            return false;
+        }
         $.filename = filename;
         console.log($.filename);
         $.mobile.changePage('searchItems3.html');
