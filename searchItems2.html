@@ -130,6 +130,8 @@
     }
     $("#lsResult").on('pageinit',function(){
         //$.page = false;
+        $(".ui-grid-a").toggle(false);                
+        $("#searchInside").toggle(false);                
         $("#lsResult #pClick").on('vclick',function(){
             $.page = $.prevPage;
             loadJson();
