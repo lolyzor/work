@@ -92,6 +92,9 @@
                 $.mobile.changePage(url);
         });
         $("#legislationSearch #alsearchb").on("vclick",function(){ 
+            if(!$("#ec").val()){
+                return false;
+            }
             var arg = $("#simpleSearch").serialize();
             arg += $("#advanceSearch").serialize();
             //console.log(args);   
@@ -102,6 +105,9 @@
             $.mobile.changePage('searchItems2.html');
         });
         $("#legislationSearch #lsearchb").on("vclick",function(){
+            if(!$("#ec").val()){
+                return false;
+            }
             //var key = $("#ec").val();
             $.ec = $("#simpleSearch").serialize();
             // console.log('ya');

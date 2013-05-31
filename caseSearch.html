@@ -116,6 +116,9 @@
       });
         //console.log('what the fuck');
         $("#caseSearch #asearchb").on("vclick",function(){                
+                if(!$("#ec").val()){
+                    return false;
+                }
                 var args = $("#normalSearch").serialize()+'&'+$("#advanceSearch").serialize();
                 $.caseSearchArgs = args;
                 $.page = false;
@@ -125,6 +128,9 @@
                 $.mobile.changePage('searchItems.html');                
             });
         $("#caseSearch #searchb").on("vclick",function(){                
+                if(!$("#ec").val()){
+                    return false;
+                }
                 console.log('normal search');
                 var args = $("#normalSearch").serialize();
                 $.caseSearchArgs = args;                
