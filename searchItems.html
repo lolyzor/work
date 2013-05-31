@@ -148,6 +148,8 @@
         $.getJson(urltext,'caseSearchResults');
     }
     function runIt2(){
+        $(".ui-grid-a").toggle(false);                
+        $("#searchInside").toggle(false);                
         $("#caseSearchResults li a").on('vclick',function(){
             //console.log();
             var url = $(this).attr('link');
