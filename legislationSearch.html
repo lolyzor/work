@@ -88,18 +88,18 @@
  <script>
     function runIt(){
         $("#t, #cn").on('keyup',function(){
-            $("#ayc").val("keyboard showed prior");
-            if(notShifted){
-                return false;
-                $("#ayc").val("keyboard showed notshift");
-            }
-            else{
-                $("#ayc").val("keyboard showed else");
+            $("#ayc").val("keyboard showed ");
+            if(typeof notShifted === 'undefined'){
+                $("#ayc").val("not defined");
                 var visibleOffset = $("#nc").offset().top;
                 var lastElementOffset = $("#cn").offset().top;
                 var distance = lastElementOffset - visibleOffset;
                 $("#cn").css('padding-bottom',distance);
                 notShifted = true;
+            }
+            else{
+                $("#ayc").val("defiend");
+                return false;
             }
         });
         $("#t, #cn").on("change",function(){
