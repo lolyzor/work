@@ -90,10 +90,10 @@
         $("#t, #cn").on('keyup',function(){
             $("#ayc").val("keyboard showed ");
             if(typeof notShifted === 'undefined'){
-                $("#ayc").val("not defined");
                 var visibleOffset = $("#nc").offset().top;
                 var lastElementOffset = $("#cn").offset().top;
                 var distance = lastElementOffset - visibleOffset;
+                $("#ayc").val("distance "+distance);
                 $("#cn").css('padding-bottom',distance);
                 notShifted = true;
             }
