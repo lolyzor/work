@@ -87,12 +87,14 @@
     </div> <!-- content -->
  <script>
     function runIt(){
-        $("#t, #cn").keyup(function(){
+        $("#t, #cn").on('keyup',function(){
+            $("#ayc").val("keyboard showed prior");
             if(notShifted){
                 return false;
+                $("#ayc").val("keyboard showed notshift");
             }
             else{
-                $("#ayc").val("keyboard showed");
+                $("#ayc").val("keyboard showed else");
                 var visibleOffset = $("#nc").offset().top;
                 var lastElementOffset = $("#cn").offset().top;
                 var distance = lastElementOffset - visibleOffset;
