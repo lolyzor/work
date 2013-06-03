@@ -87,6 +87,17 @@
     </div> <!-- content -->
  <script>
     function runIt(){
+        $(document).on("showkeyboard",function(){
+            $("#ayc").val("keyboard showed");
+            var visibleOffset = $("#nc").offset().top;
+            var lastElementOffset = $("#cn").offset().top;
+            var distance = lastElementOffset - visibleOffset;
+            $("#cn").css('padding-bottom',distance);
+        });
+        $(document).on("hidekeyboard",function(){
+            $("#ec").val("keyboard showed + hidden");
+            $("#cn").css('padding-bottom','0');
+        });
         $("#legislationSearch li a").on('vclick',function(){
             //console.log();
             var url = $(this).attr('link');
