@@ -55,6 +55,7 @@
     <input type="text" name="t" id="t" value=""  />
     <label for="name">Act number</label>
     <input type="text" name="cn" id="cn" value=""  />
+    <p id="bullshit"></p>
     <fieldset class="ui-grid-a">
         <div class="ui-block-a">
         <a href="" data-role="button" data-theme="e" data-mini="true" id="alsearchb">Search</a>        
@@ -88,24 +89,23 @@
  <script>
     function runIt(){
         $("#t, #cn").on('keyup',function(){
-            $("#ayc").val("keyboard showed ");
             if(typeof notShifted === 'undefined'){
                 var visibleOffset = $("#nc").offset().top;
                 var lastElementOffset = $("#cn").offset().top;
                 var distance = lastElementOffset - visibleOffset;
                 $("#ayc").val("distance "+distance);
-                $("#cn").css('paddingBottom',distance+10);
-                $("#cn").css('padding-bottom',distance+10);
+                $("#bullshit").css('margin-bottom',distance+10);
+                $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
                 notShifted = true;
             }
             else{
-                $("#ayc").val("defiend");
                 return false;
             }
         });
         $("#t, #cn").on("change",function(){
-            $("#ec").val("keyboard showed + hidden");
-            $("#cn").css('padding-bottom','0');
+            //$("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
+            //$("#bullshit").css('margin-bottom',distance+20);
+            $("#bullshit").css('margin-bottom',0);
         });
         $("#legislationSearch li a").on('vclick',function(){
             //console.log();
