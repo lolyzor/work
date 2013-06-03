@@ -88,24 +88,24 @@
     </div> <!-- content -->
  <script>
     function runIt(){
+        var shifted = false;
         $("#t, #cn").on('keyup',function(){
-            if(typeof notShifted === 'undefined'){
+            if(!shifted){
                 var visibleOffset = $("#nc").offset().top;
                 var lastElementOffset = $("#cn").offset().top;
                 var distance = lastElementOffset - visibleOffset;
                 $("#ayc").val("distance "+distance);
                 $("#bullshit").css('margin-bottom',distance+10);
                 $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
-                notShifted = true;
+                shifted = true;
             }
             else{
                 return false;
             }
         });
         $("#t, #cn").on("change",function(){
-            //$("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
-            //$("#bullshit").css('margin-bottom',distance+20);
             $("#bullshit").css('margin-bottom',0);
+            shifted = false;
         });
         $("#legislationSearch li a").on('vclick',function(){
             //console.log();
