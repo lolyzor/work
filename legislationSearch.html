@@ -89,21 +89,28 @@
  <script>
     function runIt(){
         var shifted = false;
-        $("#t, #cn").on('keyup',function(){
+        var distance = false;
+        $("#t, #cn").on('focus',function(){
             if(!shifted){
-                var visibleOffset = $("#nc").offset().top;
-                var lastElementOffset = $("#cn").offset().top;
-                var distance = lastElementOffset - visibleOffset;
-                $("#ayc").val("distance "+distance);
-                $("#bullshit").css('margin-bottom',distance+10);
-                $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
-                shifted = true;
+                if(!distance){
+                    var visibleOffset = $("#nc").offset().top;
+                    var lastElementOffset = $("#cn").offset().top;
+                    var distance = lastElementOffset - visibleOffset;
+                    $("#ayc").val("distance "+distance);
+                    $("#bullshit").css('margin-bottom',distance+10);
+                    $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
+                    shifted = true;
+                } 
+                else{
+                    $("#bullshit").css('margin-bottom',distance+10);
+                    $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
+                }
             }
             else{
                 return false;
             }
         });
-        $("#t, #cn").on("change",function(){
+        $("#t, #cn").on("blur",function(){
             $("#bullshit").css('margin-bottom',0);
             shifted = false;
         });
