@@ -60,12 +60,10 @@
         <div class="ui-block-b">
         <a href="" data-role="button" data-theme="e" data-mini="true" id="acancleb">Cancle</a>        
         </div>   
+    <p id="bullshit"></p>
    </fieldset>      
    </form>
     </div>
-
-    
-       
         <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-id="footer1">        
             <div data-role="navbar">
                 <ul id="footerList">
@@ -85,6 +83,37 @@
     </div> <!-- content -->
  <script>
     function runIt(){
+        var shifted = false;
+        var distance = false;
+        $("#t, #cn").on('focus',function(){
+            if(!shifted){
+                if(!distance){
+                    var visibleOffset = $("#nc").offset().top;
+                    var lastElementOffset = $("#cn").offset().top;
+                    var distance = lastElementOffset - visibleOffset;
+                    $("#bullshit").css('margin-bottom',distance);
+                    $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
+                    shifted = true;
+                } 
+                else{
+                    $("#bullshit").css('margin-bottom',distance+10);
+                    $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
+                }
+            }
+            else{
+                return false;
+            }
+        });
+        $("#t, #cn").on("blur",function(){
+            $("#bullshit").css('margin-bottom',0);
+            shifted = false;
+        });
+        $("#legislationSearch li a").on('vclick',function(){
+            //console.log();
+            var url = $(this).attr('link');
+            if(url)
+                $.mobile.changePage(url);
+        });
         $("#legislationSearch li a").on('vclick',function(){
             //console.log();
             var url = $(this).attr('link');
