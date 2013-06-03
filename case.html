@@ -102,10 +102,6 @@
         }
         $("#searchPopUp").on('popupafteropen',function(){
             var $$ = $(this);
-            //var width = $$.width;
-            //$$.css('position','fixed');
-            //$$.css('top','1px');
-            //$$.css('left','60px');
             $$.toggle(true);
         });
         function searchIt(query,options){
@@ -156,6 +152,18 @@
             }
         }
     }
+    function pageZero(){
+        var filename = $.filename;
+        //var ec = $.urlParam('ec');
+        var url = 'http://elaw.com.my/Elawf4/mobile/searchresultmobile.aspx?filename='+filename;
+        var page = '';
+        $.casePage += 1;
+        page = $.casePage;           
+        url += '&p=0';
+        url += '&callback=?';
+        //console.log(url);
+        return url;
+    }
     function makeUrl(p){
         var filename = $.filename;
         //var ec = $.urlParam('ec');
@@ -190,23 +198,18 @@
     function runIt(){
         $.casePage = 0;
         $.scrollAndLoad = true;
-        var urltext = makeUrl();
+        var urltext = pageZero();
         $.mobile.loading('show');
         $.getJson(urltext,'caseMain');
         if($.latest){
             $("#goBack").attr('href','latest.html');
             $.latest=false;
-            //console.log($.latest);
-            //console.log($("#goBack").attr('href'));
         }
-        loadNext();
     }
     function runIt2(){
         if($.latest){
             $("#goBack").attr('href','latest.html');
             $.latest=false;
-            //console.log($.latest);
-            //console.log($("#goBack").attr('href'));
         }
     }
     $('#caseMain').on('pageshow', runIt);  
