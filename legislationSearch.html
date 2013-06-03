@@ -55,7 +55,6 @@
     <input type="text" name="t" id="t" value=""  />
     <label for="name">Act number</label>
     <input type="text" name="cn" id="cn" value=""  />
-    <p id="bullshit"></p>
     <fieldset class="ui-grid-a">
         <div class="ui-block-a">
         <a href="" data-role="button" data-theme="e" data-mini="true" id="alsearchb">Search</a>        
@@ -63,6 +62,7 @@
         <div class="ui-block-b">
         <a href="" data-role="button" data-theme="e" data-mini="true" id="acancleb">Cancle</a>        
         </div>   
+    <p id="bullshit"></p>
    </fieldset>      
    </form>
     </div>
@@ -96,8 +96,7 @@
                     var visibleOffset = $("#nc").offset().top;
                     var lastElementOffset = $("#cn").offset().top;
                     var distance = lastElementOffset - visibleOffset;
-                    $("#ayc").val("distance "+distance);
-                    $("#bullshit").css('margin-bottom',distance+10);
+                    $("#bullshit").css('margin-bottom',distance);
                     $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
                     shifted = true;
                 } 
