@@ -172,8 +172,8 @@
             $.mobile.changePage(url);
     });
     function pageZero(){
+        //load the whole page at once !
         var filename = $.filename;
-        //var ec = $.urlParam('ec');
         var url = 'http://elaw.com.my/Elawf4/mobile/searchresultmobile.aspx?filename='+filename;
         var page = '';
         $.casePage += 1;
