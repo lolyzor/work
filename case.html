@@ -118,14 +118,14 @@
                     if(options=='prevSearch'){
                         $.curr = $.fndSz - 1;
                         var X = $('.found:eq(' + $.curr + ')').offset().top;
-                        $('body,html').animate({ scrollTop: X - 50 }, 400,function(){
+                        $('body,html').animate({ scrollTop: X - 50 }, 1,function(){
                             $("#searchPopUp").popup("open");
                         });
                         $('.found:eq(' + $.curr + ')').addClass('currentFound');
                     }
                     else{
                         var X = $('.found:eq(0)').offset().top;
-                        $('body,html').animate({ scrollTop: X - 50 }, 400,function(){
+                        $('body,html').animate({ scrollTop: X - 50 }, 1,function(){
                             $("#searchPopUp").popup("open");
                         });
                         $('.found:eq(0)').addClass('currentFound');
@@ -146,7 +146,7 @@
                 } else
                     $.curr = (++$.curr) % $.fndsz;
                 var X = $('.found:eq(' + $.curr + ')').offset().top;
-                $('body,html').animate({ scrollTop: X - 50 }, 400,function(){
+                $('body,html').animate({ scrollTop: X - 50 }, 1,function(){
                         $("#searchPopUp").popup("open");
                 });
                 $('.found:eq(' + $.curr + ')').addClass('currentFound');
