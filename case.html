@@ -83,6 +83,7 @@
             }
             if($(this).attr('id')=='closeSearchBox'){
                 $("#searchPopUp").popup("close");
+                $.searchQuery = false;
                 remTags();
             }
             //return false;
