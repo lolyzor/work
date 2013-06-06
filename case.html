@@ -62,12 +62,6 @@
             margin-top:1px;
             margin-bottom:1px;
         }
-        #searchPopUp{
-            position:fixed;
-            top:1px;
-            left:60px;
-            display:none;
-        }
         #results p {
             text-align:justify;
         }
@@ -82,12 +76,14 @@
             if(options == 'nextSearch' || options == 'prevSearch'){
                 var query = $("#searchText").val(); 
                 $.trim(query);
-                if(query)
+                if(query){
+                    $("#searchPopUp").popup("close");
                     searchIt(query,options);
+                }
             }
             if($(this).attr('id')=='closeSearchBox'){
-                $("#searcUPopUp").popup("close");
-                $("#searchPopUp").toggle(false);
+                $("#searchPopUp").popup("close");
+                remTags();
             }
             //return false;
         });
@@ -100,14 +96,6 @@
         function remTags() {
             $('.found').contents().unwrap();
         }
-        $("#searchPopUp").on('popupafteropen',function(){
-            var $$ = $(this);
-           //var width = $$.width;
-           //$$.css('position','fixed');
-           //$$.css('top','1px');
-           //$$.css('left','60px');
-            $$.toggle(true);
-        });
         function searchIt(query,options){
             var newSearch = false;
             if(!$.searchQuery){
@@ -121,7 +109,6 @@
                     newSearch = true;
                 }
             }
-            //console.log(query);
             if(newSearch){
                 console.log("new search");
                 surroundTags($.searchQuery);
@@ -130,16 +117,16 @@
                     if(options=='prevSearch'){
                         $.curr = $.fndSz - 1;
                         var X = $('.found:eq(' + $.curr + ')').offset().top;
-                        //$("#searchPopUp").popup("close");
-                        //$("#searchPopUp").popup("open",{x:0,y:60});
-                        $('body,html').animate({ scrollTop: X - 99 }, 400);
+                        $('body,html').animate({ scrollTop: X - 50 }, 400,function(){
+                            $("#searchPopUp").popup("open");
+                        });
                         $('.found:eq(' + $.curr + ')').addClass('currentFound');
                     }
                     else{
                         var X = $('.found:eq(0)').offset().top;
-                        //$("#searchPopUp").popup("close");
-                        //$("#searchPopUp").popup("open",{x:X,y:60});
-                        $('body,html').animate({ scrollTop: X - 99 }, 400);
+                        $('body,html').animate({ scrollTop: X - 50 }, 400,function(){
+                            $("#searchPopUp").popup("open");
+                        });
                         $('.found:eq(0)').addClass('currentFound');
                     }
                 }
@@ -158,9 +145,9 @@
                 } else
                     $.curr = (++$.curr) % $.fndsz;
                 var X = $('.found:eq(' + $.curr + ')').offset().top;
-                //$("#searchPopUp").popup("close");
-                //$("#searchPopUp").popup("open",{x:X,y:60});
-                $('body,html').animate({ scrollTop: X - 99 }, 400);
+                $('body,html').animate({ scrollTop: X - 50 }, 400,function(){
+                        $("#searchPopUp").popup("open");
+                });
                 $('.found:eq(' + $.curr + ')').addClass('currentFound');
             }
         }
