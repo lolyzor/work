@@ -48,20 +48,22 @@
        <h3>Citation search</h3>
         <label for="publication" style="paddin-right:10px;">Select Publication</label>
         <select id="pub" name="publication" data-mini="true">
+            <option>Select Publication</option>
             <option>MLRA</option>
             <option>MLRH</option>
             <option>MELR</option>
         </select>
-        <label for="year" style="paddin-right:10px;">Select Year</label>
-        <select id="yr" name="year" data-mini="true">
-        </select>
-        <label for="volume" style="paddin-right:10px;">Select Volume</label>
-        <select id="vol" name="volume" data-mini="true">
-        </select>
-        <label for="page" style="paddin-right:10px;">Enter Page Number</label>
+        <label for="year" style="paddin-right:10px;">Enter Year</label>
+        <input id="yr" name="year" data-mini="true" type="text">
+        <label for="volume" style="paddin-right:10px;">Enter Volume</label>
+        <input id="vol" name="volume" data-mini="true" type="text">
+        <label for="pageNumber" style="paddin-right:10px;">Enter Page Number</label>
+        <input id="pageNumber" name="pageNumber" data-mini="true" type="text">
+        <button data-mini="true" id="viewCitation" data-theme="e">View Case</button>
+        <!--<label for="page" style="paddin-right:10px;">Enter Page Number</label>
         <ul id="page" name="page" data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="type page" data-inset="true">
             <li><a href="#">Acura</a></li>
-        </ul>
+        </ul> --> 
    </div>
    <div data-role="collapsible" data-inset="false">
    <h3>Advanced search</h3>
@@ -128,51 +130,24 @@
         </div>        
     </div> <!-- content -->
       <script>
-          $("#pub").change(function(){
+          $("#viewCitation").on("vclick",function(){
+              console.log("called");
               var pub = $("#pub option:selected").text();
-              var url = "http://elaw.com.my/elawf4/mobile/SearchCitation.aspx?pub="+pub;
+              var yr = $("#yr").val();
+              var volume = $("#vol").val();
+              var pn = $("#pageNumber").val();
+              if(!pub || !yr || !volume || !pn)
+                  return false;
+              var url = "http://elaw.com.my/elawf4/mobile/SearchCitation.aspx?pub="+pub+"&yr="+yr+"&vol="+volume+"&pg="+pn;
               url += '&callback=?';
-              $.pub = pub;
-              /*
-              var url2 = "http://www.elaw.com.my/Elaw4/mobile/SearchCitation.aspx/getYear";
-              $.ajax({
-                url:url2, 
-                data:'{pub:"'+pub+'"}', 
-                dataType:'json',
-                contentType:'application/json; charset=UTF-8',
-                success:function(data){
-                    console.log(data.d);
-                    },
-                failure:function(data){
-                    console.log(data);
-                    }
-                });*/
+              $.volume = volume;
               $.getJSON(url,function(data){
-                  var html = '';
-                  console.log(data);
-                  $.each(data.d,function(index,data){
-                      html+= '<option>'+data+'</option>';
-                  });
-                  $("#yr").html(html);
+                  console.log(data.d[0]);
+                  $.filename = data.d[0]; 
+                  $.citationSearch= true;
+                  $.mobile.changePage('case.html');
               });
           });
-          $("#yr").change(function(){
-              var yr = $("#yr option:selected").text();
-              var url = "http://www.elaw.com.my/Elaw4/mobile/searchCitation.aspx?pub="+$.pub+"&yr="+yr;
-              var url = "http://elaw.com.my/elawf4/mobile/SearchCitation.aspx?pub=MLRA"+$.pub+"&yr="+yr;
-              url += '&callback=?';
-              $.yr = yr;
-              $.getJSON(url,function(data){
-                  var html = '';
-                  console.log(data);
-                  //return false;
-                  $.each(data.d,function(index,data){
-                      html+='<li><a href="#" name='+data+'>'+data+'</a></li>';
-                  });
-                  $("#page").html(html);
-              });
-          });
-          //$("#y1,#y2").slider({ stop: function( event, ui ) {console.log('yay');} });
           $("#y1").on('slidestop',function(event,ui){
               console.log('slide stop');
               var y1 = $("#y1").val();

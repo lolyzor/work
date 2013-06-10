@@ -208,8 +208,10 @@
         if($.latest){
             $("#linkback").attr('href','latest.html');
             $.latest=false;
-            console.log($.latest);
-            console.log($("#linkback").attr('href'));
+        }
+        if($.citationSearch){
+            $("#linkback").attr('href','caseSearch.html');
+            $.citationSearch=false;
         }
         $("li a").on("vclick",function(){
             $$ = $(this);
