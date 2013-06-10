@@ -124,7 +124,8 @@
                     }
                     else{
                         var X = $('.found:eq(0)').offset().top;
-                        $('body,html').animate({ scrollTop: X - 50}).finish();
+                        $('body,html').animate({ scrollTop: X - 50}).stop(true,true);
+                        $("#searchText").blur();
                         $("#searchPopUp").popup("open");
                         $('.found:eq(0)').addClass('currentFound');
                     }
@@ -144,7 +145,8 @@
                 } else
                     $.curr = (++$.curr) % $.fndsz;
                 var X = $('.found:eq(' + $.curr + ')').offset().top;
-                $('body,html').animate({ scrollTop: X - 50 }).finish();
+                $('body,html').animate({ scrollTop: X - 50 }).stop(true,true);
+                $("#searchText").blur();
                 $("#searchPopUp").popup("open");
                 $('.found:eq(' + $.curr + ')').addClass('currentFound');
             }
