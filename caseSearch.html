@@ -3,9 +3,9 @@
 <head>
     <title>Elaw.my</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-   <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
+   <link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" />
     <script src="js/jquery-1.8.2.min.js"></script>
-    <script src="js/jquery.mobile-1.3.0.min.js"></script>
+    <script src="js/jquery.mobile-1.3.1.min.js"></script>
     <style>
         .footerList li a {
             white-space: normal;
@@ -44,6 +44,25 @@
         </div>   
    </fieldset>
     
+   <div data-role="collapsible" data-inset="false">
+       <h3>Citation search</h3>
+        <label for="publication" style="paddin-right:10px;">Select Publication</label>
+        <select id="pub" name="publication" data-mini="true">
+            <option>MLRA</option>
+            <option>MLRH</option>
+            <option>MELR</option>
+        </select>
+        <label for="year" style="paddin-right:10px;">Select Year</label>
+        <select id="yr" name="year" data-mini="true">
+        </select>
+        <label for="volume" style="paddin-right:10px;">Select Volume</label>
+        <select id="vol" name="volume" data-mini="true">
+        </select>
+        <label for="page" style="paddin-right:10px;">Enter Page Number</label>
+        <ul id="page" name="page" data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="type page" data-inset="true">
+            <li><a href="#">Acura</a></li>
+        </ul>
+   </div>
    <div data-role="collapsible" data-inset="false">
    <h3>Advanced search</h3>
     <form id="advanceSearch">
@@ -109,6 +128,50 @@
         </div>        
     </div> <!-- content -->
       <script>
+          $("#pub").change(function(){
+              var pub = $("#pub option:selected").text();
+              var url = "http://elaw.com.my/elawf4/mobile/SearchCitation.aspx?pub="+pub;
+              url += '&callback=?';
+              $.pub = pub;
+              /*
+              var url2 = "http://www.elaw.com.my/Elaw4/mobile/SearchCitation.aspx/getYear";
+              $.ajax({
+                url:url2, 
+                data:'{pub:"'+pub+'"}', 
+                dataType:'json',
+                contentType:'application/json; charset=UTF-8',
+                success:function(data){
+                    console.log(data.d);
+                    },
+                failure:function(data){
+                    console.log(data);
+                    }
+                });*/
+              $.getJSON(url,function(data){
+                  var html = '';
+                  console.log(data);
+                  $.each(data.d,function(index,data){
+                      html+= '<option>'+data+'</option>';
+                  });
+                  $("#yr").html(html);
+              });
+          });
+          $("#yr").change(function(){
+              var yr = $("#yr option:selected").text();
+              var url = "http://www.elaw.com.my/Elaw4/mobile/searchCitation.aspx?pub="+$.pub+"&yr="+yr;
+              var url = "http://elaw.com.my/elawf4/mobile/SearchCitation.aspx?pub=MLRA"+$.pub+"&yr="+yr;
+              url += '&callback=?';
+              $.yr = yr;
+              $.getJSON(url,function(data){
+                  var html = '';
+                  console.log(data);
+                  //return false;
+                  $.each(data.d,function(index,data){
+                      html+='<li><a href="#" name='+data+'>'+data+'</a></li>';
+                  });
+                  $("#page").html(html);
+              });
+          });
           //$("#y1,#y2").slider({ stop: function( event, ui ) {console.log('yay');} });
           $("#y1").on('slidestop',function(event,ui){
               console.log('slide stop');
