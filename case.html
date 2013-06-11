@@ -118,16 +118,16 @@
                     if(options=='prevSearch'){
                         $.curr = $.fndSz - 1;
                         var X = $('.found:eq(' + $.curr + ')').offset().top;
-                        $('body,html').animate({ scrollTop: X - 50 }).finish();
-                        $("#searchPopUp").popup("open");
+                        $('body,html').animate({ scrollTop: X - 50 });
                         $('.found:eq(' + $.curr + ')').addClass('currentFound');
+                        $("#searchPopUp").popup("open");
                     }
                     else{
                         var X = $('.found:eq(0)').offset().top;
-                        $('body,html').animate({ scrollTop: X - 50}).stop(true,true);
+                        $('body,html').animate({ scrollTop: X - 50});
                         $("#searchText").blur();
-                        $("#searchPopUp").popup("open");
                         $('.found:eq(0)').addClass('currentFound');
+                        $("#searchPopUp").popup("open");
                     }
                 }
             }
@@ -145,10 +145,9 @@
                 } else
                     $.curr = (++$.curr) % $.fndsz;
                 var X = $('.found:eq(' + $.curr + ')').offset().top;
-                $('body,html').animate({ scrollTop: X - 50 }).stop(true,true);
-                $("#searchText").blur();
-                $("#searchPopUp").popup("open");
+                $('body,html').animate({ scrollTop: X - 50 });
                 $('.found:eq(' + $.curr + ')').addClass('currentFound');
+                $("#searchPopUp").popup("open");
             }
         }
     }
@@ -207,6 +206,7 @@
         });
     }
     function runIt2(){
+        $.fx.off = true;
         if($.latest){
             $("#linkback").attr('href','latest.html');
             $.latest=false;
