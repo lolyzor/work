@@ -96,12 +96,12 @@
                     var visibleOffset = $("#nc").offset().top;
                     var lastElementOffset = $("#cn").offset().top;
                     var distance = lastElementOffset - visibleOffset;
-                    $("#bullshit").css('margin-bottom',distance);
+                    $("#bullshit").css('margin-bottom',distance+17);
                     $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
                     shifted = true;
                 } 
                 else{
-                    $("#bullshit").css('margin-bottom',distance+10);
+                    $("#bullshit").css('margin-bottom',distance+17);
                     $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
                 }
             }

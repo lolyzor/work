@@ -59,13 +59,14 @@
             <option>MLRH</option>
             <option>MELR</option>
         </select>
-        <label for="year" style="paddin-right:10px;">Enter Year</label>
+        <label id="visible" for="year" style="paddin-right:10px;">Enter Year</label>
         <input id="yr" name="year" data-mini="true" type="text">
         <label for="volume" style="paddin-right:10px;">Enter Volume</label>
         <input id="vol" name="volume" data-mini="true" type="text">
         <label for="pageNumber" style="paddin-right:10px;">Enter Page Number</label>
         <input id="pageNumber" name="pageNumber" data-mini="true" type="text">
         <button data-mini="true" id="viewCitation" data-theme="e">View Case</button>
+    <p id="bullshit"></p>
         <!--<label for="page" style="paddin-right:10px;">Enter Page Number</label>
         <ul id="page" name="page" data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="type page" data-inset="true">
             <li><a href="#">Acura</a></li>
@@ -136,14 +137,45 @@
         </div>        
     </div> <!-- content -->
       <script>
+          function runIt(){
+              var shifted = false;
+              var distance = false;
+              $("#vol, #pageNumber").on('focus',function(){
+                  if(!shifted){
+                      if(!distance){
+                          var visibleOffset = $("#visible").offset().top;
+                          var lastElementOffset = $("#viewCitation").offset().top;
+                          var distance = lastElementOffset - visibleOffset;
+                          $("#bullshit").css('margin-bottom',distance+10);
+                          $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
+                          shifted = true;
+                      } 
+                      else{
+                          $("#bullshit").css('margin-bottom',distance+10);
+                          $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
+                      }
+                  }
+                  else{
+                      return false;
+                  }
+              });
+              $("#vol, #pageNumber").on("blur",function(){
+                  $("#bullshit").css('margin-bottom',0);
+                  shifted = false;
+              });
+          }
           $("#viewCitation").on("vclick",function(){
-              console.log("called");
               var pub = $("#pub option:selected").text();
               var yr = $("#yr").val();
               var volume = $("#vol").val();
               var pn = $("#pageNumber").val();
-              if(!pub || !yr || !volume || !pn)
+              if(!pub || !yr || !volume || !pn){
+                  $("#yr, #vol, #pageNumber").each(function(){
+                      //$(this).attr('placeholder','enter value');
+                      $(this).attr('placeholder','enter data');
+                  });
                   return false;
+              }
               var url = "http://elaw.com.my/elawf4/mobile/SearchCitation.aspx?pub="+pub+"&yr="+yr+"&vol="+volume+"&pg="+pn;
               url += '&callback=?';
               $.volume = volume;
@@ -174,6 +206,7 @@
         //console.log('what the fuck');
         $("#caseSearch #asearchb").on("vclick",function(){                
                 if(!$("#ec").val()){
+                    $("#ec").attr('placeholder','enter a keyword');
                     return false;
                 }
                 var args = $("#normalSearch").serialize()+'&'+$("#advanceSearch").serialize();
@@ -187,6 +220,7 @@
         $("#caseSearch #searchb").on("vclick",function(){                
                 console.log('normal search');
                 if(!$("#ec").val()){
+                    $("#ec").attr('placeholder','enter a keyword');
                     return false;
                 }
                 var args = $("#normalSearch").serialize();
@@ -198,7 +232,8 @@
                     $.ns = '';
                 $.mobile.changePage('searchItems.html');                
         });
-      </script> 
+        $('#caseSearch').on('pageinit', runIt);
+    </script> 
 </div><!-- /page -->
     
 </body>
