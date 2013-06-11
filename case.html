@@ -124,10 +124,10 @@
                     }
                     else{
                         var X = $('.found:eq(0)').offset().top;
-                        $('body,html').animate({ scrollTop: X - 50});
-                        $("#searchText").blur();
+                        $('body,html').animate({ scrollTop: X - 50},function(){
+                            $("#searchPopUp").popup("open");
+                        });
                         $('.found:eq(0)').addClass('currentFound');
-                        $("#searchPopUp").popup("open");
                     }
                 }
             }
@@ -145,9 +145,10 @@
                 } else
                     $.curr = (++$.curr) % $.fndsz;
                 var X = $('.found:eq(' + $.curr + ')').offset().top;
-                $('body,html').animate({ scrollTop: X - 50 });
+                $('body,html').animate({ scrollTop: X - 50 },function(){
+                    $("#searchPopUp").popup("open");
+                });
                 $('.found:eq(' + $.curr + ')').addClass('currentFound');
-                $("#searchPopUp").popup("open");
             }
         }
     }
