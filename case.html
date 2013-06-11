@@ -128,8 +128,8 @@
                     else{
                         var X = $('.found:eq(0)').offset().top;
                         $('body,html').animate({ scrollTop: X - 50});
-                        setTimeout(showSearchBox,250);
                         $('.found:eq(0)').addClass('currentFound');
+                        setTimeout(showSearchBox,250);
                     }
                 }
             }
