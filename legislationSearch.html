@@ -90,18 +90,19 @@
     function runIt(){
         var shifted = false;
         var distance = false;
+        $.fx.off = false;
         $("#t, #cn").on('focus',function(){
             if(!shifted){
                 if(!distance){
                     var visibleOffset = $("#nc").offset().top;
                     var lastElementOffset = $("#alsearchb").offset().top;
                     var distance = lastElementOffset - visibleOffset;
-                    $("#bullshit").css('margin-bottom',distance+10);
+                    $("#bullshit").css('margin-bottom',distance+17);
                     $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
                     shifted = true;
                 } 
                 else{
-                    $("#bullshit").css('margin-bottom',distance+10);
+                    $("#bullshit").css('margin-bottom',distance+17);
                     $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
                 }
             }
@@ -110,7 +111,7 @@
             }
         });
         $("#t, #cn").on("blur",function(){
-            $("#bullshit").css('margin-bottom',0);
+            $("#bullshit").animate({marginBottom:'0px'});
             shifted = false;
         });
         $("#legislationSearch li a").on('vclick',function(){

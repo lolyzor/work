@@ -140,6 +140,7 @@
           function runIt(){
               var shifted = false;
               var distance = false;
+              $.fx.off = false;
               $("#vol, #pageNumber").on('focus',function(){
                   if(!shifted){
                       if(!distance){
@@ -160,7 +161,7 @@
                   }
               });
               $("#vol, #pageNumber").on("blur",function(){
-                  $("#bullshit").css('margin-bottom',0);
+                  $("#bullshit").animate({marginBottom:'0px'});
                   shifted = false;
               });
           }
