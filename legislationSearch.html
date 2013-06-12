@@ -94,14 +94,14 @@
             if(!shifted){
                 if(!distance){
                     var visibleOffset = $("#nc").offset().top;
-                    var lastElementOffset = $("#cn").offset().top;
+                    var lastElementOffset = $("#alsearchb").offset().top;
                     var distance = lastElementOffset - visibleOffset;
-                    $("#bullshit").css('margin-bottom',distance+17);
+                    $("#bullshit").css('margin-bottom',distance+10);
                     $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
                     shifted = true;
                 } 
                 else{
-                    $("#bullshit").css('margin-bottom',distance+17);
+                    $("#bullshit").css('margin-bottom',distance+10);
                     $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
                 }
             }
