@@ -204,10 +204,9 @@
           if(url)
             $.mobile.changePage(url);
       });
-        //console.log('what the fuck');
         $("#caseSearch #asearchb").on("vclick",function(){                
-                if(!$("#ec").val()){
-                    $("#ec").attr('placeholder','enter a keyword');
+            if(!$("#ec").val()){
+                $("#ec").attr('placeholder','enter a keyword');
                     return false;
                 }
                 var args = $("#normalSearch").serialize()+'&'+$("#advanceSearch").serialize();

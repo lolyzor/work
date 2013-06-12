@@ -122,6 +122,7 @@
         });
         $("#legislationSearch #alsearchb").on("vclick",function(){ 
             if(!$("#ec").val()){
+                $("#ec").attr('placeholder','enter a keyword');
                 return false;
             }
             var arg = $("#simpleSearch").serialize();
@@ -135,6 +136,7 @@
         });
         $("#legislationSearch #lsearchb").on("vclick",function(){
             if(!$("#ec").val()){
+                $("#ec").attr('placeholder','enter a keyword');
                 return false;
             }
             //var key = $("#ec").val();
