@@ -147,13 +147,13 @@
                           var visibleOffset = $("#visible").offset().top;
                           var lastElementOffset = $("#viewCitation").offset().top;
                           var distance = lastElementOffset - visibleOffset;
-                          $("#bullshit").css('margin-bottom',distance+10);
+                          $("#bullshit").css('margin-bottom',distance);
                           //$("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
                           $("html, body").animate({ scrollTop:visibleOffset});
                           shifted = true;
                       } 
                       else{
-                          $("#bullshit").css('margin-bottom',distance+10);
+                          $("#bullshit").css('margin-bottom',distance);
                           //$("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
                           $("html, body").animate({ scrollTop:visibleOffset});
                       }
