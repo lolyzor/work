@@ -40,7 +40,7 @@
 <ul data-role="listview" id="mylist" >
     <li>
         <!-- <img class="ui-li-thumb" src="icons/Documents-icon_2.png"> -->            
-        <a link="latest.html">         
+        <a id="latest" link="#">         
             <!--<img src="icons/Documents-icon_2.png" class="ui-li-thumb">--!>
             <h1 class="ui-li-heading">Lates cases</h1>           
             <p class="ui-li-desc">view latest cases</p>
@@ -49,21 +49,21 @@
     </li>
     <li>
         <!--<a href="caseSearch.html">-->
-        <a id="caseClick" href="#mypanel" data-rel="panel">
+        <a id="caseClick" href="#" >
         <!--<img src="icons/searchIcon.png" class="ui-li-thumb">--!>
         <h1>Case search</h1>           
         <p>search for cases</p>
         </a>
     </li>
     <li>
-        <a id="legislationClick" href="#mypanel" data-rel="panel">
+        <a id="legislationClick" href="#" >
         <!--<img src="icons/legislation.png" class="ui-li-thumb">--!>
         <h1>Legislation search</h1>           
         <p>search for legislations</p>
         </a>
     </li>
     <li>
-        <a id="referencesClick" href="#mypanel">
+        <a id="referencesClick" href="#">
         <!--<img src="icons/searchIcon2.png" class="ui-li-thumb">    --!>
         <h1>References</h1>           
         <p>read the references</p>
@@ -84,9 +84,9 @@
     <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
         <div data-role="navbar">
             <ul>
-                <li><a link="latest.html">Latest</a></li>
-                <li><a id="caseClick1" href="#mypanel">Cases</a></li>
-                <li><a id="legislationClick1" href="#mypanel">Legislation</a></li>
+                <li><a id="latest" link="#">Latest</a></li>
+                <li><a id="caseClick1" href="#">Cases</a></li>
+                <li><a id="legislationClick1" href="#">Legislation</a></li>
                 <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">More</a></li>
             </ul>
         </div><!-- /navbar -->
@@ -122,18 +122,10 @@
     }
     </style>
     <script>
-    //onLoad();
-   // $(document).bind("mobileinit", function() {
-   //     $.support.cors = true;
-   //     $.mobile.allowCrossDomainPages = true;
-   // });
-    //document.addEventListener("deviceready", onDeviceReady,false);
     $(function(){
-        //document.addEventListener("deviceready", onDeviceReady, false);
         $(document).bind('deviceready',onDeviceReady);
     });
     $("#main li a").on('vclick',function(){
-        //console.log();
         var url = $(this).attr('link');
         if(url)
             $.mobile.changePage(url);
@@ -172,9 +164,13 @@
         });
 
         $("#main a").on("click",function(){
-            //console.log($(this).attr('id')+" "+$(this).attr('href'));
             var obj = $(this);
-            //console.log(obj.attr('id'));
+            console.log(obj.attr('id'));
+            if(obj.attr('id') == 'latest'){
+                console.log('wtf');
+                $.mobile.changePage('latest.html');
+                return false;
+            }
             if(obj.attr('id') == 'caseClick' || obj.attr('id')=='caseClick1'){
                 $.redirectTo = 'caseSearch.html';
             }
@@ -185,12 +181,11 @@
                 $.redirectTo = 'references.html';
             }
             if($.u){
-                console.log($.u);
-                //$(this).stopPropagation();
                 $.mobile.changePage($.redirectTo);
-                //return false; // should I do this ???
             }
-                
+            if(!$.u){
+                $("#mypanel").panel("open");
+            }
         });        
     });
     </script>

@@ -90,6 +90,9 @@
             }
             //return false;
         });
+        function showSearchBox() {
+            $("#searchPopUp").popup("open");
+        }
         function callback(match, p1) {
             return ((p1 == undefined) || (p1 == '')) ? match : '<span class="found">' + match + '</span>';
         }
@@ -121,17 +124,15 @@
                     if(options=='prevSearch'){
                         $.curr = $.fndSz - 1;
                         var X = $('.found:eq(' + $.curr + ')').offset().top;
-                        $('body,html').animate({ scrollTop: X - 10 }, 400,function(){
-                            $("#searchPopUp").popup("open");
-                        });
+                        $('body,html').animate({ scrollTop: X - 10 });
                         $('.found:eq(' + $.curr + ')').addClass('currentFound');
+                        setTimeout(showSearchBox,250);
                     }
                     else{
                         var X = $('.found:eq(0)').offset().top;
-                        $('body,html').animate({ scrollTop: X - 10 }, 400,function(){
-                            $("#searchPopUp").popup("open");
-                        });
+                        $('body,html').animate({ scrollTop: X - 10 });
                         $('.found:eq(0)').addClass('currentFound');
+                        setTimeout(showSearchBox,250);
                     }
                 }
             }
@@ -149,10 +150,9 @@
                 } else
                     $.curr = (++$.curr) % $.fndsz;
                 var X = $('.found:eq(' + $.curr + ')').offset().top;
-                $('body,html').animate({ scrollTop: X - 10 }, 400,function(){
-                        $("#searchPopUp").popup("open");
-                });
+                $('body,html').animate({ scrollTop: X - 10 });
                 $('.found:eq(' + $.curr + ')').addClass('currentFound');
+                setTimeout(showSearchBox,250);
             }
         }
     }
@@ -211,6 +211,7 @@
         }
     }
     function runIt2(){
+        $.fx.off = true;
         if($.latest){
             $("#goBack").attr('href','latest.html');
             $.latest=false;
