@@ -1,148 +1,184 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Elaw.my</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-   <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
-    <script src="js/jquery-1.8.2.min.js"></script>
-    <script src="js/jquery.mobile-1.3.0.min.js"></script>
-    <style>
-        .footerList li a {
-            white-space: normal;
-        }
-    </style>
-</head>
-<body>
+    <head>
+        <title>Elaw.my</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
+        <script src="js/jquery-1.8.2.min.js"></script>
+        <script src="js/jquery.mobile-1.3.0.min.js"></script>
+        <style>
+            .footerList li a {
+                white-space: normal;
+            }
+        </style>
+    </head>
+    <body>
+        <div data-role="page" id="caseSearch">
+            <div data-role="content">
+                <form id="normalSearch">
+                    <div data-role="fieldcontain">
+                        <label for="ec">Search phrase</label>
+                        <input type="text" name="ec" id="ec" value=""/>
+                    </div>  
+                </form>
+                <!-- <div data-role="fieldcontain">
+                    <label for="name">Citation</label>
+                    <input type="text" name="name" id="citation" value=""  />
+                </div>   -->
+                <fieldset data-role="controlgroup" data-mini="true">
+                    <input name="fullDocument" id="fullDocument" value="on" checked="checked" type="radio">
+                    <label for="fullDocument">Full document</label>
+                    <input name="title" id="title" value="off" type="radio">
+                    <label for="title">Title</label>
+                </fieldset>
+                <fieldset class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a href="" data-role="button" data-theme="e" data-mini="true" id="searchb">Search</a> 
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="" data-role="button" data-theme="e" data-mini="true" id="cancleb">Cancel</a>
+                    </div>   
+                </fieldset>
 
-<div data-role="page" id="caseSearch">
-
-    <!-- <div data-role="header" data-position="fixed" data-tap-toggle="false" data-id="header1">
-        <h1>Elaw.my</h1>
-        <a id="home" href="index.html" data-icon="home" data-theme="b">Home</a>
-        <a href="help.html" data-icon="gear" class="ui-btn-right" data-theme="b">Help</a>
-    </div> --><!-- /header -->
-
-    <div data-role="content">
-    <form id="normalSearch">
-    <div data-role="fieldcontain">
-        <label for="ec">Search phrase</label>
-        <input type="text" name="ec" id="ec" value=""/>
-    </div>  
-    </form>
-    <!-- <div data-role="fieldcontain">
-        <label for="name">Citation</label>
-        <input type="text" name="name" id="citation" value=""  />
-    </div>   -->
-    <fieldset class="ui-grid-a">
-        <div class="ui-block-a">
-            <a href="" data-role="button" data-theme="e" data-mini="true" id="searchb">Search</a> 
-        </div>
-        <div class="ui-block-b">
-            <a href="" data-role="button" data-theme="e" data-mini="true" id="cancleb">Cancel</a>
-        </div>   
-   </fieldset>
-    
-   <div data-role="collapsible" data-inset="false">
-   <h3>Advanced search</h3>
-    <form id="advanceSearch">
-    <label for="ac" style="paddin-right:10px;">All these words</label>
-    <input type="text" name="ac" id="ac" value=""  />
-    <label for="ayc">Any of these words</label>
-    <input type="text" name="ayc" id="ayc" value=""  />
-    <label for="nc">Without these words</label>
-    <input type="text" name="nc" id="nc" value=""  />    
-    <label for="y1">From this year</label>
-    <!--<input type="text" name="y1" id="y1" value=""  />-->
-    <input name="y1" id="y1" min="1894" max="2012" value="2000" type="range" />
-    <label for="y2">To this year </label>    
-    <input name="y2" id="y2" min="1895" max="2013" value="2013" type="range" />
-    <!--<input type="text" name="y2" id="y2" value=""  />-->
-    <label for="t">Title of the Case</label>
-    <input type="text" name="t" id="t" value=""  />
-    <label for="cn">Case number</label>
-    <input type="text" name="cn" id="cn" value=""  />
-    <label for="j">Judge name</label>
-    <input type="text" name="j" id="j" value=""  />
-    <div id="courttype">
-    <fieldset data-role="controlgroup">
-		<legend>Court type</legend>
-		<input type="radio" name="crt" id="all" value="6" checked="checked">
-		<label for="all">All</label>
-		<input type="radio" name="crt" id="mlrh" value="1">
-		<label for="mlrh">Federal/Supreme court</label>
-		<input type="radio" name="crt" id="melr" value="3">
-		<label for="melr">High curt</label>
-		<input type="radio" name="crt" id="mlra" value="2">
-		<label for="mlra">Appeal court</label>
-    </fieldset>
-    </div>
-    <fieldset class="ui-grid-a">
-        <div class="ui-block-a">
-        <a href="" data-role="button" data-theme="e" data-mini="true" id="asearchb">Search</a>        
-        </div>
-        <div class="ui-block-b">
-        <a href="" data-role="button" data-theme="e" data-mini="true" id="acancleb">Cancel</a>        
-        </div>   
-   </fieldset>      
-   </form>
-    </div>
-
-    
-       
-        <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-id="footer1">        
-            <div data-role="navbar">
-                <ul id="footerList">
-                    <li><a link="latest.html">Latest</a></li>
-                    <li><a link="caseSearch.html" class="" data-theme="b">Cases</a></li>
-                    <li><a link="legislationSearch.html">Legislation</a></li>
-                    <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">More</a></li>
-                </ul>
-            </div><!-- /navbar -->
-        </div><!-- /footer --> 
-         <div data-role="popup" id="popupMenu" id="footerlist2">
-            <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                <li><a link="references.html">References</a></li>
-                <li><a link="help.html">Help</a></li>                            
-                <li><a link="index.html">Home</a></li>                            
-            </ul>
-        </div>        
-    </div> <!-- content -->
-      <script>
-      $("#caseSearch li a").on('vclick',function(){
-          //console.log();
-          var url = $(this).attr('link');
-          if(url)
-            $.mobile.changePage(url);
-      });
-        //console.log('what the fuck');
-        $("#caseSearch #asearchb").on("vclick",function(){                
-                if(!$("#ec").val()){
-                    return false;
-                }
-                var args = $("#normalSearch").serialize()+'&'+$("#advanceSearch").serialize();
-                $.caseSearchArgs = args;
-                $.page = false;
-                $.sortingCaseSearch = false;
-                if($.ns)
+                <div data-role="collapsible" data-inset="false">
+                    <h3>Citation search</h3>
+                    <label for="publication" style="paddin-right:10px;">Select Publication</label>
+                    <select id="pub" name="publication" data-mini="true">
+                        <option>Select Publication</option>
+                        <option>MLRA</option>
+                        <option>MLRH</option>
+                        <option>MELR</option>
+                    </select>
+                    <label id="visible" for="year" style="paddin-right:10px;">Enter Year</label>
+                    <input id="yr" name="year" data-mini="true" type="number">
+                    <label for="volume" style="paddin-right:10px;">Enter Volume</label>
+                    <input id="vol" name="volume" data-mini="true" type="number">
+                    <label for="pageNumber" style="paddin-right:10px;">Enter Page Number</label>
+                    <input id="pageNumber" name="pageNumber" data-mini="true" type="number">
+                    <button data-mini="true" id="viewCitation" data-theme="e">View Case</button>
+                </div>
+                <div data-role="collapsible" data-inset="false">
+                    <h3>Advanced search</h3>
+                    <form id="advanceSearch">
+                        <label for="ac" style="paddin-right:10px;">All these words</label>
+                        <input type="text" name="ac" id="ac" value=""  />
+                        <label for="ayc">Any of these words</label>
+                        <input type="text" name="ayc" id="ayc" value=""  />
+                        <label for="nc">Without these words</label>
+                        <input type="text" name="nc" id="nc" value=""  />    
+                        <label for="y1">From this year</label>
+                        <!--<input type="text" name="y1" id="y1" value=""  />-->
+                        <input name="y1" id="y1" min="1894" max="2012" value="2000" type="range" />
+                        <label for="y2">To this year </label>    
+                        <input name="y2" id="y2" min="1895" max="2013" value="2013" type="range" />
+                        <!--<input type="text" name="y2" id="y2" value=""  />-->
+                        <label for="t">Title of the Case</label>
+                        <input type="text" name="t" id="t" value=""  />
+                        <label for="cn">Case number</label>
+                        <input type="text" name="cn" id="cn" value=""  />
+                        <label for="j">Judge name</label>
+                        <input type="text" name="j" id="j" value=""  />
+                        <div id="courttype">
+                            <fieldset data-role="controlgroup">
+                                <legend>Court type</legend>
+                                <input type="radio" name="crt" id="all" value="6" checked="checked">
+                                <label for="all">All</label>
+                                <input type="radio" name="crt" id="mlrh" value="1">
+                                <label for="mlrh">Federal/Supreme court</label>
+                                <input type="radio" name="crt" id="melr" value="3">
+                                <label for="melr">High curt</label>
+                                <input type="radio" name="crt" id="mlra" value="2">
+                                <label for="mlra">Appeal court</label>
+                            </fieldset>
+                        </div>
+                        <fieldset class="ui-grid-a">
+                            <div class="ui-block-a">
+                                <a href="" data-role="button" data-theme="e" data-mini="true" id="asearchb">Search</a>        
+                            </div>
+                            <div class="ui-block-b">
+                                <a href="" data-role="button" data-theme="e" data-mini="true" id="acancleb">Cancel</a>        
+                            </div>   
+                        </fieldset>      
+                    </form>
+                </div>
+                <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-id="footer1">        
+                    <div data-role="navbar">
+                        <ul id="footerList">
+                            <li><a link="latest.html">Latest</a></li>
+                            <li><a link="caseSearch.html" class="" data-theme="b">Cases</a></li>
+                            <li><a link="legislationSearch.html">Legislation</a></li>
+                            <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">More</a></li>
+                        </ul>
+                    </div><!-- /navbar -->
+                </div><!-- /footer --> 
+                <div data-role="popup" id="popupMenu" id="footerlist2">
+                    <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                        <li><a link="references.html">References</a></li>
+                        <li><a link="help.html">Help</a></li>                            
+                        <li><a link="index.html">Home</a></li>                            
+                    </ul>
+                </div>        
+            </div> <!-- content -->
+            <script>
+                $("#viewCitation").on("vclick",function(){
+                    var pub = $("#pub option:selected").text();
+                    var yr = $("#yr").val();
+                    var volume = $("#vol").val();
+                    var pn = $("#pageNumber").val();
+                    if(!pub || !yr || !volume || !pn){
+                        $("#yr, #vol, #pageNumber").each(function(){
+                            //$(this).attr('placeholder','enter value');
+                            $(this).attr('placeholder','enter data');
+                        });
+                        return false;
+                    }
+                    var url = "http://elaw.com.my/elawf4/mobile/SearchCitation.aspx?pub="+pub+"&yr="+yr+"&vol="+volume+"&pg="+pn;
+                    url += '&callback=?';
+                    $.volume = volume;
+                    $.getJSON(url,function(data){
+                        console.log(data.d[0]);
+                        $.filename = data.d[0]; 
+                        $.citationSearch= true;
+                        $.mobile.changePage('case.html');
+                    });
+                });
+                $("#caseSearch li a").on('vclick',function(){
+                    //console.log();
+                    var url = $(this).attr('link');
+                    if(url)
+                    $.mobile.changePage(url);
+                });
+                //console.log('what the fuck');
+                $("#caseSearch #asearchb").on("vclick",function(){                
+                    if(!$("#ec").val()){
+                        $("#ec").attr('placeholder','enter a keyword');
+                        $("html, body").animate({scrollTop:0});
+                        return false;
+                    }
+                    var args = $("#normalSearch").serialize()+'&'+$("#advanceSearch").serialize();
+                    $.caseSearchArgs = args;
+                    $.page = false;
+                    $.sortingCaseSearch = false;
+                    if($.ns)
                     $.ns = '';
-                $.mobile.changePage('searchItems.html');                
-            });
-        $("#caseSearch #searchb").on("vclick",function(){                
-                if(!$("#ec").val()){
-                    return false;
-                }
-                console.log('normal search');
-                var args = $("#normalSearch").serialize();
-                $.caseSearchArgs = args;                
-                $.ec = $("#ec").val();
-                $.page = false;
-                $.sortingCaseSearch = false;
-                if($.ns)
+                    $.mobile.changePage('searchItems.html');                
+                });
+                $("#caseSearch #searchb").on("vclick",function(){                
+                    if(!$("#ec").val()){
+                        $("#ec").attr('placeholder','enter a keyword');
+                        return false;
+                    }
+                    console.log('normal search');
+                    var args = $("#normalSearch").serialize();
+                    $.caseSearchArgs = args;                
+                    $.ec = $("#ec").val();
+                    $.page = false;
+                    $.sortingCaseSearch = false;
+                    if($.ns)
                     $.ns = '';
-                $.mobile.changePage('searchItems.html');                
-        });
-      </script> 
-</div><!-- /page -->
-    
-</body>
+                    $.mobile.changePage('searchItems.html');                
+                });
+            </script> 
+        </div><!-- /page -->
+    </body>
 </html>
