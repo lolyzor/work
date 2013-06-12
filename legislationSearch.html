@@ -54,7 +54,7 @@
     <label for="name">Title of the Case</label>
     <input type="text" name="t" id="t" value=""  />
     <label for="name">Act number</label>
-    <input type="text" name="cn" id="cn" value=""  />
+    <input type="number" name="cn" id="cn" value=""  />
     <fieldset class="ui-grid-a">
         <div class="ui-block-a">
         <a href="" data-role="button" data-theme="e" data-mini="true" id="alsearchb">Search</a>        
@@ -111,7 +111,8 @@
             }
         });
         $("#t, #cn").on("blur",function(){
-            $("#bullshit").animate({marginBottom:'0px'});
+            //$("#bullshit").animate({marginBottom:'0px'});
+            $("#bullshit").css('margin-bottom',0);
             shifted = false;
         });
         $("#legislationSearch li a").on('vclick',function(){
@@ -123,6 +124,7 @@
         $("#legislationSearch #alsearchb").on("vclick",function(){ 
             if(!$("#ec").val()){
                 $("#ec").attr('placeholder','enter a keyword');
+                $("html, body").animate({scrollTop:0});
                 return false;
             }
             var arg = $("#simpleSearch").serialize();

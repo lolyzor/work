@@ -60,11 +60,11 @@
             <option>MELR</option>
         </select>
         <label id="visible" for="year" style="paddin-right:10px;">Enter Year</label>
-        <input id="yr" name="year" data-mini="true" type="text">
+        <input id="yr" name="year" data-mini="true" type="number">
         <label for="volume" style="paddin-right:10px;">Enter Volume</label>
-        <input id="vol" name="volume" data-mini="true" type="text">
+        <input id="vol" name="volume" data-mini="true" type="number">
         <label for="pageNumber" style="paddin-right:10px;">Enter Page Number</label>
-        <input id="pageNumber" name="pageNumber" data-mini="true" type="text">
+        <input id="pageNumber" name="pageNumber" data-mini="true" type="number">
         <button data-mini="true" id="viewCitation" data-theme="e">View Case</button>
     <p id="bullshit"></p>
         <!--<label for="page" style="paddin-right:10px;">Enter Page Number</label>
@@ -148,12 +148,14 @@
                           var lastElementOffset = $("#viewCitation").offset().top;
                           var distance = lastElementOffset - visibleOffset;
                           $("#bullshit").css('margin-bottom',distance+10);
-                          $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
+                          //$("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
+                          $("html, body").animate({ scrollTop:visibleOffset});
                           shifted = true;
                       } 
                       else{
                           $("#bullshit").css('margin-bottom',distance+10);
-                          $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
+                          //$("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
+                          $("html, body").animate({ scrollTop:visibleOffset});
                       }
                   }
                   else{
@@ -161,7 +163,8 @@
                   }
               });
               $("#vol, #pageNumber").on("blur",function(){
-                  $("#bullshit").animate({marginBottom:'0px'});
+                  $("#bullshit").css('margin-bottom',0);
+                  //$("#bullshit").animate({marginBottom:'0px'});
                   shifted = false;
               });
           }
@@ -207,7 +210,8 @@
         $("#caseSearch #asearchb").on("vclick",function(){                
             if(!$("#ec").val()){
                 $("#ec").attr('placeholder','enter a keyword');
-                    return false;
+                $("html, body").animate({scrollTop:0});
+                return false;
                 }
                 var args = $("#normalSearch").serialize()+'&'+$("#advanceSearch").serialize();
                 $.caseSearchArgs = args;
