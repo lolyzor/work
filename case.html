@@ -121,13 +121,15 @@
                     if(options=='prevSearch'){
                         $.curr = $.fndSz - 1;
                         var X = $('.found:eq(' + $.curr + ')').offset().top;
-                        $('body,html').animate({ scrollTop: X - 50 });
+                        //$('body,html').animate({ scrollTop: X - 50 });
+                        $.mobile.silentScroll(X);
                         $('.found:eq(' + $.curr + ')').addClass('currentFound');
                         setTimeout(showSearchBox,250);
                     }
                     else{
                         var X = $('.found:eq(0)').offset().top;
-                        $('body,html').animate({ scrollTop: X - 50});
+                        //$('body,html').animate({ scrollTop: X - 50});
+                        $.mobile.silentScroll(X);
                         $('.found:eq(0)').addClass('currentFound');
                         setTimeout(showSearchBox,250);
                     }
@@ -147,7 +149,8 @@
                 } else
                     $.curr = (++$.curr) % $.fndsz;
                 var X = $('.found:eq(' + $.curr + ')').offset().top;
-                $('body,html').animate({ scrollTop: X - 50 });
+                //$('body,html').animate({ scrollTop: X - 50 });
+                $.mobile.silentScroll(X);
                 $('.found:eq(' + $.curr + ')').addClass('currentFound');
                 setTimeout(showSearchBox,250);
             }
