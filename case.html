@@ -87,7 +87,9 @@
                         if($(this).attr('id')=='closeSearchBox'){
                             $("#searchPopUp").popup("close");
                             remTags();
-                            $('div[data-role="header"]').css('position', 'fixed');
+                            //$('div[data-role="header"]').css('position', 'fixed');
+                            //$('div[data-role="header"]').addClass('ui-footer-fixed');
+                            $('div[data-role="header"]').addClass('ui-header-fixed ui-footer-fixed ui-header-fullscreen ui-footer-fullscreen in out fade slidedown slideup ui-fixed-hidden');
                         }
                         //return false;
                     });
