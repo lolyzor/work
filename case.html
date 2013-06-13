@@ -219,6 +219,13 @@
                         }
                     }
                     function runIt2(){
+                        $(document).on('focus', 'input, textarea', function() {
+                            $('div[data-role="header"]').css('position', 'absolute');
+                            //$.mobile.silentScroll($('input:focus').offset().top - 100);
+                            });
+                        $(document).on('blur', 'input, textarea', function() {
+                            $('div[data-role="header"]').css('position', 'fixed');
+                                });
                         $.fx.off = true;
                         if($.latest){
                             $("#goBack").attr('href','latest.html');
