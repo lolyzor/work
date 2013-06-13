@@ -299,9 +299,20 @@
         }    
     }
     $.getJson = function(url,pageId){
-        $.getJSON(url,function(data){
+        var recievedJsonData = false;
+        var ajaxCall = $.getJSON(url,function(data){
+            recievedJsonData = true;
             $.handleData(data,pageId);
-        });
+            }).fail(function(){
+            console.log('fail');
+            $.handleData('fail',pageId);
+            });
+        setTimeout(killRequest,5000);
+        function killRequest(){
+            if(!recievedJsonData){
+                ajaxCall.abort();
+            }
+        }
     }
 </script>
 </html>
