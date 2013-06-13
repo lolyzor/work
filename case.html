@@ -87,6 +87,7 @@
                         if($(this).attr('id')=='closeSearchBox'){
                             $("#searchPopUp").popup("close");
                             remTags();
+                            $('div[data-role="header"]').css('position', 'fixed');
                         }
                         //return false;
                     });
