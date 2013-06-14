@@ -359,10 +359,14 @@ $.getJsonAsync = function(url,pageId){
     console.log('finished');
 }
 function onLoad(){
-    document.addEventListener("deviceready", onDeviceReady,false);
+        document.addEventListener("deviceready", onDeviceReady,false);
     }
     function onDeviceReady(){
         document.addEventListener("backbutton", onBackKeyDown,true);
+        blackberry.system.event.onHardwareKey(blackberry.system.event.KEY_BACK,
+        function() {
+           history.back();
+        });
     }
     function onBackKeyDown(e){
        history.back();
