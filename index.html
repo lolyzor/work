@@ -64,17 +64,30 @@
         </a>
     </li>
     <li>
-        <a id="referencesClick" href="#">
+        <a id="more" href="#">
         <!--<img src="icons/searchIcon2.png" class="ui-li-thumb">    --!>
+        <h1>More</h1>           
+        <p>References and help</p>
+        </a>
+    </li>
+</ul>
+<ul data-role="listview" id="moreList" >
+    <li>
+        <a id="referencesClick" href="#">
         <h1>References</h1>           
-        <p>read the references</p>
+        <p>Access help menu</p>
         </a>
     </li>
     <li>
-        <a href="#">
-        <!--<img src="icons/helpIcon.png" class="ui-li-thumb">    --!>
+        <a id="help" href="#">
         <h1>Help</h1>           
-        <p>look for help</p>
+        <p>Access help menu</p>
+        </a>
+    </li>
+    <li>
+        <a id="moreListBack" href="#">
+        <h1>Back</h1>           
+        <p>Main menu</p>
         </a>
     </li>
 </ul>
@@ -88,7 +101,7 @@
                 <li><a id="latest" link="#">Latest</a></li>
                 <li><a id="caseClick1" href="#">Cases</a></li>
                 <li><a id="legislationClick1" href="#">Legislation</a></li>
-                <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">More</a></li>
+                <li><a id="footerMore" href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">More</a></li>
             </ul>
         </div><!-- /navbar -->
     </div><!-- /footer -->   
@@ -102,6 +115,12 @@
      .ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
         padding-top:0px;
         padding-bottom:0px;
+    }
+    div {
+        padding-top:0px;
+        padding-bottom:0px;
+        margin-top:0px;
+        margin-bottom:0px;
     }
     .ui-panel-content-wrap.ui-body-c.ui-panel-animate.ui-panel-content-wrap-closed{
         padding-top:0px;
@@ -120,6 +139,9 @@
         padding-bottom:0px;
         margin-bottom:0px;
         margin-top:0px;
+    }
+    .ui-panel-content-wrap.ui-body-c.ui-panel-animate.ui-panel-content-wrap-closed {
+        color:red;
     }
     </style>
     <script>
@@ -141,8 +163,14 @@
        //e.preventDefault();
     }
     document.addEventListener("deviceready", onDeviceReady,false);
+    function removeMinHeight(){
+        $("#main").attr('style','');
+        }
     $(function(){
         $(document).bind('deviceready',onDeviceReady);
+        $("#moreList").toggle(false);
+        $("#main").css('padding-bottom','0px;');
+        //setTimeout(removeMinHeight,100);
     });
     $("#main li a").on('vclick',function(){
         var url = $(this).attr('link');
@@ -183,12 +211,33 @@
         });
 
         $("#main a").on("click",function(){
+            var link = false;
             var obj = $(this);
             console.log(obj.attr('id'));
             if(obj.attr('id') == 'latest'){
-                console.log('wtf');
                 $.mobile.changePage('latest.html');
                 return false;
+            }
+            if(obj.attr('id') == 'more'){
+                $("#mylist").toggle(false);
+                $("#moreList").toggle(true);
+                return false;
+            }
+            if(obj.attr('id') == 'moreListBack'){
+                $("#mylist").toggle(true);
+                $("#moreList").toggle(false);
+                return false;
+            }
+            if(obj.attr('id') == 'footerMore'){
+                console.log('popmenu pressed fuck');
+                if($.u){
+                }
+                else{
+                    //link = true;
+                    $("#mypanel").panel("open");
+                    return false;
+                }
+
             }
             if(obj.attr('id') == 'caseClick' || obj.attr('id')=='caseClick1'){
                 $.redirectTo = 'caseSearch.html';
@@ -202,7 +251,7 @@
             if($.u){
                 $.mobile.changePage($.redirectTo);
             }
-            if(!$.u){
+            if(!$.u && !link){
                 $("#mypanel").panel("open");
             }
         });        

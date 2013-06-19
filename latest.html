@@ -78,8 +78,9 @@
         <script>
         $("#latestCases li a").on('vclick',function(){
             var url = $(this).attr('link');
-            if(url)
+            if(url && $.u){
                 $.mobile.changePage(url);
+            }
                 });
         $(".latestList").on('vclick','li',function(){
             var filename = $(this).attr('name');
