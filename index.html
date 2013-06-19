@@ -194,6 +194,9 @@
                 $this.css('padding-top','10px');
             });
         }
+        if($.showPanel){
+            $("#mypanel").panel("open");
+        }
     });
     $('#main').on('pageinit',function(){
         $("#main #login").on("vclick",function(){
@@ -248,6 +251,9 @@
             if(obj.attr('id') == 'referencesClick' || obj.attr('id')=='referencesClick1'){
                 $.redirectTo = 'references.html';
             }
+            if(obj.attr('id') == 'help' || obj.attr('link')=='help.html'){
+                $.redirectTo = 'help.html';
+            }
             if($.u){
                 $.mobile.changePage($.redirectTo);
             }
@@ -265,8 +271,7 @@ $.handleData = function(data,pageId){
     //console.log(data);
     if(pageId == "main"){
         if(data.reply == "loggedin"){
-            console.log('loggedin');
-            console.log($.redirectTo);
+            $.showPanel = false;
             $.mobile.changePage($.redirectTo);
         }   
         else{

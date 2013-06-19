@@ -93,6 +93,13 @@
                         }
                         //return false;
                     });
+                    $("#caseMain a").on("vclick",function(){
+                        if(!$.u){
+                            $.showPanel=true;
+                            $.mobile.changePage('index.html');
+                            return false;
+                        }
+                    });
                     function showSearchBox() {
                         $("#searchPopUp").popup("open");
                     }

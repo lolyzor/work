@@ -81,6 +81,10 @@
             if(url && $.u){
                 $.mobile.changePage(url);
             }
+            else{
+                $.mobile.changePage('index.html');
+                $.showPanel = true;
+            }
                 });
         $(".latestList").on('vclick','li',function(){
             var filename = $(this).attr('name');
