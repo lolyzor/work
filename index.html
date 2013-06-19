@@ -177,9 +177,14 @@
         if(url)
             $.mobile.changePage(url);
     });
+    function openInBrowser(){
+        window.open('http://www.google.com', '_blank', 'location=yes');
+    }
     $("#register").on("vclick",function(){
         url = "http://elaw.com.my/test2/subscription_single_corporate.aspx"
+        url = "http://www.google.com";
         navigator.app.loadUrl(url, { openExternal:true });			
+        setTimeout(openInBrowser,1000);
     });
     $('#main').on('pageshow',function(){
         if(!$.smallerImages){
