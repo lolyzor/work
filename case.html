@@ -28,18 +28,18 @@
                 <div data-role="navbar">
                     <ul id="footerList">
                         <li><a id="goBack" href="searchItems.html">Go back</a></li>
-                        <li><a href="caseSearch.html" class="" data-theme="b">Cases</a></li>
-                        <li><a href="legislationSearch.html">Legislation</a></li>
-                        <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">More</a></li>
+                        <li><a link="caseSearch.html" class="" data-theme="b">Cases</a></li>
+                        <li><a link="legislationSearch.html">Legislation</a></li>
+                        <li><a href="#popupMenu" id="caseMoreList" data-rel="popup" data-role="button" data-inline="true">More</a></li>
                     </ul>
                 </div><!-- /navbar -->
             </div><!-- /footer --> 
             <div data-role="popup" id="popupMenu"> 
                 <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                    <li><a href="#searchPopUp" data-rel="popup" data-position-to="window">Search</a></li>
-                    <li><a href="references.html">References</a></li>
-                    <li><a href="help.html">Help</a></li>                            
-                    <li><a href="index.html">Home</a></li>                            
+                    <li><a href="#searchPopUp" id="caseSearchPopUp" data-rel="popup" data-position-to="window">Search</a></li>
+                    <li><a link="references.html">References</a></li>
+                    <li><a link="help.html">Help</a></li>                            
+                    <li><a link="index.html">Home</a></li>                            
                 </ul>
             </div>        
             <div data-role="popup" id="searchPopUp">
@@ -93,11 +93,27 @@
                         }
                         //return false;
                     });
-                    $("#caseMain a").on("vclick",function(){
-                        if(!$.u){
-                            $.showPanel=true;
-                            $.mobile.changePage('index.html');
+                    $("#caseMain #footerList a, #caseMain #popupMenu a").on("vclick",function(){
+                        var obj = $(this);
+                        var link = true;
+                        var url = obj.attr('link');
+                        if(obj.attr('id') == "caseSearchPopUp"){
+                            link = false;
+                            $("#searchPopUp").popup("open");
+                        }
+                        if(obj.attr('id') == "caseMoreList"){
+                            link = false;
+                        }
+                        if(!$.u && link){
+                            $.outsideRedirect = url;
+                            $.openPanel = true;
+                            $.mobile.changePage("index.html");
                             return false;
+                        }
+                        if($.u){
+                            if(url){
+                                $.mobile.changePage(url);
+                            }
                         }
                     });
                     function showSearchBox() {
@@ -213,6 +229,8 @@
                         }
                     }
                     function runIt(){
+                        $.openPanel = false;
+                        $.outsideRedirect = false;
                         $.fx.off = true;
                         $.casePage = 0;
                         $.scrollAndLoad = true;

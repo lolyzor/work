@@ -37,20 +37,20 @@
         <div id="hc" class="latestList"><div data-role="listview" id="hclist"></div></div>
         <div id="ic" class="latestList"><div data-role="listview" id="iclist"></div></div>
         <div id="ac" class="latestList"><div data-role="listview" id="aclist"></div></div>
-            <div data-role="footer" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
+            <div data-role="footer" id="footerList" data-position="fixed" data-id="footer1" data-tap-toggle="false">        
                     <div data-role="navbar">
                         <ul>
                             <li><a link="#" class="" data-theme="b">Latest</a></li>
                             <li><a link="caseSearch.html">Cases</a></li>
                             <li><a link="legislationSearch.html">Legislation</a></li>
-                            <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true">More</a></li>
+                            <li><a href="#popupMenu" id="latestMoreList" data-rel="popup" data-role="button" data-inline="true">More</a></li>
                         </ul>
                     </div>
             </div>  
         <div data-role="popup" id="popupMenu" id="footerlist2">
             <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                <li><a href="references.html">References</a></li>
-                <li><a href="help.html">Help</a></li>                            
+                <li><a link="references.html">References</a></li>
+                <li><a link="help.html">Help</a></li>                            
             </ul>
         </div>    
         <style>
@@ -76,14 +76,25 @@
         </style>
         </div> <!-- content ends -->        
         <script>
-        $("#latestCases li a").on('vclick',function(){
-            var url = $(this).attr('link');
-            if(url && $.u){
-                $.mobile.changePage(url);
+        $("#latestCases #footerList a, #latestCases #popupMenu a").on("vclick",function(){
+            var obj = $(this);
+            var link = true;
+            var url = obj.attr('link');
+            if(obj.attr('id') == "latestMoreList"){
+                link = false;
             }
-            else{
-                $.mobile.changePage('index.html');
-                $.showPanel = true;
+            if(!$.u && link){
+                var url = obj.attr('link');
+                console.log(url);
+                $.outsideRedirect = url;
+                $.openPanel = true;
+                $.mobile.changePage("index.html");
+                return false;
+            }
+            if($.u){
+                if(url){
+                    $.mobile.changePage(url);
+                }
             }
                 });
         $(".latestList").on('vclick','li',function(){
