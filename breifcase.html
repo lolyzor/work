@@ -1,101 +1,87 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Elaw.my</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
-    <script src="js/jquery-1.8.2.min.js"></script>
-    <script src="js/jquery.mobile-1.3.0.min.js"></script>
-    <script>
-     
-        
-    </script>
-    <style>
+    <head>
+        <title>Elaw.my</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
+        <script src="js/jquery-1.8.2.min.js"></script>
+        <script src="js/jquery.mobile-1.3.0.min.js"></script>
+    </head>
+    <body>
+        <div data-role="page" id="briefcasePage">
+            <div data-role="content">
+                <div data-role="listview" id="briefcaseId">	
+                </div>
+                <div id="nohtml"></div>
+                <div class="ui-grid-a" style="margin-top:20px;">
+                    <div class="ui-block-a">
+                        <select id="selectCase" data-mini="true">            
+                        </select>   
+                    </div>
+                    <div class="ui-block-b">
+                        <button data-mini="true" data-theme="e" id="delete">Delete</button>
+                    </div>
+                </div>
 
-    </style>
-</head>
-<body>
 
-<div data-role="page" id="briefcasePage">
-
-    <!-- <div data-role="header" data-position="fixed" data-tap-toggle="false" data-id="header1">
-        <h1>Elaw.my</h1>
-        <a id="home" href="index.html" data-icon="home" data-theme="b">Home</a>
-        <a href="help.html" data-icon="gear" class="ui-btn-right" data-theme="b">Help</a>
-    </div> --><!-- /header -->
-    <div data-role="content">
-	<div data-role="listview" id="briefcaseId">	
-	</div>
-    <div id="nohtml"></div>
-    <div class="ui-grid-a" style="margin-top:20px;">
-        <div class="ui-block-a">
-            <select id="selectCase" data-mini="true">            
-            </select>   
-        </div>
-        <div class="ui-block-b">
-            <!-- <a id="delete" data-role="button" href="#" data-mini="true" data-theme="e">Delete</a> -->
-            <button data-mini="true" data-theme="e" id="delete">Delete</button>
-        </div>
-    </div>
-	
-
-    <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-id="footer1">        
-            <div data-role="navbar">
-                <ul id="footerList">
-                    <li><a link="latest.html" class="">Latest</a></li>
-                    <li><a link="caseSearch.html">Cases</a></li>
-                    <li><a link="legislationSearch.html">Legislation</a></li>
-                    <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-theme="b">More</a></li> 
-                </ul>
-            </div><!-- /navbar -->
-        </div><!-- /footer -->      
-        <div data-role="popup" id="popupMenu" id="footerlist2">
-	        <ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="d">
-	            <li data-theme="e"><a link="references.html">References</a></li>
-	            <li><a link="help.html">Help</a></li>                            
-	        </ul>
-        </div> 
-	<script>
-	$("#briefcasePage").on("pageinit",function(){
-        $("#briefcasePage li a").on('vclick',function(){
-            //console.log();
-            var url = $(this).attr('link');
-            if(url)
-                $.mobile.changePage(url);
-        });
-		 $("#briefcasePage #briefcaseId").on('vclick','li',function(){
-	        $.filename = $(this).attr('name');
-	        $.mobile.changePage('case.html');
-	        });
-         $("#briefcasePage #delete").on('vclick',function(){
-            //var html = '';
-            var selected = $("#briefcasePage #selectCase option:selected").attr('value');
-            $("#briefcasePage #selectCase option:selected").remove();
-            $('#selectCase').selectmenu('refresh');
-            $("li[name="+selected+"]").remove();
-            $("#briefcaseId").listview('refresh');
-            if($("div[role=listview]").length == 0){
-                $("#nohtml").html('<h1 align="center" style="margin-top:50px;">You have no saved cases</h1>');
-                $(".ui-grid-a").toggle();
-            }
-            deleteIt(selected);
-         });
-	});
-    function deleteIt (selected) {
-        //console.log(selected);
-        url = 'http://elaw.com.my/Elawf4/mobile/mybreifcasemobile.aspx?del='+selected+'&u='+$.u+'&callback=?';
-        console.log(url);
-        $.getJSON(url);
-    }
-	function runIt(){
-        $.selected = false;
-		var url = 'http://elaw.com.my/Elawf4/mobile/mybreifcasemobile.aspx?u='+$.u+'&callback=?';
-        $.getJson(url,'briefcasePage');                                     			
-	}
-		$('#briefcasePage').on('pageshow', runIt);
-	</script>
-	</div>
-</div><!-- /page -->
-
-</body>
+                <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-id="footer1">        
+                    <div data-role="navbar">
+                        <ul id="footerList">
+                            <li><a link="latest.html" class="">Latest</a></li>
+                            <li><a link="caseSearch.html">Cases</a></li>
+                            <li><a link="legislationSearch.html">Legislation</a></li>
+                            <li><a href="#popupMenu" data-rel="popup" data-role="button" data-inline="true" data-theme="b">More</a></li> 
+                        </ul>
+                    </div><!-- /navbar -->
+                </div><!-- /footer -->      
+                <div data-role="popup" id="popupMenu" id="footerlist2">
+                    <ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="d">
+                        <li data-theme="e"><a link="references.html">References</a></li>
+                        <li><a link="help.html">Help</a></li>                            
+                    </ul>
+                </div> 
+                <script>
+                    $("#briefcasePage").on("pageinit",function(){
+                        $("#briefcasePage li a").on('vclick',function(){
+                            //console.log();
+                            var url = $(this).attr('link');
+                            if(url)
+                            $.mobile.changePage(url);
+                        });
+                        $("#briefcasePage #briefcaseId").on('vclick','li',function(){
+                            $.filename = $(this).attr('name');
+                            $.breifCase = true;
+                            $.mobile.changePage('case.html');
+                        });
+                        $("#briefcasePage #delete").on('vclick',function(){
+                            //var html = '';
+                            var selected = $("#briefcasePage #selectCase option:selected").attr('value');
+                            $("#briefcasePage #selectCase option:selected").remove();
+                            $("#briefcasePage #briefcaseId li[cid="+selected+"]").remove();
+                            $('#selectCase').selectmenu('refresh');
+                            $("li[name="+selected+"]").remove();
+                            $("#briefcaseId").listview('refresh');
+                            if($("#briefcaseId").length == 0){
+                                $("#nohtml").html('<h1 align="center" style="margin-top:50px;">You have no saved cases</h1>');
+                                $(".ui-grid-a").toggle();
+                            }
+                            deleteIt(selected);
+                        });
+                    });
+                    function deleteIt (selected) {
+                        //console.log(selected);
+                        url = 'http://elaw.com.my/Elawf4/mobile/mybreifcasemobile.aspx?del='+selected+'&u='+$.u+'&callback=?';
+                        console.log(url);
+                        $.getJSON(url);
+                    }
+                    function runIt(){
+                        $.selected = false;
+                        var url = 'http://elaw.com.my/Elawf4/mobile/mybreifcasemobile.aspx?u='+$.u+'&callback=?';
+                        $.getJson(url,'briefcasePage');                                     			
+                    }
+                    $('#briefcasePage').on('pageshow', runIt);
+                </script>
+            </div>
+        </div><!-- /page -->
+    </body>
 </html>

@@ -409,18 +409,18 @@
                         $('#lssResult #mylist2').listview('refresh');
                     }
                     if(pageId == 'briefcasePage'){
-                        //console.log(data.result);
                         var html = '';              
                         var cases = '';
-                        $.each(data,function(){                    
-                            if(data.result.Title){
-                                html += '<li name="'+data.result.CaseID+'"><a href="#"><h1>'+data.result.Title+'<h1></a></li>';  
-                                        cases += '<option value="'+data.result.CaseID+'">'+data.result.Title+'</option>'                   
+                        $.each(data.result,function(index,elem){                    
+                            if(elem.Title){
+                                html += '<li cid="'+elem.CaseID+'" name="'+elem.xmlFileName+'"><a href="#"><h1>'+elem.Title+'<h1></a></li>';  
+                                        cases += '<option value="'+elem.CaseID+'">'+elem.Title+'</option>'                   
                                     }                                
                                 });
                                 if(!html){
                                     $("#nohtml").html('<h2>No cases saved</h2>');
                                     $("#nohtml").attr('align','center')
+                                    $("#briefcasePage #briefControl").remove();
                                 }
                                 else{
                                     $("#briefcaseId").html(html);
@@ -428,24 +428,14 @@
                                     $("#briefcasePage #selectCase").html(cases);
                                     $("#briefcasePage #selectCase").selectmenu('refresh');
                                 }
-                            }    
-                        }
+                    }    
+                }
                         $.getJson = function(url,pageId){
                             $.getJSON(url,function(data){
                                 $.handleData(data,pageId);
                             });
                         }
                         $.getJsonAsync = function(url,pageId){
-                            /*$.ajax({
-                                type: 'GET',
-                                url: url,
-                                dataType: 'json',
-                                success: function(data){
-                                    $.handleData(data,pageId)
-                                },
-                                data: {},
-                                async: false
-                            });*/
                             $.ajaxSetup({"async":false});
                             $.getJSON(url,function(data){
                                 $.handleData(data,pageId);
